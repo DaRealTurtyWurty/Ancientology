@@ -2,7 +2,7 @@
     "required": true,
     "package": "io.github.darealturtywurty.ancientology.mixins",
     "compatibilityLevel": "JAVA_17",
-    "refmap": "turtychemistry.refmap.json",
+    "refmap": "ancientology.refmap.json",
     "mixins": [
         
     ],
