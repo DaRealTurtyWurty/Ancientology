@@ -1,0 +1,17 @@
+modLoader="javafml"
+loaderVersion="[39,)"
+license="MIT"
+issueTrackerURL="https://github.com/DaRealTurtyWurty/Ancientology/issues"
+
+[[mods]]
+	modId="ancientology"
+	version="${file.jarVersion}"
+	displayName="Ancientology"
+	updateJSONURL="https://github.com/DaRealTurtyWurty/Ancientology/updates.json"
+	displayURL="https://github.com/DaRealTurtyWurty/Ancientology"
+	logoFile="ancientology.png"
+	credits="TurtyWurty's Community"
+	authors="TurtyWurty and the Community."
+	description='''
+	A Minecraft Mod for Forge 1.18 made by Turty's Productions Modding Community with the theme of Ancient/Mythology!
+	'''
