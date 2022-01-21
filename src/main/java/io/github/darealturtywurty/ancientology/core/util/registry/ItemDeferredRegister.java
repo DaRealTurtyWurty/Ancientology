@@ -1,20 +1,32 @@
 package io.github.darealturtywurty.ancientology.core.util.registry;
 
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.Tag.Named;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
+import net.minecraft.world.item.Items;
 
 import io.github.darealturtywurty.ancientology.core.util.MinecraftLocale;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -30,6 +42,7 @@ public class ItemDeferredRegister extends DeferredRegisterWrapper<Item> {
 
     final EnumMap<MinecraftLocale, Map<Supplier<Item>, String>> langEntries = new EnumMap<>(MinecraftLocale.class);
     final Map<Named<Item>, List<Supplier<Item>>> tags = new HashMap<>();
+    final List<ItemBuilder<Item>> builders = new ArrayList<>();
 
     @Nullable
     private CreativeModeTab defaultItemTab;
@@ -80,8 +93,67 @@ public class ItemDeferredRegister extends DeferredRegisterWrapper<Item> {
         return Map.copyOf(langEntries.computeIfAbsent(locale, k -> new HashMap<>()));
     }
 
-    public Map<Named<Item>, List<Supplier<Item>>> getTags() {
-        return Map.copyOf(tags);
+    @Override
+    public void addDatagen(GatherDataEvent event) {
+        final var gen = event.getGenerator();
+        final var existingFileHelper = event.getExistingFileHelper();
+        if (event.includeServer()) {
+            gen.addProvider(new ItemTags(gen, existingFileHelper));
+            gen.addProvider(new RecipeProvider(gen));
+        }
     }
 
+    private final class ItemTags extends ItemTagsProvider {
+
+        public ItemTags(DataGenerator pGenerator, ExistingFileHelper existingFileHelper) {
+            super(pGenerator, new BlockTags(pGenerator, existingFileHelper), ItemDeferredRegister.this.modId,
+                    existingFileHelper);
+        }
+
+        @Override
+        protected void addTags() {
+            tags.forEach((tag, items) -> tag(tag).add(items.stream().map(Supplier::get).toArray(Item[]::new)));
+        }
+
+    }
+
+    private final class BlockTags extends BlockTagsProvider {
+
+        public BlockTags(DataGenerator pGenerator, ExistingFileHelper existingFileHelper) {
+            super(pGenerator, ItemDeferredRegister.this.modId, existingFileHelper);
+        }
+
+    }
+
+    private final class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
+
+        public RecipeProvider(DataGenerator pGenerator) {
+            super(pGenerator);
+        }
+
+        @Override
+        protected void buildCraftingRecipes(Consumer<FinishedRecipe> finsishedConsumer) {
+            builders.forEach(builder -> {
+                final var block = builder.get();
+                final var registryName = block.getRegistryName();
+                for (int i = 0; i < builder.shapedRecipes.size(); i++) {
+                    final var shapedPair = builder.shapedRecipes.get(i);
+                    final var recipeBuilder = ShapedRecipeBuilder.shaped(block, shapedPair.getKey())
+                            .unlockedBy("has_item", has(Items.AIR));
+                    shapedPair.getValue().accept(recipeBuilder);
+                    recipeBuilder.save(finsishedConsumer, new ResourceLocation(registryName.getNamespace(),
+                            "registry_generated/" + registryName.getPath() + "_shaped_" + i));
+                }
+                for (int i = 0; i < builder.shapelessRecipes.size(); i++) {
+                    final var shapedPair = builder.shapelessRecipes.get(i);
+                    final var recipeBuilder = ShapelessRecipeBuilder.shapeless(block, shapedPair.getKey())
+                            .unlockedBy("has_item", has(Items.AIR));
+                    shapedPair.getValue().accept(recipeBuilder);
+                    recipeBuilder.save(finsishedConsumer, new ResourceLocation(registryName.getNamespace(),
+                            "registry_generated/" + registryName.getPath() + "_shapeless_" + i));
+                }
+            });
+        }
+
+    }
 }

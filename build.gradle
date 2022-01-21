@@ -40,7 +40,7 @@ minecraft {
         }
 
         server {
-            workingDirectory project.file('run')
+            workingDirectory project.file('run/server')
             arg "-mixin.config=" + archivesBaseName + ".mixins.json"
 
             mods {

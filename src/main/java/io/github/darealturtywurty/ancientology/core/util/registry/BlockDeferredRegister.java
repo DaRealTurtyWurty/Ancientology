@@ -1,23 +1,38 @@
 package io.github.darealturtywurty.ancientology.core.util.registry;
 
-import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import com.google.common.collect.Maps;
+import org.jetbrains.annotations.NotNull;
 
+import com.mojang.datafixers.util.Pair;
+
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.loot.BlockLoot;
+import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.Tag.Named;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.LootTables;
+import net.minecraft.world.level.storage.loot.ValidationContext;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
-import io.github.darealturtywurty.ancientology.core.util.registry.BlockBuilder.HarvestLevel;
-import io.github.darealturtywurty.ancientology.core.util.registry.BlockBuilder.HarvestTool;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -30,10 +45,9 @@ import net.minecraftforge.registries.RegistryObject;
  */
 public class BlockDeferredRegister extends DeferredRegisterWrapper<Block> {
 
-    final EnumMap<HarvestLevel, List<Supplier<Block>>> harvestLevels = new EnumMap<>(HarvestLevel.class);
-    final EnumMap<HarvestTool, List<Supplier<Block>>> harvestTools = new EnumMap<>(HarvestTool.class);
-    final Map<Supplier<Block>, Function<Block, LootTable.Builder>> lootTables = new HashMap<>();
     final Map<Named<Block>, List<Supplier<Block>>> tags = new HashMap<>();
+    final Map<Supplier<Block>, Function<Block, LootTable.Builder>> lootTables = new HashMap<>();
+    final Set<BlockBuilder<Block>> builders = new HashSet<>();
 
     final ItemDeferredRegister itemRegister;
 
@@ -78,28 +92,72 @@ public class BlockDeferredRegister extends DeferredRegisterWrapper<Block> {
         return new BlockBuilder<>(name, factory, this);
     }
 
-    public Map<HarvestLevel, List<Supplier<Block>>> getHarvestLevels() {
-        return Maps.immutableEnumMap(harvestLevels);
-    }
-
-    public Map<HarvestTool, List<Supplier<Block>>> getHarvestTools() {
-        return Maps.immutableEnumMap(harvestTools);
-    }
-
-    public Map<Supplier<Block>, Function<Block, LootTable.Builder>> getLootTables() {
-        return Map.copyOf(lootTables);
-    }
-
-    public Map<Named<Block>, List<Supplier<Block>>> getTags() {
-        return Map.copyOf(tags);
-    }
-
     @Override
     public void register(IEventBus bus) {
         super.register(bus);
         if (!isItemRegisterManual) {
             itemRegister.register(bus);
         }
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> bus.register(new BlockDeferredRegisterClient(this)));
+    }
+
+    @Override
+    public void addDatagen(GatherDataEvent event) {
+        final var gen = event.getGenerator();
+        final var existingFileHelper = event.getExistingFileHelper();
+        if (event.includeServer()) {
+            gen.addProvider(new TagsProvider(gen, existingFileHelper));
+            gen.addProvider(new LootTableProvider(gen));
+        }
+        if (!isItemRegisterManual) {
+            itemRegister.addDatagen(event);
+        }
+    }
+
+    private final class TagsProvider extends BlockTagsProvider {
+
+        public TagsProvider(DataGenerator pGenerator, ExistingFileHelper existingFileHelper) {
+            super(pGenerator, BlockDeferredRegister.this.modId, existingFileHelper);
+        }
+
+        @Override
+        protected void addTags() {
+            tags.forEach((tag, blocks) -> tag(tag).add(blocks.stream().map(Supplier::get).toArray(Block[]::new)));
+        }
+
+    }
+
+    private final class LootTableProvider extends net.minecraft.data.loot.LootTableProvider {
+
+        public LootTableProvider(DataGenerator pGenerator) {
+            super(pGenerator);
+        }
+
+        @Override
+        protected void validate(Map<ResourceLocation, LootTable> map, @NotNull ValidationContext validationTracker) {
+            map.forEach((resourceLocation, lootTable) -> LootTables.validate(validationTracker, resourceLocation,
+                    lootTable));
+        }
+
+        @Override
+        protected @NotNull List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootContextParamSet>> getTables() {
+            return List.of(Pair.of(Blocks::new, LootContextParamSets.BLOCK));
+        }
+
+        public final class Blocks extends BlockLoot {
+
+            @Override
+            protected Iterable<Block> getKnownBlocks() {
+                return lootTables.keySet().stream().map(Supplier::get).toList();
+            }
+
+            @Override
+            protected void addTables() {
+                lootTables.forEach((block, loot) -> this.add(block.get(), loot));
+            }
+
+        }
+
     }
 
 }

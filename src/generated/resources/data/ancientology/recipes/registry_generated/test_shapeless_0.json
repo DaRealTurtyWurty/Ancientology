@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:acacia_wood"
+    },
+    {
+      "item": "minecraft:acacia_wood"
+    },
+    {
+      "item": "minecraft:acacia_wood"
+    },
+    {
+      "item": "minecraft:acacia_wood"
+    },
+    {
+      "item": "minecraft:acacia_wood"
+    }
+  ],
+  "result": {
+    "item": "ancientology:test",
+    "count": 6
+  }
+}

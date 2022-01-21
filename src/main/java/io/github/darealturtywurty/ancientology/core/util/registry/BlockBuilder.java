@@ -3,14 +3,16 @@ package io.github.darealturtywurty.ancientology.core.util.registry;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.apache.commons.compress.utils.Lists;
 
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.tags.Tag.Named;
@@ -47,6 +49,7 @@ public class BlockBuilder<B extends Block> implements Builder<B> {
     private HarvestTool harvestTool;
     private BlockBehaviour.Properties properties = Properties.of(Material.HEAVY_METAL);
     private final List<Tag.Named<Block>> tags = new ArrayList<>();
+    RenderLayer renderLayer;
 
     private LootTableFunction lootTable;
 
@@ -181,7 +184,7 @@ public class BlockBuilder<B extends Block> implements Builder<B> {
      */
     public <I extends BlockItem> BlockBuilder<B> blockItem(final BlockItemFactory<B, I> factory,
             @Nonnull final Consumer<BlockItemBuilder<I>> consumer) {
-        final var builder = new BlockItemBuilder<>(factory);
+        final var builder = new BlockItemBuilder<I>((b, p) -> factory.build(b, p));
         consumer.accept(builder);
         this.blockItemBuilder = (BlockItemBuilder<BlockItem>) builder;
         return this;
@@ -222,20 +225,66 @@ public class BlockBuilder<B extends Block> implements Builder<B> {
         return this;
     }
 
+    /**
+     * Sets the block's render layer
+     * 
+     * @param  renderLayer the render layer
+     * @return             the builder instance
+     */
+    public BlockBuilder<B> renderLayer(final RenderLayer renderLayer) {
+        this.renderLayer = renderLayer;
+        return this;
+    }
+
+    /**
+     * Creates a shaped recipe for the block. <br>
+     * In order for the recipe to be generated, {@code runData} needs to be run.<br>
+     * <br>
+     * <strong>This method only works if the the {@link #blockItemBuilder} is not
+     * null!</strong>
+     * 
+     * @param  count    the recipe result count
+     * @param  consumer a consumer which will define the recipe
+     * @return          the builder instance
+     */
+    public BlockBuilder<B> shapedRecipe(final int count, final Consumer<ShapedRecipeBuilder> consumer) {
+        this.blockItemBuilder.shapedRecipe(count, consumer);
+        return this;
+    }
+
+    /**
+     * Creates a shapeless recipe for the block. <br>
+     * In order for the recipe to be generated, {@code runData} needs to be run.<br>
+     * <br>
+     * <strong>This method only works if the the {@link #blockItemBuilder} is not
+     * null!</strong>
+     * 
+     * @param  count    the recipe result count
+     * @param  consumer a consumer which will define the recipe
+     * @return          the builder instance
+     */
+    public BlockBuilder<B> shapelessRecipe(final int count, final Consumer<ShapelessRecipeBuilder> consumer) {
+        this.blockItemBuilder.shapelessRecipe(count, consumer);
+        return this;
+    }
+
     @Override
     public RegistryObject<B> build() {
         if (registryObject != null) { return registryObject; }
         final var object = register.getRegister().register(name, () -> factory.build(properties));
         this.registryObject = object;
 
+        register.builders.add((BlockBuilder<Block>) this);
+
         tags.forEach(tag -> register.tags.computeIfAbsent(tag, k -> Lists.newArrayList()).add(object::get));
 
         if (harvestLevel != null) {
-            register.harvestLevels.computeIfAbsent(harvestLevel, k -> Lists.newArrayList()).add(object::get);
+            register.tags.computeIfAbsent(harvestLevel.getTag(), k -> Lists.newArrayList()).add(object::get);
         }
         if (harvestTool != null) {
-            register.harvestTools.computeIfAbsent(harvestTool, k -> Lists.newArrayList()).add(object::get);
+            register.tags.computeIfAbsent(harvestTool.getTag(), k -> Lists.newArrayList()).add(object::get);
         }
+
         if (lootTable != null) {
             register.lootTables.computeIfAbsent(object::get, k -> lootTable::makeLootTable);
         }
@@ -247,19 +296,27 @@ public class BlockBuilder<B extends Block> implements Builder<B> {
         return object;
     }
 
-    public class BlockItemBuilder<I extends BlockItem> extends ItemBuilder<I> {
+    @Override
+    public B get() {
+        return registryObject.get();
+    }
 
-        private final BlockItemFactory<B, I> blockItemFactory;
+    public class BlockItemBuilder<I extends Item> extends ItemBuilder<I> {
 
-        BlockItemBuilder(BlockItemFactory<B, I> factory) {
+        private final BiFunction<B, Item.Properties, I> blockItemFactory;
+
+        BlockItemBuilder(BiFunction<B, Item.Properties, I> factory) {
             super(null, BlockBuilder.this.register.itemRegister, BlockBuilder.this.name);
             this.blockItemFactory = factory;
         }
 
         @Override
         public RegistryObject<I> build() {
+            if (this.registryObject != null) { return registryObject; }
             final var obj = register.getRegister().register(name,
-                    () -> blockItemFactory.build(registryObject.get(), this.properties));
+                    () -> blockItemFactory.apply(BlockBuilder.this.registryObject.get(), this.properties));
+            this.registryObject = obj;
+            register.builders.add((ItemBuilder<Item>) this);
             addDatagenStuff(obj);
             return obj;
         }
@@ -272,36 +329,40 @@ public class BlockBuilder<B extends Block> implements Builder<B> {
         I build(B block, Item.Properties properties);
     }
 
+    public enum RenderLayer {
+        CUTOUT, CUTOUT_MIPPED
+    }
+
     public enum HarvestLevel {
 
-        WOOD(() -> Tags.Blocks.NEEDS_WOOD_TOOL), STONE(() -> BlockTags.NEEDS_STONE_TOOL),
-        GOLD(() -> Tags.Blocks.NEEDS_GOLD_TOOL), IRON(() -> BlockTags.NEEDS_IRON_TOOL),
-        DIAMOND(() -> BlockTags.NEEDS_DIAMOND_TOOL), NETHERITE(() -> Tags.Blocks.NEEDS_NETHERITE_TOOL);
+        WOOD(Tags.Blocks.NEEDS_WOOD_TOOL), STONE(BlockTags.NEEDS_STONE_TOOL), GOLD(Tags.Blocks.NEEDS_GOLD_TOOL),
+        IRON(BlockTags.NEEDS_IRON_TOOL), DIAMOND(BlockTags.NEEDS_DIAMOND_TOOL),
+        NETHERITE(Tags.Blocks.NEEDS_NETHERITE_TOOL);
 
-        private final Supplier<Named<Block>> tagSupplier;
+        private final Named<Block> tag;
 
-        private HarvestLevel(Supplier<Named<Block>> tagSupplier) {
-            this.tagSupplier = tagSupplier;
+        private HarvestLevel(Named<Block> tag) {
+            this.tag = tag;
         }
 
         public Named<Block> getTag() {
-            return tagSupplier.get();
+            return tag;
         }
     }
 
     public enum HarvestTool {
 
-        PICKAXE(() -> BlockTags.MINEABLE_WITH_PICKAXE), AXE(() -> BlockTags.MINEABLE_WITH_AXE),
-        SHOVEL(() -> BlockTags.MINEABLE_WITH_SHOVEL), HOE(() -> BlockTags.MINEABLE_WITH_HOE);
+        PICKAXE(BlockTags.MINEABLE_WITH_PICKAXE), AXE(BlockTags.MINEABLE_WITH_AXE),
+        SHOVEL(BlockTags.MINEABLE_WITH_SHOVEL), HOE(BlockTags.MINEABLE_WITH_HOE);
 
-        private final Supplier<Named<Block>> tagSupplier;
+        private final Named<Block> tag;
 
-        private HarvestTool(Supplier<Named<Block>> tagSupplier) {
-            this.tagSupplier = tagSupplier;
+        private HarvestTool(Named<Block> tag) {
+            this.tag = tag;
         }
 
         public Named<Block> getTag() {
-            return tagSupplier.get();
+            return tag;
         }
     }
 
