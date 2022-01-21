@@ -15,8 +15,8 @@ public class Ancientology {
     public Ancientology() {
         final IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        ItemInit.ITEMS.register(bus);
         BlockInit.BLOCKS.register(bus);
+        ItemInit.ITEMS.register(bus);
         BlockEntityInit.BLOCK_ENTITIES.register(bus);
         EntityInit.ENTITIES.register(bus);
     }

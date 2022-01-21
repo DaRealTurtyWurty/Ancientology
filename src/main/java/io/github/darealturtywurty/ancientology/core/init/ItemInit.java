@@ -1,13 +1,11 @@
 package io.github.darealturtywurty.ancientology.core.init;
 
 import io.github.darealturtywurty.ancientology.Ancientology;
-import net.minecraft.world.item.Item;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
+import io.github.darealturtywurty.ancientology.core.util.registry.ItemDeferredRegister;
 
 public final class ItemInit {
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS,
-            Ancientology.MODID);
+
+    public static final ItemDeferredRegister ITEMS = ItemDeferredRegister.create(Ancientology.MODID);
 
     private ItemInit() {
         throw new IllegalAccessError("Illegal access to hidden initialization class!");

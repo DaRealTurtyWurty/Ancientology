@@ -4,7 +4,7 @@
     "compatibilityLevel": "JAVA_17",
     "refmap": "ancientology.refmap.json",
     "mixins": [
-        
+        "accessors.LanguageProviderAccessor"
     ],
     "server": [],
     "client": [],

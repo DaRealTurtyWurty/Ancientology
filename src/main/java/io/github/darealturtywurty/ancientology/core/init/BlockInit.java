@@ -1,24 +1,23 @@
 package io.github.darealturtywurty.ancientology.core.init;
 
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.item.CreativeModeTab;
 
 import io.github.darealturtywurty.ancientology.Ancientology;
-import io.github.darealturtywurty.ancientology.core.util.builder.BlockBuilder;
-import io.github.darealturtywurty.ancientology.core.util.builder.BlockBuilder.HarvestLevel;
-import io.github.darealturtywurty.ancientology.core.util.builder.BlockBuilder.HarvestTool;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
+import io.github.darealturtywurty.ancientology.common.blocks.TestBlock;
+import io.github.darealturtywurty.ancientology.core.util.registry.BlockBuilder.HarvestLevel;
+import io.github.darealturtywurty.ancientology.core.util.registry.BlockBuilder.HarvestTool;
+import io.github.darealturtywurty.ancientology.core.util.registry.BlockDeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
 public final class BlockInit {
 
-	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS,
-			Ancientology.MODID);
+    public static final BlockDeferredRegister BLOCKS = BlockDeferredRegister.create(Ancientology.MODID, ItemInit.ITEMS);
 
-	public static final RegistryObject<Block> TEST_BLOCK = BLOCKS.register("test",
-			() -> BlockBuilder.of(Block::new).harvestTool(HarvestTool.AXE).harvestLevel(HarvestLevel.DIAMOND).build());
+    public static final RegistryObject<TestBlock> TEST = BLOCKS.register("test", TestBlock::new)
+            .harvestLevel(HarvestLevel.DIAMOND).harvestTool(HarvestTool.PICKAXE)
+            .blockItem(item -> item.tab(CreativeModeTab.TAB_BREWING).lang(" test item yes")).build();
 
-	private BlockInit() {
-		throw new IllegalAccessError("Illegal access to hidden initialization class!");
-	}
+    private BlockInit() {
+        throw new IllegalAccessError("Illegal access to hidden initialization class!");
+    }
 }

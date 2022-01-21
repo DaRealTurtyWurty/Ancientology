@@ -1,5 +1,7 @@
 package io.github.darealturtywurty.ancientology.core.util;
 
+import net.minecraft.data.DataGenerator;
+
 import io.github.darealturtywurty.ancientology.Ancientology;
 import io.github.darealturtywurty.ancientology.core.data.BlockTagsGenerator;
 import io.github.darealturtywurty.ancientology.core.data.BlockstateGenerator;
@@ -7,7 +9,6 @@ import io.github.darealturtywurty.ancientology.core.data.ItemModelGenerator;
 import io.github.darealturtywurty.ancientology.core.data.LanguageGenerator;
 import io.github.darealturtywurty.ancientology.core.data.LootTableGenerator;
 import io.github.darealturtywurty.ancientology.core.data.RecipeGenerator;
-import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -45,16 +46,16 @@ public final class CommonEvents {
             final DataGenerator generator = event.getGenerator();
             final ExistingFileHelper fileHelper = event.getExistingFileHelper();
             
-            if (event.includeServer()) {
-                generator.addProvider(new BlockTagsGenerator(generator, fileHelper));
-                generator.addProvider(new RecipeGenerator(generator));
-                generator.addProvider(new LootTableGenerator(generator));
-            }
-            
             if (event.includeClient()) {
                 generator.addProvider(new ItemModelGenerator(generator, fileHelper));
                 generator.addProvider(new BlockstateGenerator(generator, fileHelper));
                 generator.addProvider(new LanguageGenerator(generator, "en_us"));
+            }
+
+            if (event.includeServer()) {
+                generator.addProvider(new BlockTagsGenerator(generator, fileHelper));
+                generator.addProvider(new RecipeGenerator(generator));
+                generator.addProvider(new LootTableGenerator(generator));
             }
         }
     }

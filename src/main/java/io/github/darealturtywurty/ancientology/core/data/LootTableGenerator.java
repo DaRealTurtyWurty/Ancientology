@@ -10,7 +10,6 @@ import org.jetbrains.annotations.NotNull;
 
 import com.mojang.datafixers.util.Pair;
 
-import io.github.darealturtywurty.ancientology.Ancientology;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.loot.BlockLoot;
 import net.minecraft.data.loot.EntityLoot;
@@ -23,6 +22,9 @@ import net.minecraft.world.level.storage.loot.LootTables;
 import net.minecraft.world.level.storage.loot.ValidationContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+
+import io.github.darealturtywurty.ancientology.Ancientology;
+import io.github.darealturtywurty.ancientology.core.init.BlockInit;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class LootTableGenerator extends LootTableProvider {
@@ -46,7 +48,7 @@ public class LootTableGenerator extends LootTableProvider {
     public static class Blocks extends BlockLoot {
         @Override
         protected void addTables() {
-            
+            dropSelf(BlockInit.TEST.get());
         }
 
         @Override
