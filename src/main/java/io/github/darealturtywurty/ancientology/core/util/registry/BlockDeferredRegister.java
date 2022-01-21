@@ -1,9 +1,11 @@
 package io.github.darealturtywurty.ancientology.core.util.registry;
 
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import com.google.common.collect.Maps;
@@ -11,6 +13,7 @@ import com.google.common.collect.Maps;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+import net.minecraft.world.level.storage.loot.LootTable;
 
 import io.github.darealturtywurty.ancientology.core.util.registry.BlockBuilder.HarvestLevel;
 import io.github.darealturtywurty.ancientology.core.util.registry.BlockBuilder.HarvestTool;
@@ -22,6 +25,7 @@ public class BlockDeferredRegister extends DeferredRegisterWrapper<Block> {
 
     final EnumMap<HarvestLevel, List<Supplier<Block>>> harvestLevels = new EnumMap<>(HarvestLevel.class);
     final EnumMap<HarvestTool, List<Supplier<Block>>> harvestTools = new EnumMap<>(HarvestTool.class);
+    final Map<Supplier<Block>, Function<Block, LootTable.Builder>> lootTables = new HashMap<>();
 
     final ItemDeferredRegister itemRegister;
 
@@ -64,6 +68,10 @@ public class BlockDeferredRegister extends DeferredRegisterWrapper<Block> {
 
     public Map<HarvestTool, List<Supplier<Block>>> getHarvestTools() {
         return Maps.immutableEnumMap(harvestTools);
+    }
+
+    public Map<Supplier<Block>, Function<Block, LootTable.Builder>> getLootTables() {
+        return Map.copyOf(lootTables);
     }
 
     @Override

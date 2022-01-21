@@ -3,9 +3,11 @@ package io.github.darealturtywurty.ancientology.core.util.registry;
 import java.util.HashMap;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.apache.commons.compress.utils.Lists;
 
@@ -16,7 +18,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.storage.loot.LootTable;
 
+import io.github.darealturtywurty.ancientology.core.util.LootTableUtils;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -27,10 +31,14 @@ public class BlockBuilder<B extends Block> implements Builder<B> {
     protected final BlockDeferredRegister register;
     protected final String name;
     private BlockItemBuilder<BlockItem> blockItemBuilder;
+    private RegistryObject<B> registryObject;
+
     private Material material = Material.HEAVY_METAL;
     private HarvestLevel harvestLevel;
     private HarvestTool harvestTool;
-    private RegistryObject<B> registryObject;
+    private boolean requiresCorrectToolForDrops = false;
+
+    private Function<B, LootTable.Builder> lootTable;
 
     BlockBuilder(final String name, Factory<Properties, B> factory, BlockDeferredRegister register) {
         this.factory = factory;
@@ -52,6 +60,29 @@ public class BlockBuilder<B extends Block> implements Builder<B> {
 
     public BlockBuilder<B> harvestTool(@Nonnull HarvestTool harvestTool) {
         this.harvestTool = harvestTool;
+        return this;
+    }
+
+    public BlockBuilder<B> requiresCorrectToolForDrops() {
+        this.requiresCorrectToolForDrops = true;
+        return this;
+    }
+
+    protected Properties createProperties() {
+        final var properties = Properties.of(material);
+        if (requiresCorrectToolForDrops) {
+            properties.requiresCorrectToolForDrops();
+        }
+        return properties;
+    }
+
+    public BlockBuilder<B> withLootTable(@Nullable final Function<B, LootTable.Builder> lootTable) {
+        this.lootTable = lootTable;
+        return this;
+    }
+
+    public BlockBuilder<B> dropSelf() {
+        this.lootTable = LootTableUtils::createSingleItemTable;
         return this;
     }
 
@@ -83,14 +114,13 @@ public class BlockBuilder<B extends Block> implements Builder<B> {
             register.harvestTools.computeIfAbsent(harvestTool, k -> Lists.newArrayList())
                     .add(object::get);
         }
+        if (lootTable != null) {
+            register.lootTables.computeIfAbsent(object::get, k -> block -> lootTable.apply((B) block));
+        }
         if (blockItemBuilder != null) {
             blockItemBuilder.build();
         }
         return object;
-    }
-
-    protected Properties createProperties() {
-        return Properties.of(material);
     }
 
     public class BlockItemBuilder<I extends BlockItem> extends ItemBuilder<I> {

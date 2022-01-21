@@ -48,7 +48,7 @@ public class LootTableGenerator extends LootTableProvider {
     public static class Blocks extends BlockLoot {
         @Override
         protected void addTables() {
-            dropSelf(BlockInit.TEST.get());
+            BlockInit.BLOCKS.getLootTables().forEach((block, loot) -> this.add(block.get(), loot));
         }
 
         @Override
