@@ -1,18 +1,29 @@
 package io.github.darealturtywurty.ancientology.core.data;
 
-import io.github.darealturtywurty.ancientology.Ancientology;
+import java.util.function.Supplier;
+
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.world.level.block.Block;
+
+import io.github.darealturtywurty.ancientology.Ancientology;
+import io.github.darealturtywurty.ancientology.core.init.BlockInit;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class BlockTagsGenerator extends BlockTagsProvider {
+
     public BlockTagsGenerator(DataGenerator generator, ExistingFileHelper existingFileHelper) {
         super(generator, Ancientology.MODID, existingFileHelper);
     }
 
     @Override
     protected void addTags() {
-        // tag(blah).addTags(tag1, tag2, etc);
-        // tag(blah).add(block1, block2, etc);
+        BlockInit.BLOCKS.getTags()
+                .forEach((tag, blocks) -> tag(tag).add(blocks.stream().map(Supplier::get).toArray(Block[]::new)));
+
+        BlockInit.BLOCKS.getHarvestTools().forEach(
+                (tool, blocks) -> tag(tool.getTag()).add(blocks.stream().map(Supplier::get).toArray(Block[]::new)));
+        BlockInit.BLOCKS.getHarvestLevels().forEach(
+                (level, blocks) -> tag(level.getTag()).add(blocks.stream().map(Supplier::get).toArray(Block[]::new)));
     }
 }
