@@ -6,6 +6,7 @@ import io.github.darealturtywurty.ancientology.Ancientology;
 import io.github.darealturtywurty.ancientology.core.data.BlockTagsGenerator;
 import io.github.darealturtywurty.ancientology.core.data.BlockstateGenerator;
 import io.github.darealturtywurty.ancientology.core.data.ItemModelGenerator;
+import io.github.darealturtywurty.ancientology.core.data.ItemTagsGenerator;
 import io.github.darealturtywurty.ancientology.core.data.LanguageGenerator;
 import io.github.darealturtywurty.ancientology.core.data.LootTableGenerator;
 import io.github.darealturtywurty.ancientology.core.data.RecipeGenerator;
@@ -49,11 +50,16 @@ public final class CommonEvents {
             if (event.includeClient()) {
                 generator.addProvider(new ItemModelGenerator(generator, fileHelper));
                 generator.addProvider(new BlockstateGenerator(generator, fileHelper));
-                generator.addProvider(new LanguageGenerator(generator, "en_us"));
+
+                for (final var locale : MinecraftLocale.values()) {
+                    generator.addProvider(new LanguageGenerator.BuilderAddedKeys(generator, locale.getLocaleName()));
+                }
             }
 
             if (event.includeServer()) {
-                generator.addProvider(new BlockTagsGenerator(generator, fileHelper));
+                final var blockTags = new BlockTagsGenerator(generator, fileHelper);
+                generator.addProvider(blockTags);
+                generator.addProvider(new ItemTagsGenerator(generator, blockTags, fileHelper));
                 generator.addProvider(new RecipeGenerator(generator));
                 generator.addProvider(new LootTableGenerator(generator));
             }

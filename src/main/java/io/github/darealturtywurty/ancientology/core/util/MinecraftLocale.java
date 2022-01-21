@@ -1,12 +1,15 @@
 package io.github.darealturtywurty.ancientology.core.util;
 
-public enum LangLocale {
+public enum MinecraftLocale {
 
-    EN_US("en_us");
+    /**
+     * The default locale for Minecraft => English - United States
+     */
+    EN_US("en_us"), EN_GB("en_gb"), IT_IT("it_it"), RO_RO("ro_ro"), FR_FR("fr_fr");
 
     private final String localeName;
 
-    private LangLocale(String localeName) {
+    private MinecraftLocale(String localeName) {
         this.localeName = localeName;
     }
 
@@ -14,7 +17,7 @@ public enum LangLocale {
         return localeName;
     }
 
-    public static LangLocale byName(final String name) {
+    public static MinecraftLocale byName(final String name) {
         for (var locale : values()) {
             if (locale.localeName.equals(name)) { return locale; }
         }

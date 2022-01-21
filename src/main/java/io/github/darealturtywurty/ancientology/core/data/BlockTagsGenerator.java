@@ -18,9 +18,12 @@ public class BlockTagsGenerator extends BlockTagsProvider {
 
     @Override
     protected void addTags() {
-        BlockInit.BLOCKS.getHarvestTools().forEach((tool, blocks) -> tag(tool.getTag())
-                .add(blocks.stream().map(Supplier::get).toArray(Block[]::new)));
-        BlockInit.BLOCKS.getHarvestLevels().forEach((level, blocks) -> tag(level.getTag())
-                .add(blocks.stream().map(Supplier::get).toArray(Block[]::new)));
+        BlockInit.BLOCKS.getTags()
+                .forEach((tag, blocks) -> tag(tag).add(blocks.stream().map(Supplier::get).toArray(Block[]::new)));
+
+        BlockInit.BLOCKS.getHarvestTools().forEach(
+                (tool, blocks) -> tag(tool.getTag()).add(blocks.stream().map(Supplier::get).toArray(Block[]::new)));
+        BlockInit.BLOCKS.getHarvestLevels().forEach(
+                (level, blocks) -> tag(level.getTag()).add(blocks.stream().map(Supplier::get).toArray(Block[]::new)));
     }
 }

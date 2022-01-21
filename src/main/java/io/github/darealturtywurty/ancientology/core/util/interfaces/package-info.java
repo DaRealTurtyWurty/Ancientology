@@ -1,0 +1,1 @@
+package io.github.darealturtywurty.ancientology.core.util.interfaces;

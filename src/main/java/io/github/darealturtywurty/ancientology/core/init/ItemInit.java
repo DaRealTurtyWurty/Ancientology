@@ -5,7 +5,8 @@ import io.github.darealturtywurty.ancientology.core.util.registry.ItemDeferredRe
 
 public final class ItemInit {
 
-    public static final ItemDeferredRegister ITEMS = ItemDeferredRegister.create(Ancientology.MODID);
+    public static final ItemDeferredRegister ITEMS = ItemDeferredRegister.create(Ancientology.MODID)
+            .setDefaultItemTab(Ancientology.ANCIENTOLOGY_ITEM_TAB);
 
     private ItemInit() {
         throw new IllegalAccessError("Illegal access to hidden initialization class!");
