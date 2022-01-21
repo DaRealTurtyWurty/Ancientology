@@ -32,7 +32,7 @@ public class ItemBuilder<I extends Item> implements Builder<I> {
     private FoodProperties foodProperties;
     private boolean isFireResistant;
     private boolean canRepair = true;
-    private final EnumMap<LangLocale, String> lang = new EnumMap<>(LangLocale.class);
+    protected final EnumMap<LangLocale, String> lang = new EnumMap<>(LangLocale.class);
 
     ItemBuilder(Factory<Properties, I> factory, ItemDeferredRegister register, String name) {
         this.factory = factory;
@@ -81,21 +81,12 @@ public class ItemBuilder<I extends Item> implements Builder<I> {
     }
 
     public ItemBuilder<I> lang(@Nonnull final String lang) {
-        this.lang.put(LangLocale.EN_US, lang);
-        return this;
+        return lang(LangLocale.EN_US, lang);
     }
 
     public ItemBuilder<I> lang(@Nonnull final LangLocale locale, @Nonnull final String lang) {
-        this.lang.put(LangLocale.EN_US, lang);
+        this.lang.put(locale, lang);
         return this;
-    }
-
-    @Override
-    public RegistryObject<I> build() {
-        final var object = register.getRegister().register(name, () -> factory.build(createProperties()));
-        lang.forEach((locale, l) -> register.langEntries.computeIfAbsent(locale, k -> new HashMap<>())
-                .put(object::get, l));
-        return object;
     }
 
     protected Properties createProperties() {
@@ -108,6 +99,14 @@ public class ItemBuilder<I extends Item> implements Builder<I> {
             properties.setNoRepair();
         }
         return properties;
+    }
+
+    @Override
+    public RegistryObject<I> build() {
+        final var object = register.getRegister().register(name, () -> factory.build(createProperties()));
+        lang.forEach(
+                (locale, l) -> register.langEntries.computeIfAbsent(locale, k -> new HashMap<>()).put(object::get, l));
+        return object;
     }
 
 }

@@ -1,5 +1,6 @@
 package io.github.darealturtywurty.ancientology.core.util.registry;
 
+import java.util.HashMap;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -29,6 +30,7 @@ public class BlockBuilder<B extends Block> implements Builder<B> {
     private Material material = Material.HEAVY_METAL;
     private HarvestLevel harvestLevel;
     private HarvestTool harvestTool;
+    private RegistryObject<B> registryObject;
 
     BlockBuilder(final String name, Factory<Properties, B> factory, BlockDeferredRegister register) {
         this.factory = factory;
@@ -69,7 +71,10 @@ public class BlockBuilder<B extends Block> implements Builder<B> {
 
     @Override
     public RegistryObject<B> build() {
+        if (registryObject != null) { return registryObject; }
         final var object = register.getRegister().register(name, () -> factory.build(createProperties()));
+        this.registryObject = object;
+
         if (harvestLevel != null) {
             register.harvestLevels.computeIfAbsent(harvestLevel, k -> Lists.newArrayList())
                     .add(object::get);
@@ -79,7 +84,7 @@ public class BlockBuilder<B extends Block> implements Builder<B> {
                     .add(object::get);
         }
         if (blockItemBuilder != null) {
-            blockItemBuilder.build(object);
+            blockItemBuilder.build();
         }
         return object;
     }
@@ -97,14 +102,13 @@ public class BlockBuilder<B extends Block> implements Builder<B> {
             this.blockItemFactory = factory;
         }
 
-        private RegistryObject<I> build(final RegistryObject<B> block) {
-            return register.getRegister().register(name,
-                    () -> blockItemFactory.apply(block.get(), super.createProperties()));
-        }
-
         @Override
         public RegistryObject<I> build() {
-            throw new UnsupportedOperationException("Cannot build a BlockItem without a block!");
+            final var obj = register.getRegister().register(name,
+                    () -> blockItemFactory.apply(registryObject.get(), super.createProperties()));
+            lang.forEach(
+                    (locale, l) -> register.langEntries.computeIfAbsent(locale, k -> new HashMap<>()).put(obj::get, l));
+            return obj;
         }
 
     }
