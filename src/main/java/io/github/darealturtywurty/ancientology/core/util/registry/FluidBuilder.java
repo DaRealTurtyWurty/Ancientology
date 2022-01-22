@@ -23,7 +23,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Material;
 
-import io.github.darealturtywurty.ancientology.core.util.Color;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.fluids.ForgeFlowingFluid.Properties;
@@ -82,17 +81,6 @@ public class FluidBuilder<STILL extends ForgeFlowingFluid.Source, FLOWING extend
      */
     public FluidBuilder<STILL, FLOWING> colour(final int colour) {
         attributes.color(colour);
-        return this;
-    }
-
-    /**
-     * Sets the colour of the fluid.
-     * 
-     * @param  colour the colour
-     * @return        the builder instance
-     */
-    public FluidBuilder<STILL, FLOWING> colour(final Color colour) {
-        attributes.color(colour.getRGB());
         return this;
     }
 

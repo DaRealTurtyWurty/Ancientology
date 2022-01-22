@@ -22,7 +22,6 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.level.storage.loot.LootTable;
 
-import io.github.darealturtywurty.ancientology.core.util.Color;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -204,18 +203,8 @@ public class EntityBuilder<E extends Entity> implements Builder<EntityType<E>> {
             return this;
         }
 
-        public SpawnEggBuilder<I> backgroundColor(final Color backgroundColor) {
-            this.backgroundColor = backgroundColor.getRGB();
-            return this;
-        }
-
         public SpawnEggBuilder<I> highlightColor(final int highlightColor) {
             this.highlightColor = highlightColor;
-            return this;
-        }
-
-        public SpawnEggBuilder<I> highlightColor(final Color highlightColor) {
-            this.highlightColor = highlightColor.getRGB();
             return this;
         }
 
