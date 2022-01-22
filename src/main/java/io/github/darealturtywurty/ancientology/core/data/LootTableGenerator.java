@@ -1,5 +1,6 @@
 package io.github.darealturtywurty.ancientology.core.data;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
@@ -18,13 +19,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.LootTable.Builder;
 import net.minecraft.world.level.storage.loot.LootTables;
 import net.minecraft.world.level.storage.loot.ValidationContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
 import io.github.darealturtywurty.ancientology.Ancientology;
-import io.github.darealturtywurty.ancientology.core.init.BlockInit;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class LootTableGenerator extends LootTableProvider {
@@ -46,15 +47,22 @@ public class LootTableGenerator extends LootTableProvider {
     }
 
     public static class Blocks extends BlockLoot {
+
+        private final List<Block> known = new ArrayList<>();
+
         @Override
         protected void addTables() {
-            BlockInit.BLOCKS.getLootTables().forEach((block, loot) -> this.add(block.get(), loot));
+        }
+
+        @Override
+        protected void add(Block pBlock, Builder pLootTableBuilder) {
+            super.add(pBlock, pLootTableBuilder);
+            known.add(pBlock);
         }
 
         @Override
         protected Iterable<Block> getKnownBlocks() {
-            return ForgeRegistries.BLOCKS.getValues().stream()
-                    .filter(block -> Ancientology.MODID.equals(block.getRegistryName().getNamespace())).toList();
+            return known;
         }
     }
 

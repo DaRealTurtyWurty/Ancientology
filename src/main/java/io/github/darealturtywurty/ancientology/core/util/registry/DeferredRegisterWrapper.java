@@ -1,6 +1,7 @@
 package io.github.darealturtywurty.ancientology.core.util.registry;
 
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
@@ -21,6 +22,10 @@ public abstract class DeferredRegisterWrapper<T extends IForgeRegistryEntry<T>> 
 
     public void register(final IEventBus modBus) {
         register.register(modBus);
+    }
+
+    public void addDatagen(final GatherDataEvent event) {
+
     }
 
 }

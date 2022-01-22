@@ -5,12 +5,17 @@ import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
+import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import com.google.common.collect.Lists;
 
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.tags.Tag;
 import net.minecraft.tags.Tag.Named;
 import net.minecraft.world.food.FoodProperties;
@@ -34,10 +39,13 @@ public class ItemBuilder<I extends Item> implements Builder<I> {
     protected final Factory<Properties, I> factory;
     protected final ItemDeferredRegister register;
     protected final String name;
+    protected ItemRegistryObject<I> registryObject;
 
     protected final Properties properties = new Properties();
     private final EnumMap<MinecraftLocale, String> lang = new EnumMap<>(MinecraftLocale.class);
     private final List<Tag.Named<Item>> tags = new ArrayList<>();
+    final List<Pair<Integer, Consumer<ShapedRecipeBuilder>>> shapedRecipes = new ArrayList<>();
+    final List<Pair<Integer, Consumer<ShapelessRecipeBuilder>>> shapelessRecipes = new ArrayList<>();
 
     ItemBuilder(Factory<Properties, I> factory, ItemDeferredRegister register, String name) {
         this.factory = factory;
@@ -186,11 +194,45 @@ public class ItemBuilder<I extends Item> implements Builder<I> {
         return this;
     }
 
+    /**
+     * Creates a shaped recipe for the item. <br>
+     * In order for the recipe to be generated, {@code runData} needs to be run.
+     * 
+     * @param  count    the recipe result count
+     * @param  consumer a consumer which will define the recipe
+     * @return          the builder instance
+     */
+    public ItemBuilder<I> shapedRecipe(final int count, final Consumer<ShapedRecipeBuilder> consumer) {
+        this.shapedRecipes.add(Pair.of(count, consumer));
+        return this;
+    }
+
+    /**
+     * Creates a shapeless recipe for the item. <br>
+     * In order for the recipe to be generated, {@code runData} needs to be run.
+     * 
+     * @param  count    the recipe result count
+     * @param  consumer a consumer which will define the recipe
+     * @return          the builder instance
+     */
+    public ItemBuilder<I> shapelessRecipe(final int count, final Consumer<ShapelessRecipeBuilder> consumer) {
+        this.shapelessRecipes.add(Pair.of(count, consumer));
+        return this;
+    }
+
     @Override
-    public RegistryObject<I> build() {
+    public ItemRegistryObject<I> build() {
+        if (registryObject != null) { return registryObject; }
         final var object = register.getRegister().register(name, () -> factory.build(properties));
+        register.builders.add(this);
+        this.registryObject = new ItemRegistryObject<>(object);
         addDatagenStuff(object);
-        return object;
+        return registryObject;
+    }
+
+    @Override
+    public I get() {
+        return registryObject.get();
     }
 
     protected void addDatagenStuff(final RegistryObject<I> registryObject) {
