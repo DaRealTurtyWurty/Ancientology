@@ -123,6 +123,17 @@ public class BlockBuilder<B extends Block> implements Builder<B> {
     }
 
     /**
+     * Copies the properties of another block into this block.
+     * 
+     * @param  other the block to copy from
+     * @return       the builder instance
+     */
+    public BlockBuilder<B> copyPropertiesFrom(@Nonnull final BlockBehaviour other) {
+        this.properties = Properties.copy(other);
+        return this;
+    }
+
+    /**
      * Sets the loot table of the block. <br>
      * In order for the loot table to be generated, {@code runData} needs to be run.
      * 
