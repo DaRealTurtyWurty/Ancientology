@@ -35,7 +35,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 
 /**
  * A wrapper around {@link DeferredRegister} for registering blocks (and their
@@ -47,7 +46,7 @@ public class BlockDeferredRegister extends DeferredRegisterWrapper<Block> {
 
     final Map<Named<Block>, List<Supplier<Block>>> tags = new HashMap<>();
     final Map<Supplier<Block>, Function<Block, LootTable.Builder>> lootTables = new HashMap<>();
-    final Set<BlockBuilder<Block>> builders = new HashSet<>();
+    final Set<BlockBuilder<?>> builders = new HashSet<>();
 
     final ItemDeferredRegister itemRegister;
 
@@ -76,8 +75,8 @@ public class BlockDeferredRegister extends DeferredRegisterWrapper<Block> {
     /**
      * Prepares a block to be registered. The registering will happen when
      * {@link BlockBuilder#build()} is called, which will also return the
-     * {@link RegistryObject} containing that block. The registry object will be
-     * safe to call after {@link FMLCommonSetupEvent}.
+     * {@link BlockRegistryObject} containing that block. The registry object will
+     * be safe to call after {@link FMLCommonSetupEvent}.
      * 
      * @param  <B>     the class of the block
      * @param  name    the registry name of the block

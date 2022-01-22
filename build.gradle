@@ -86,6 +86,9 @@ dependencies {
     annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
     
     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
+    
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
 }
 
 jar {

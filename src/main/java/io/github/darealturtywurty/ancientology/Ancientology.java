@@ -6,6 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import io.github.darealturtywurty.ancientology.core.init.BlockEntityInit;
 import io.github.darealturtywurty.ancientology.core.init.BlockInit;
 import io.github.darealturtywurty.ancientology.core.init.EntityInit;
+import io.github.darealturtywurty.ancientology.core.init.FluidInit;
 import io.github.darealturtywurty.ancientology.core.init.ItemInit;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -21,6 +22,7 @@ public class Ancientology {
 
         BlockInit.BLOCKS.register(bus);
         ItemInit.ITEMS.register(bus);
+        FluidInit.FLUIDS.register(bus);
         BlockEntityInit.BLOCK_ENTITIES.register(bus);
         EntityInit.ENTITIES.register(bus);
     }

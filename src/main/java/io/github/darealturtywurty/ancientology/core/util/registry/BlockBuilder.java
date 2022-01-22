@@ -27,7 +27,6 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import io.github.darealturtywurty.ancientology.core.util.LootTableUtils;
 import io.github.darealturtywurty.ancientology.core.util.interfaces.LootTableFunction;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.registries.RegistryObject;
 
 /**
  * A builder for easily creating blocks using {@link BlockDeferredRegister}.
@@ -43,11 +42,11 @@ public class BlockBuilder<B extends Block> implements Builder<B> {
     protected final BlockDeferredRegister register;
     protected final String name;
     private BlockItemBuilder<BlockItem> blockItemBuilder;
-    private RegistryObject<B> registryObject;
+    protected BlockRegistryObject<B> registryObject;
 
     private HarvestLevel harvestLevel;
     private HarvestTool harvestTool;
-    private BlockBehaviour.Properties properties = Properties.of(Material.HEAVY_METAL);
+    protected BlockBehaviour.Properties properties = Properties.of(Material.HEAVY_METAL);
     private final List<Tag.Named<Block>> tags = new ArrayList<>();
     RenderLayer renderLayer;
 
@@ -184,7 +183,7 @@ public class BlockBuilder<B extends Block> implements Builder<B> {
      */
     public <I extends BlockItem> BlockBuilder<B> blockItem(final BlockItemFactory<B, I> factory,
             @Nonnull final Consumer<BlockItemBuilder<I>> consumer) {
-        final var builder = new BlockItemBuilder<I>((b, p) -> factory.build(b, p));
+        final var builder = new BlockItemBuilder<I>(factory::build);
         consumer.accept(builder);
         this.blockItemBuilder = (BlockItemBuilder<BlockItem>) builder;
         return this;
@@ -269,31 +268,31 @@ public class BlockBuilder<B extends Block> implements Builder<B> {
     }
 
     @Override
-    public RegistryObject<B> build() {
+    public BlockRegistryObject<B> build() {
         if (registryObject != null) { return registryObject; }
         final var object = register.getRegister().register(name, () -> factory.build(properties));
-        this.registryObject = object;
+        this.registryObject = new BlockRegistryObject<>(object);
 
-        register.builders.add((BlockBuilder<Block>) this);
+        register.builders.add(this);
 
-        tags.forEach(tag -> register.tags.computeIfAbsent(tag, k -> Lists.newArrayList()).add(object::get));
+        tags.forEach(tag -> register.tags.computeIfAbsent(tag, k -> Lists.newArrayList()).add(registryObject::get));
 
         if (harvestLevel != null) {
-            register.tags.computeIfAbsent(harvestLevel.getTag(), k -> Lists.newArrayList()).add(object::get);
+            register.tags.computeIfAbsent(harvestLevel.getTag(), k -> Lists.newArrayList()).add(registryObject::get);
         }
         if (harvestTool != null) {
-            register.tags.computeIfAbsent(harvestTool.getTag(), k -> Lists.newArrayList()).add(object::get);
+            register.tags.computeIfAbsent(harvestTool.getTag(), k -> Lists.newArrayList()).add(registryObject::get);
         }
 
         if (lootTable != null) {
-            register.lootTables.computeIfAbsent(object::get, k -> lootTable::makeLootTable);
+            register.lootTables.computeIfAbsent(registryObject::get, k -> lootTable::makeLootTable);
         }
 
         if (blockItemBuilder != null) {
             blockItemBuilder.build();
         }
 
-        return object;
+        return registryObject;
     }
 
     @Override
@@ -311,14 +310,14 @@ public class BlockBuilder<B extends Block> implements Builder<B> {
         }
 
         @Override
-        public RegistryObject<I> build() {
+        public ItemRegistryObject<I> build() {
             if (this.registryObject != null) { return registryObject; }
             final var obj = register.getRegister().register(name,
                     () -> blockItemFactory.apply(BlockBuilder.this.registryObject.get(), this.properties));
-            this.registryObject = obj;
-            register.builders.add((ItemBuilder<Item>) this);
+            this.registryObject = new ItemRegistryObject<>(obj);
+            register.builders.add(this);
             addDatagenStuff(obj);
-            return obj;
+            return registryObject;
         }
 
     }

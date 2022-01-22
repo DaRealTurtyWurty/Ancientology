@@ -30,7 +30,6 @@ import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.RegistryObject;
 
 /**
  * A wrapper around {@link DeferredRegister} for registering items using
@@ -42,7 +41,7 @@ public class ItemDeferredRegister extends DeferredRegisterWrapper<Item> {
 
     final EnumMap<MinecraftLocale, Map<Supplier<Item>, String>> langEntries = new EnumMap<>(MinecraftLocale.class);
     final Map<Named<Item>, List<Supplier<Item>>> tags = new HashMap<>();
-    final List<ItemBuilder<Item>> builders = new ArrayList<>();
+    final List<ItemBuilder<?>> builders = new ArrayList<>();
 
     @Nullable
     private CreativeModeTab defaultItemTab;
@@ -70,8 +69,8 @@ public class ItemDeferredRegister extends DeferredRegisterWrapper<Item> {
     /**
      * Prepares an item to be registered. The registering will happen when
      * {@link ItemBuilder#build()} is called, which will also return the
-     * {@link RegistryObject} containing that item. The registry object will be safe
-     * to call after {@link FMLCommonSetupEvent}.
+     * {@link ItemRegistryObject} containing that item. The registry object will be
+     * safe to call after {@link FMLCommonSetupEvent}.
      * 
      * @param  <I>     the class of the item
      * @param  name    the registry name of the item
@@ -134,11 +133,11 @@ public class ItemDeferredRegister extends DeferredRegisterWrapper<Item> {
         @Override
         protected void buildCraftingRecipes(Consumer<FinishedRecipe> finsishedConsumer) {
             builders.forEach(builder -> {
-                final var block = builder.get();
-                final var registryName = block.getRegistryName();
+                final var item = builder.get();
+                final var registryName = item.getRegistryName();
                 for (int i = 0; i < builder.shapedRecipes.size(); i++) {
                     final var shapedPair = builder.shapedRecipes.get(i);
-                    final var recipeBuilder = ShapedRecipeBuilder.shaped(block, shapedPair.getKey())
+                    final var recipeBuilder = ShapedRecipeBuilder.shaped(item, shapedPair.getKey())
                             .unlockedBy("has_item", has(Items.AIR));
                     shapedPair.getValue().accept(recipeBuilder);
                     recipeBuilder.save(finsishedConsumer, new ResourceLocation(registryName.getNamespace(),
@@ -146,7 +145,7 @@ public class ItemDeferredRegister extends DeferredRegisterWrapper<Item> {
                 }
                 for (int i = 0; i < builder.shapelessRecipes.size(); i++) {
                     final var shapedPair = builder.shapelessRecipes.get(i);
-                    final var recipeBuilder = ShapelessRecipeBuilder.shapeless(block, shapedPair.getKey())
+                    final var recipeBuilder = ShapelessRecipeBuilder.shapeless(item, shapedPair.getKey())
                             .unlockedBy("has_item", has(Items.AIR));
                     shapedPair.getValue().accept(recipeBuilder);
                     recipeBuilder.save(finsishedConsumer, new ResourceLocation(registryName.getNamespace(),

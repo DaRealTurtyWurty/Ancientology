@@ -39,7 +39,7 @@ public class ItemBuilder<I extends Item> implements Builder<I> {
     protected final Factory<Properties, I> factory;
     protected final ItemDeferredRegister register;
     protected final String name;
-    protected RegistryObject<I> registryObject;
+    protected ItemRegistryObject<I> registryObject;
 
     protected final Properties properties = new Properties();
     private final EnumMap<MinecraftLocale, String> lang = new EnumMap<>(MinecraftLocale.class);
@@ -220,15 +220,14 @@ public class ItemBuilder<I extends Item> implements Builder<I> {
         return this;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    public RegistryObject<I> build() {
+    public ItemRegistryObject<I> build() {
         if (registryObject != null) { return registryObject; }
         final var object = register.getRegister().register(name, () -> factory.build(properties));
-        register.builders.add((ItemBuilder<Item>) this);
-        this.registryObject = object;
+        register.builders.add(this);
+        this.registryObject = new ItemRegistryObject<>(object);
         addDatagenStuff(object);
-        return object;
+        return registryObject;
     }
 
     @Override
