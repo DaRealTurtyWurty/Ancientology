@@ -1,4 +1,4 @@
-package io.github.darealturtywurty.ancientology.core.util.registry;
+package io.github.darealturtywurty.ancientology.core.util.registry.entity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,6 +27,8 @@ import net.minecraft.world.level.storage.loot.ValidationContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
+import io.github.darealturtywurty.ancientology.core.util.registry.DeferredRegisterWrapper;
+import io.github.darealturtywurty.ancientology.core.util.registry.ItemDeferredRegister;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -152,7 +154,7 @@ public class EntityDeferredRegister extends DeferredRegisterWrapper<EntityType<?
     private final class TagsProvider extends EntityTypeTagsProvider {
 
         public TagsProvider(DataGenerator pGenerator, ExistingFileHelper existingFileHelper) {
-            super(pGenerator, EntityDeferredRegister.this.modId, existingFileHelper);
+            super(pGenerator, EntityDeferredRegister.this.getModID(), existingFileHelper);
         }
 
         @Override

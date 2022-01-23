@@ -116,7 +116,7 @@ public class BlockDeferredRegister extends DeferredRegisterWrapper<Block> {
     private final class TagsProvider extends BlockTagsProvider {
 
         public TagsProvider(DataGenerator pGenerator, ExistingFileHelper existingFileHelper) {
-            super(pGenerator, BlockDeferredRegister.this.modId, existingFileHelper);
+            super(pGenerator, BlockDeferredRegister.this.getModID(), existingFileHelper);
         }
 
         @Override

@@ -105,7 +105,7 @@ public class ItemDeferredRegister extends DeferredRegisterWrapper<Item> {
     private final class ItemTags extends ItemTagsProvider {
 
         public ItemTags(DataGenerator pGenerator, ExistingFileHelper existingFileHelper) {
-            super(pGenerator, new BlockTags(pGenerator, existingFileHelper), ItemDeferredRegister.this.modId,
+            super(pGenerator, new BlockTags(pGenerator, existingFileHelper), ItemDeferredRegister.this.getModID(),
                     existingFileHelper);
         }
 
@@ -119,7 +119,7 @@ public class ItemDeferredRegister extends DeferredRegisterWrapper<Item> {
     private final class BlockTags extends BlockTagsProvider {
 
         public BlockTags(DataGenerator pGenerator, ExistingFileHelper existingFileHelper) {
-            super(pGenerator, ItemDeferredRegister.this.modId, existingFileHelper);
+            super(pGenerator, ItemDeferredRegister.this.getModID(), existingFileHelper);
         }
 
     }

@@ -1,4 +1,4 @@
-package io.github.darealturtywurty.ancientology.core.util.registry;
+package io.github.darealturtywurty.ancientology.core.util.registry.entity;
 
 import javax.annotation.Nullable;
 
@@ -9,6 +9,7 @@ import net.minecraft.world.item.Item;
 
 import io.github.darealturtywurty.ancientology.core.util.interfaces.EntityTypeProvider;
 import io.github.darealturtywurty.ancientology.core.util.interfaces.ItemProvider;
+import io.github.darealturtywurty.ancientology.core.util.registry.WrappedRegistryObject;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.RegistryObject;
 

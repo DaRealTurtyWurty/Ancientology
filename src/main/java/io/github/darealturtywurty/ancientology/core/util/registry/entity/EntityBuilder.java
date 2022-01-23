@@ -1,4 +1,4 @@
-package io.github.darealturtywurty.ancientology.core.util.registry;
+package io.github.darealturtywurty.ancientology.core.util.registry.entity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,6 +24,9 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.level.storage.loot.LootTable;
 
+import io.github.darealturtywurty.ancientology.core.util.registry.Builder;
+import io.github.darealturtywurty.ancientology.core.util.registry.ItemBuilder;
+import io.github.darealturtywurty.ancientology.core.util.registry.ItemRegistryObject;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -221,7 +224,7 @@ public class EntityBuilder<E extends Entity> implements Builder<EntityType<E>> {
     public EntityRegistryObject<E> build() {
         if (registryObject != null) { return registryObject; }
         final var object = register.getRegister().register(name,
-                () -> typeBuilder.build(new ResourceLocation(register.modId, name).toString()));
+                () -> typeBuilder.build(new ResourceLocation(register.getModID(), name).toString()));
         ItemRegistryObject<ForgeSpawnEggItem> spawnEgg = null;
         if (spawnEggBuilder != null) {
             spawnEgg = (ItemRegistryObject<ForgeSpawnEggItem>) spawnEggBuilder.build();
@@ -267,8 +270,8 @@ public class EntityBuilder<E extends Entity> implements Builder<EntityType<E>> {
                     // No method reference in order to prevent NPEs
                     () -> spawnEggFactory.build(() -> EntityBuilder.this.registryObject.get(), backgroundColor,
                             highlightColor, this.properties));
-            this.registryObject = new ItemRegistryObject<>(obj);
-            register.builders.add(this);
+            this.registryObject = createRegistryObject(obj);
+            addBuilderToRegister();
             addDatagenStuff(obj);
             return registryObject;
         }

@@ -1,7 +1,7 @@
 package io.github.darealturtywurty.ancientology.core.init;
 
 import io.github.darealturtywurty.ancientology.Ancientology;
-import io.github.darealturtywurty.ancientology.core.util.registry.EntityDeferredRegister;
+import io.github.darealturtywurty.ancientology.core.util.registry.entity.EntityDeferredRegister;
 
 public final class EntityInit {
 

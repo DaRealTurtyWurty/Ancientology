@@ -27,6 +27,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import io.github.darealturtywurty.ancientology.core.util.LootTableUtils;
 import io.github.darealturtywurty.ancientology.core.util.interfaces.LootTableFunction;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.registries.RegistryObject;
 
 /**
  * A builder for easily creating blocks using {@link BlockDeferredRegister}.
@@ -52,7 +53,7 @@ public class BlockBuilder<B extends Block> implements Builder<B> {
 
     private LootTableFunction lootTable;
 
-    BlockBuilder(final String name, Factory<Properties, B> factory, BlockDeferredRegister register) {
+    protected BlockBuilder(final String name, Factory<Properties, B> factory, BlockDeferredRegister register) {
         this.factory = factory;
         this.register = register;
         this.name = name;
@@ -282,9 +283,9 @@ public class BlockBuilder<B extends Block> implements Builder<B> {
     public BlockRegistryObject<B> build() {
         if (registryObject != null) { return registryObject; }
         final var object = register.getRegister().register(name, () -> factory.build(properties));
-        this.registryObject = new BlockRegistryObject<>(object);
+        this.registryObject = createRegistryObject(object);
 
-        register.builders.add(this);
+        addBuilderToRegister();
 
         tags.forEach(tag -> register.tags.computeIfAbsent(tag, k -> Lists.newArrayList()).add(registryObject::get));
 
@@ -304,6 +305,14 @@ public class BlockBuilder<B extends Block> implements Builder<B> {
         }
 
         return registryObject;
+    }
+
+    protected static <B extends Block> BlockRegistryObject<B> createRegistryObject(final RegistryObject<B> obj) {
+        return new BlockRegistryObject<>(obj);
+    }
+
+    protected void addBuilderToRegister() {
+        register.builders.add(this);
     }
 
     @Override
