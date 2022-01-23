@@ -17,12 +17,15 @@ import net.minecraft.tags.Tag.Named;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityType.EntityFactory;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.level.storage.loot.LootTable;
 
 import net.minecraftforge.common.ForgeSpawnEggItem;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -38,6 +41,7 @@ public class EntityBuilder<E extends Entity> implements Builder<EntityType<E>> {
     private SpawnEggBuilder<?> spawnEggBuilder;
     private final List<Tag.Named<EntityType<?>>> tags = new ArrayList<>();
     private LootTable.Builder lootTable;
+    AttributeSupplier.Builder attributes;
 
     EntityBuilder(String name, EntityFactory<E> factory, EntityDeferredRegister register) {
         this.factory = factory;
@@ -157,6 +161,54 @@ public class EntityBuilder<E extends Entity> implements Builder<EntityType<E>> {
      */
     public EntityBuilder<E> noSpawnEgg() {
         this.spawnEggBuilder = null;
+        return this;
+    }
+
+    /**
+     * Modifies the attributes of the entity. <br>
+     * <strong>Calling this on an entity which is not an instance of {@link Mob}
+     * WILL result in a {@link ClassCastException} when
+     * {@link EntityAttributeCreationEvent} is called!</strong>
+     * 
+     * @param  consumer a consumer which modifies the attributes of the entity
+     * @return          the builder instance
+     */
+    public EntityBuilder<E> modifyAttributes(final Consumer<AttributeSupplier.Builder> consumer) {
+        if (attributes == null) {
+            this.attributes = new AttributeSupplier.Builder();
+        }
+        consumer.accept(attributes);
+        return this;
+    }
+
+    /**
+     * Sets the attributes of the entity to {@link Mob#createMobAttributes()}. <br>
+     * <strong>Any previous modifications of the attributes will be erased.</strong>
+     * <br>
+     * <strong>Calling this on an entity which is not an instance of
+     * {@link LivingEntity} WILL result in a {@link ClassCastException} when
+     * {@link EntityAttributeCreationEvent} is called!</strong>
+     * 
+     * @return the builder instance
+     */
+    public EntityBuilder<E> defaultMobAttributes() {
+        this.attributes = Mob.createMobAttributes();
+        return this;
+    }
+
+    /**
+     * Sets the attributes of the entity to
+     * {@link LivingEntity#createLivingAttributes()}. <br>
+     * <strong>Any previous modifications of the attributes will be erased.</strong>
+     * <br>
+     * <strong>Calling this on an entity which is not an instance of
+     * {@link LivingEntity} WILL result in a {@link ClassCastException} when
+     * {@link EntityAttributeCreationEvent} is called!</strong>
+     * 
+     * @return the builder instance
+     */
+    public EntityBuilder<E> defaultLivingAttributes() {
+        this.attributes = LivingEntity.createLivingAttributes();
         return this;
     }
 
