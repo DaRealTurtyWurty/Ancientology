@@ -67,6 +67,18 @@ public class EntityBuilder<E extends Entity> implements Builder<EntityType<E>> {
     }
 
     /**
+     * Sets the entity's {@link EntityType#dimensions}
+     * 
+     * @param  width  the new width
+     * @param  height the new height
+     * @return        the builder instance
+     */
+    public EntityBuilder<E> sized(float width, float height) {
+        modifyBuilder(b -> b.sized(width, height));
+        return this;
+    }
+
+    /**
      * This method should be called when something from the entity's
      * {@link EntityType.Builder} needs to be modified, but a method that does so
      * doesn't exist in {@link EntityBuilder}. <br>
