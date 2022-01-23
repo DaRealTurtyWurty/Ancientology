@@ -1,8 +1,7 @@
 package io.github.darealturtywurty.ancientology.core.util;
 
-import net.minecraft.data.DataGenerator;
-
 import io.github.darealturtywurty.ancientology.Ancientology;
+import io.github.darealturtywurty.ancientology.common.entities.Angeoa;
 import io.github.darealturtywurty.ancientology.core.data.BlockTagsGenerator;
 import io.github.darealturtywurty.ancientology.core.data.BlockstateGenerator;
 import io.github.darealturtywurty.ancientology.core.data.ItemModelGenerator;
@@ -14,7 +13,9 @@ import io.github.darealturtywurty.ancientology.core.init.BlockInit;
 import io.github.darealturtywurty.ancientology.core.init.EntityInit;
 import io.github.darealturtywurty.ancientology.core.init.FluidInit;
 import io.github.darealturtywurty.ancientology.core.init.ItemInit;
+import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
@@ -25,20 +26,20 @@ public final class CommonEvents {
     private CommonEvents() {
         throw new IllegalAccessError("Illegal access to hidden event bus subscriber class!");
     }
-
+    
     @Mod.EventBusSubscriber(modid = Ancientology.MODID, bus = Bus.FORGE)
     public static final class ForgeEvents {
         private ForgeEvents() {
             throw new IllegalAccessError("Illegal access to hidden event bus subscriber class!");
         }
     }
-
+    
     @Mod.EventBusSubscriber(modid = Ancientology.MODID, bus = Bus.MOD)
     public static final class ModEvents {
         private ModEvents() {
             throw new IllegalAccessError("Illegal access to hidden event bus subscriber class!");
         }
-
+        
         @SubscribeEvent
         public static void commonSetup(FMLCommonSetupEvent event) {
             event.enqueueWork(() -> {
@@ -50,21 +51,21 @@ public final class CommonEvents {
         public static void gatherData(GatherDataEvent event) {
             final DataGenerator generator = event.getGenerator();
             final ExistingFileHelper fileHelper = event.getExistingFileHelper();
-            
+
             BlockInit.BLOCKS.addDatagen(event);
             ItemInit.ITEMS.addDatagen(event);
             FluidInit.FLUIDS.addDatagen(event);
             EntityInit.ENTITIES.addDatagen(event);
-
+            
             if (event.includeClient()) {
                 generator.addProvider(new ItemModelGenerator(generator, fileHelper));
                 generator.addProvider(new BlockstateGenerator(generator, fileHelper));
-
+                
                 for (final var locale : MinecraftLocale.values()) {
                     generator.addProvider(new LanguageGenerator.BuilderAddedKeys(generator, locale.getLocaleName()));
                 }
             }
-
+            
             if (event.includeServer()) {
                 final var blockTags = new BlockTagsGenerator(generator, fileHelper);
                 generator.addProvider(blockTags);
@@ -72,6 +73,11 @@ public final class CommonEvents {
                 generator.addProvider(new RecipeGenerator(generator));
                 generator.addProvider(new LootTableGenerator(generator));
             }
+        }
+        
+        @SubscribeEvent
+        public static void registerAttributes(EntityAttributeCreationEvent event) {
+            event.put(EntityInit.ANGEOA.get(), Angeoa.createAttributeMap().build());
         }
     }
 }
