@@ -1,4 +1,4 @@
-package io.github.darealturtywurty.ancientology.core.util.registry;
+package io.github.darealturtywurty.ancientology.core.util.registry.entity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,12 +17,18 @@ import net.minecraft.tags.Tag.Named;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityType.EntityFactory;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.level.storage.loot.LootTable;
 
+import io.github.darealturtywurty.ancientology.core.util.registry.Builder;
+import io.github.darealturtywurty.ancientology.core.util.registry.ItemBuilder;
+import io.github.darealturtywurty.ancientology.core.util.registry.ItemRegistryObject;
 import net.minecraftforge.common.ForgeSpawnEggItem;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -38,6 +44,7 @@ public class EntityBuilder<E extends Entity> implements Builder<EntityType<E>> {
     private SpawnEggBuilder<?> spawnEggBuilder;
     private final List<Tag.Named<EntityType<?>>> tags = new ArrayList<>();
     private LootTable.Builder lootTable;
+    AttributeSupplier.Builder attributes;
 
     EntityBuilder(String name, EntityFactory<E> factory, EntityDeferredRegister register) {
         this.factory = factory;
@@ -56,6 +63,18 @@ public class EntityBuilder<E extends Entity> implements Builder<EntityType<E>> {
      */
     public EntityBuilder<E> category(@Nonnull final MobCategory category) {
         typeBuilder.category = category;
+        return this;
+    }
+
+    /**
+     * Sets the entity's {@link EntityType#dimensions}
+     * 
+     * @param  width  the new width
+     * @param  height the new height
+     * @return        the builder instance
+     */
+    public EntityBuilder<E> sized(float width, float height) {
+        modifyBuilder(b -> b.sized(width, height));
         return this;
     }
 
@@ -160,6 +179,54 @@ public class EntityBuilder<E extends Entity> implements Builder<EntityType<E>> {
         return this;
     }
 
+    /**
+     * Modifies the attributes of the entity. <br>
+     * <strong>Calling this on an entity which is not an instance of {@link Mob}
+     * WILL result in a {@link ClassCastException} when
+     * {@link EntityAttributeCreationEvent} is called!</strong>
+     * 
+     * @param  consumer a consumer which modifies the attributes of the entity
+     * @return          the builder instance
+     */
+    public EntityBuilder<E> modifyAttributes(final Consumer<AttributeSupplier.Builder> consumer) {
+        if (attributes == null) {
+            this.attributes = new AttributeSupplier.Builder();
+        }
+        consumer.accept(attributes);
+        return this;
+    }
+
+    /**
+     * Sets the attributes of the entity to {@link Mob#createMobAttributes()}. <br>
+     * <strong>Any previous modifications of the attributes will be erased.</strong>
+     * <br>
+     * <strong>Calling this on an entity which is not an instance of
+     * {@link LivingEntity} WILL result in a {@link ClassCastException} when
+     * {@link EntityAttributeCreationEvent} is called!</strong>
+     * 
+     * @return the builder instance
+     */
+    public EntityBuilder<E> defaultMobAttributes() {
+        this.attributes = Mob.createMobAttributes();
+        return this;
+    }
+
+    /**
+     * Sets the attributes of the entity to
+     * {@link LivingEntity#createLivingAttributes()}. <br>
+     * <strong>Any previous modifications of the attributes will be erased.</strong>
+     * <br>
+     * <strong>Calling this on an entity which is not an instance of
+     * {@link LivingEntity} WILL result in a {@link ClassCastException} when
+     * {@link EntityAttributeCreationEvent} is called!</strong>
+     * 
+     * @return the builder instance
+     */
+    public EntityBuilder<E> defaultLivingAttributes() {
+        this.attributes = LivingEntity.createLivingAttributes();
+        return this;
+    }
+
     @Override
     public EntityType<E> get() {
         return registryObject.get();
@@ -169,7 +236,7 @@ public class EntityBuilder<E extends Entity> implements Builder<EntityType<E>> {
     public EntityRegistryObject<E> build() {
         if (registryObject != null) { return registryObject; }
         final var object = register.getRegister().register(name,
-                () -> typeBuilder.build(new ResourceLocation(register.modId, name).toString()));
+                () -> typeBuilder.build(new ResourceLocation(register.getModID(), name).toString()));
         ItemRegistryObject<ForgeSpawnEggItem> spawnEgg = null;
         if (spawnEggBuilder != null) {
             spawnEgg = (ItemRegistryObject<ForgeSpawnEggItem>) spawnEggBuilder.build();
@@ -215,8 +282,8 @@ public class EntityBuilder<E extends Entity> implements Builder<EntityType<E>> {
                     // No method reference in order to prevent NPEs
                     () -> spawnEggFactory.build(() -> EntityBuilder.this.registryObject.get(), backgroundColor,
                             highlightColor, this.properties));
-            this.registryObject = new ItemRegistryObject<>(obj);
-            register.builders.add(this);
+            this.registryObject = createRegistryObject(obj);
+            addBuilderToRegister();
             addDatagenStuff(obj);
             return registryObject;
         }

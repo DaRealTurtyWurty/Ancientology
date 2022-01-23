@@ -1,4 +1,4 @@
-package io.github.darealturtywurty.ancientology.core.util.registry;
+package io.github.darealturtywurty.ancientology.core.util.registry.entity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,13 +20,17 @@ import net.minecraft.tags.Tag.Named;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityType.EntityFactory;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.LootTables;
 import net.minecraft.world.level.storage.loot.ValidationContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
+import io.github.darealturtywurty.ancientology.core.util.registry.DeferredRegisterWrapper;
+import io.github.darealturtywurty.ancientology.core.util.registry.ItemDeferredRegister;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
@@ -95,9 +99,21 @@ public class EntityDeferredRegister extends DeferredRegisterWrapper<EntityType<?
     @Override
     public void register(IEventBus modBus) {
         super.register(modBus);
+        modBus.addListener(this::registerAttributes);
         if (!isItemRegisterManual) {
             itemRegister.register(modBus);
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void registerAttributes(final EntityAttributeCreationEvent event) {
+        builders.forEach(builder -> {
+            final var entityType = builder.get();
+            if (builder.attributes != null) {
+                // If the entity is not living, but it has attributes, it's your fault!
+                event.put((EntityType<LivingEntity>) entityType, builder.attributes.build());
+            }
+        });
     }
 
     private final class LootTableProvider extends net.minecraft.data.loot.LootTableProvider {
@@ -138,7 +154,7 @@ public class EntityDeferredRegister extends DeferredRegisterWrapper<EntityType<?
     private final class TagsProvider extends EntityTypeTagsProvider {
 
         public TagsProvider(DataGenerator pGenerator, ExistingFileHelper existingFileHelper) {
-            super(pGenerator, EntityDeferredRegister.this.modId, existingFileHelper);
+            super(pGenerator, EntityDeferredRegister.this.getModID(), existingFileHelper);
         }
 
         @Override
