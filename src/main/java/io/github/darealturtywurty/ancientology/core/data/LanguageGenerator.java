@@ -28,6 +28,17 @@ public class LanguageGenerator extends LanguageProvider {
         protected void addTranslations() {
             final var locale = ((LanguageProviderAccessor) this).getLocale();
             ItemInit.ITEMS.getLangEntries(MinecraftLocale.byName(locale)).forEach(this::addItem);
+
+            add("itemGroup.ancientology", "Ancientology");
+
+            add("msg.ancientology.fruit_give_item", "You disobeyed God. You were not disappointed.");
+            add("msg.ancientology.fruit_give_good_effect", "You disobeyed God. You were not disappointed.");
+            add("msg.ancientology.fruit_nether", "God has banished you to Hell.");
+            add("msg.ancientology.fruit_lightning", "You've invoked the wrath of God.");
+            add("msg.ancientology.fruit_hunger", "God has stricken you with irony.");
+            add("msg.ancientology.fruit_give_bad_effect", "Sickness has befallen upon you. Don't disobey God.");
+            add("msg.ancientology.fruit_arrow_rain", "Heavenly arrows have come from above.");
+            add("msg.ancientology.fruit_chance", "God has given you a second chance. Do not waste it.");
         }
         
     }

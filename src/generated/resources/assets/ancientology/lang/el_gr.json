@@ -1,0 +1,15 @@
+{
+  "block.ancientology.life_leaves": "\u03A6\u03CD\u03BB\u03BB\u03B1 \u03C4\u03B7\u03C2 \u0396\u03C9\u03AE\u03C2",
+  "block.ancientology.life_log": "\u039A\u03BF\u03C1\u03BC\u03CC\u03C2 \u03C4\u03B7\u03C2 \u0396\u03C9\u03AE\u03C2",
+  "block.ancientology.life_planks": "\u03A3\u03B1\u03BD\u03AF\u03B4\u03B5\u03C2 \u03C4\u03B7\u03C2 \u0396\u03C9\u03AE\u03C2",
+  "item.ancientology.forbidden_fruit": "\u0391\u03C0\u03B1\u03B3\u03BF\u03C1\u03B5\u03C5\u03BC\u03AD\u03BD\u03BF\u03C2 \u039A\u03B1\u03C1\u03C0\u03CC\u03C2",
+  "itemGroup.ancientology": "Ancientology",
+  "msg.ancientology.fruit_arrow_rain": "Heavenly arrows have come from above.",
+  "msg.ancientology.fruit_chance": "God has given you a second chance. Do not waste it.",
+  "msg.ancientology.fruit_give_bad_effect": "Sickness has befallen upon you. Don't disobey God.",
+  "msg.ancientology.fruit_give_good_effect": "You disobeyed God. You were not disappointed.",
+  "msg.ancientology.fruit_give_item": "You disobeyed God. You were not disappointed.",
+  "msg.ancientology.fruit_hunger": "God has stricken you with irony.",
+  "msg.ancientology.fruit_lightning": "You've invoked the wrath of God.",
+  "msg.ancientology.fruit_nether": "God has banished you to Hell."
+}

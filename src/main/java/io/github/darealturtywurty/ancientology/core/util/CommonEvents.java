@@ -1,20 +1,13 @@
 package io.github.darealturtywurty.ancientology.core.util;
 
-import net.minecraft.data.DataGenerator;
-
 import io.github.darealturtywurty.ancientology.Ancientology;
-import io.github.darealturtywurty.ancientology.core.data.BlockTagsGenerator;
-import io.github.darealturtywurty.ancientology.core.data.BlockstateGenerator;
-import io.github.darealturtywurty.ancientology.core.data.ItemModelGenerator;
-import io.github.darealturtywurty.ancientology.core.data.ItemTagsGenerator;
-import io.github.darealturtywurty.ancientology.core.data.LanguageGenerator;
-import io.github.darealturtywurty.ancientology.core.data.LootTableGenerator;
-import io.github.darealturtywurty.ancientology.core.data.RecipeGenerator;
-import io.github.darealturtywurty.ancientology.core.init.BlockInit;
-import io.github.darealturtywurty.ancientology.core.init.EntityInit;
-import io.github.darealturtywurty.ancientology.core.init.FluidInit;
-import io.github.darealturtywurty.ancientology.core.init.ItemInit;
+import io.github.darealturtywurty.ancientology.core.data.*;
+import io.github.darealturtywurty.ancientology.core.init.*;
+import io.github.darealturtywurty.ancientology.core.worldgen.FeatureGen;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.event.entity.living.PotionEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
@@ -31,6 +24,14 @@ public final class CommonEvents {
         private ForgeEvents() {
             throw new IllegalAccessError("Illegal access to hidden event bus subscriber class!");
         }
+
+        @SubscribeEvent
+        public static void removeFlightEffect(PotionEvent.PotionExpiryEvent e) {
+            if (e.getPotionEffect().getEffect().equals(MobEffectInit.FLIGHT.get())) {
+                ((Player)e.getEntityLiving()).getAbilities().flying = false;
+                ((Player)e.getEntityLiving()).getAbilities().setFlyingSpeed(0.05F);
+            }
+        }
     }
 
     @Mod.EventBusSubscriber(modid = Ancientology.MODID, bus = Bus.MOD)
@@ -42,7 +43,7 @@ public final class CommonEvents {
         @SubscribeEvent
         public static void commonSetup(FMLCommonSetupEvent event) {
             event.enqueueWork(() -> {
-
+                FeatureGen.registerFeatures();
             });
         }
 

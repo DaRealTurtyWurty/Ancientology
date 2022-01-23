@@ -1,6 +1,8 @@
 package io.github.darealturtywurty.ancientology.core.data;
 
 import io.github.darealturtywurty.ancientology.Ancientology;
+import io.github.darealturtywurty.ancientology.core.init.BlockInit;
+import io.github.darealturtywurty.ancientology.core.init.ItemInit;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
@@ -19,6 +21,11 @@ public class ItemModelGenerator extends ItemModelProvider {
     protected void registerModels() {
         // defaultBlock(name, blockitem);
         // defaultItem(name, item);
+        defaultBlock(BlockInit.LIFE_LOG.getRegistryName(), (BlockItem) BlockInit.LIFE_LOG.get().asItem());
+        defaultBlock(BlockInit.LIFE_LEAVES.getRegistryName(), (BlockItem) BlockInit.LIFE_LEAVES.get().asItem());
+        defaultBlock(BlockInit.LIFE_PLANKS.getRegistryName(), (BlockItem) BlockInit.LIFE_PLANKS.get().asItem());
+        defaultItem(BlockInit.LIFE_SAPLING.getRegistryName(), BlockInit.LIFE_SAPLING.get().asItem());
+        defaultItem(ItemInit.FORBIDDEN_FRUIT.getRegistryName(), ItemInit.FORBIDDEN_FRUIT.get());
     }
 
     private void defaultBlock(ResourceLocation id, BlockItem item) {
