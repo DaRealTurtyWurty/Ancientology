@@ -28,6 +28,7 @@ public class OreGeneration {
 
     //This feels like jank... but IDK what's jank about it + it works
     public static void registerOres() {
+        //TODO Possible config for change of ore generation
         ConfiguredFeature<OreConfiguration, ?> tinOre = FeatureUtils.register("tin_ore",
                 Feature.ORE.configured(new OreConfiguration(List.of(OreConfiguration.target(
                         OreFeatures.DEEPSLATE_ORE_REPLACEABLES, BlockInit.DEEPSLATE_TIN_ORE.get().defaultBlockState())), 12)));
