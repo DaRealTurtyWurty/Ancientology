@@ -35,6 +35,9 @@ import net.minecraftforge.registries.IForgeRegistry;
  * A wrapper around {@link DeferredRegister} for registering items using
  * {@link ItemBuilder}s
  * 
+ * TODO move in it's own package, after existing PRs are merged so I don't break
+ * people's things
+ * 
  * @author matyrobbrt
  */
 public class ItemDeferredRegister extends DeferredRegisterWrapper<Item> {

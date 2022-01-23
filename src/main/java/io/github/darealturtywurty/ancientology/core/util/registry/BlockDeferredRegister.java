@@ -40,6 +40,9 @@ import net.minecraftforge.registries.ForgeRegistries;
  * A wrapper around {@link DeferredRegister} for registering blocks (and their
  * items) using {@link BlockBuilder}s
  * 
+ * TODO move in it's own package, after existing PRs are merged so I don't break
+ * people's things
+ * 
  * @author matyrobbrt
  */
 public class BlockDeferredRegister extends DeferredRegisterWrapper<Block> {
