@@ -1,6 +1,8 @@
 package io.github.darealturtywurty.ancientology.core.data;
 
 import io.github.darealturtywurty.ancientology.Ancientology;
+import io.github.darealturtywurty.ancientology.core.init.BlockInit;
+import io.github.darealturtywurty.ancientology.core.init.ItemInit;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
@@ -17,8 +19,9 @@ public class ItemModelGenerator extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        // defaultBlock(name, blockitem);
-        // defaultItem(name, item);
+        defaultBlock(BlockInit.DEEPSLATE_TIN_ORE.getId(), (BlockItem) BlockInit.DEEPSLATE_TIN_ORE.get().asItem());
+        defaultItem(ItemInit.RAW_TIN.getId(), ItemInit.RAW_TIN.get());
+        defaultItem(ItemInit.TIN_INGOT.getId(), ItemInit.TIN_INGOT.get());
     }
 
     private void defaultBlock(ResourceLocation id, BlockItem item) {

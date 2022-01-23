@@ -1,6 +1,7 @@
 package io.github.darealturtywurty.ancientology.core.data;
 
 import io.github.darealturtywurty.ancientology.Ancientology;
+import io.github.darealturtywurty.ancientology.core.init.BlockInit;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -13,6 +14,6 @@ public class BlockstateGenerator extends BlockStateProvider {
     
     @Override
     protected void registerStatesAndModels() {
-        // simpleBlock(block);
+        simpleBlock(BlockInit.DEEPSLATE_TIN_ORE.get());
     }
 }

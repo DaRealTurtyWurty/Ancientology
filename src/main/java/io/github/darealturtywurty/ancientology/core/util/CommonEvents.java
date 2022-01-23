@@ -1,19 +1,13 @@
 package io.github.darealturtywurty.ancientology.core.util;
 
-import net.minecraft.data.DataGenerator;
-
 import io.github.darealturtywurty.ancientology.Ancientology;
-import io.github.darealturtywurty.ancientology.core.data.BlockTagsGenerator;
-import io.github.darealturtywurty.ancientology.core.data.BlockstateGenerator;
-import io.github.darealturtywurty.ancientology.core.data.ItemModelGenerator;
-import io.github.darealturtywurty.ancientology.core.data.ItemTagsGenerator;
-import io.github.darealturtywurty.ancientology.core.data.LanguageGenerator;
-import io.github.darealturtywurty.ancientology.core.data.LootTableGenerator;
-import io.github.darealturtywurty.ancientology.core.data.RecipeGenerator;
+import io.github.darealturtywurty.ancientology.core.data.*;
 import io.github.darealturtywurty.ancientology.core.init.BlockInit;
 import io.github.darealturtywurty.ancientology.core.init.EntityInit;
 import io.github.darealturtywurty.ancientology.core.init.FluidInit;
 import io.github.darealturtywurty.ancientology.core.init.ItemInit;
+import io.github.darealturtywurty.ancientology.core.worldgen.OreGeneration;
+import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -42,7 +36,7 @@ public final class CommonEvents {
         @SubscribeEvent
         public static void commonSetup(FMLCommonSetupEvent event) {
             event.enqueueWork(() -> {
-
+                OreGeneration.registerOres();
             });
         }
 
@@ -60,7 +54,9 @@ public final class CommonEvents {
                 generator.addProvider(new ItemModelGenerator(generator, fileHelper));
                 generator.addProvider(new BlockstateGenerator(generator, fileHelper));
 
-                for (final var locale : MinecraftLocale.values()) {
+                generator.addProvider(new LanguageGenerator(generator)); //EN_US
+                for (final var locale : MinecraftLocale.values()) { //Other Languages
+                    if (locale == MinecraftLocale.EN_US) continue;
                     generator.addProvider(new LanguageGenerator.BuilderAddedKeys(generator, locale.getLocaleName()));
                 }
             }
