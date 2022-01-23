@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "ancientology:tin_ingot"
+    },
+    {
+      "item": "ancientology:tin_ingot"
+    },
+    {
+      "item": "ancientology:tin_ingot"
+    },
+    {
+      "item": "ancientology:tin_ingot"
+    },
+    {
+      "item": "ancientology:tin_ingot"
+    },
+    {
+      "item": "ancientology:tin_ingot"
+    },
+    {
+      "item": "ancientology:tin_ingot"
+    },
+    {
+      "item": "ancientology:tin_ingot"
+    },
+    {
+      "item": "ancientology:tin_ingot"
+    }
+  ],
+  "result": {
+    "item": "ancientology:tin_block"
+  }
+}

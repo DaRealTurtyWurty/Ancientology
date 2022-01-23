@@ -1,10 +1,12 @@
 package io.github.darealturtywurty.ancientology.core.data;
 
 import io.github.darealturtywurty.ancientology.Ancientology;
+import io.github.darealturtywurty.ancientology.core.init.BlockInit;
+import io.github.darealturtywurty.ancientology.core.init.ItemInit;
+import io.github.darealturtywurty.ancientology.core.util.registry.BlockRegistryObject;
+import io.github.darealturtywurty.ancientology.core.util.registry.ItemRegistryObject;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -17,17 +19,19 @@ public class ItemModelGenerator extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        // defaultBlock(name, blockitem);
-        // defaultItem(name, item);
+        defaultBlock(BlockInit.DEEPSLATE_TIN_ORE);
+        defaultBlock(BlockInit.TIN_BLOCK);
+        defaultItem(ItemInit.RAW_TIN);
+        defaultItem(ItemInit.TIN_INGOT);
     }
 
-    private void defaultBlock(ResourceLocation id, BlockItem item) {
-        getBuilder(id.getPath()).parent(
-                new ModelFile.UncheckedModelFile(new ResourceLocation(id.getNamespace(), "block/" + id.getPath())));
+    private void defaultBlock(BlockRegistryObject<?> reg) {
+        getBuilder(reg.getId().getPath()).parent(
+                new ModelFile.UncheckedModelFile(new ResourceLocation(reg.getId().getNamespace(), "block/" + reg.getId().getPath())));
     }
 
-    private void defaultItem(ResourceLocation id, Item item) {
-        withExistingParent(id.getPath(), "item/generated").texture("layer0",
-                new ResourceLocation(id.getNamespace(), "item/" + id.getPath()));
+    private void defaultItem(ItemRegistryObject<?> reg) {
+        withExistingParent(reg.getId().getPath(), "item/generated").texture("layer0",
+                new ResourceLocation(reg.getId().getNamespace(), "item/" + reg.getId().getPath()));
     }
 }
