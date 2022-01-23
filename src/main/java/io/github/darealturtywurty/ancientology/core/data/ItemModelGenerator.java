@@ -20,6 +20,7 @@ public class ItemModelGenerator extends ItemModelProvider {
     @Override
     protected void registerModels() {
         defaultBlock(BlockInit.DEEPSLATE_TIN_ORE);
+        defaultBlock(BlockInit.TIN_BLOCK);
         defaultItem(ItemInit.RAW_TIN);
         defaultItem(ItemInit.TIN_INGOT);
     }

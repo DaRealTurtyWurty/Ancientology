@@ -6,6 +6,7 @@ import io.github.darealturtywurty.ancientology.core.util.registry.BlockBuilder;
 import io.github.darealturtywurty.ancientology.core.util.registry.BlockDeferredRegister;
 import io.github.darealturtywurty.ancientology.core.util.registry.BlockRegistryObject;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.OreBlock;
 import net.minecraftforge.common.Tags;
@@ -19,6 +20,10 @@ public final class BlockInit {
             .addTag(Tags.Blocks.ORES, Tags.Blocks.ORES_IN_GROUND_DEEPSLATE, Tags.Blocks.ORE_RATES_SPARSE)
             .withLootTable(block -> LootTableUtils.createOreDrops(block, ItemInit.RAW_TIN.get(), 2, 3))
             .blockItem(item -> item.lang("Deepslate Tin Ore")).build();
+
+    public static final BlockRegistryObject<Block> TIN_BLOCK = BLOCKS.register("tin_block", Block::new)
+            .copyPropertiesFrom(Blocks.IRON_BLOCK).harvestLevel(BlockBuilder.HarvestLevel.STONE).harvestTool(BlockBuilder.HarvestTool.PICKAXE)
+            .dropSelf().shapelessRecipe(1, r -> r.requires(ItemInit.TIN_INGOT, 9)).blockItem(item -> item.lang("Block of Tin")).build();
 
     /*
      * public static final BlockRegistryObject<OreBlock> TEST = BLOCKS

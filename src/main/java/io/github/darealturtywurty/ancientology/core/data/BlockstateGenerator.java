@@ -15,5 +15,6 @@ public class BlockstateGenerator extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
         simpleBlock(BlockInit.DEEPSLATE_TIN_ORE.get());
+        simpleBlock(BlockInit.TIN_BLOCK.get());
     }
 }
