@@ -10,6 +10,10 @@ import io.github.darealturtywurty.ancientology.core.data.ItemTagsGenerator;
 import io.github.darealturtywurty.ancientology.core.data.LanguageGenerator;
 import io.github.darealturtywurty.ancientology.core.data.LootTableGenerator;
 import io.github.darealturtywurty.ancientology.core.data.RecipeGenerator;
+import io.github.darealturtywurty.ancientology.core.init.BlockInit;
+import io.github.darealturtywurty.ancientology.core.init.EntityInit;
+import io.github.darealturtywurty.ancientology.core.init.FluidInit;
+import io.github.darealturtywurty.ancientology.core.init.ItemInit;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -47,6 +51,11 @@ public final class CommonEvents {
             final DataGenerator generator = event.getGenerator();
             final ExistingFileHelper fileHelper = event.getExistingFileHelper();
             
+            BlockInit.BLOCKS.addDatagen(event);
+            ItemInit.ITEMS.addDatagen(event);
+            FluidInit.FLUIDS.addDatagen(event);
+            EntityInit.ENTITIES.addDatagen(event);
+
             if (event.includeClient()) {
                 generator.addProvider(new ItemModelGenerator(generator, fileHelper));
                 generator.addProvider(new BlockstateGenerator(generator, fileHelper));
