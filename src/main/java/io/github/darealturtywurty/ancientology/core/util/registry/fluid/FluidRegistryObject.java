@@ -1,4 +1,4 @@
-package io.github.darealturtywurty.ancientology.core.util.registry;
+package io.github.darealturtywurty.ancientology.core.util.registry.fluid;
 
 import javax.annotation.Nullable;
 
@@ -11,6 +11,7 @@ import net.minecraft.world.level.material.Fluid;
 
 import io.github.darealturtywurty.ancientology.core.util.interfaces.BlockProvider;
 import io.github.darealturtywurty.ancientology.core.util.interfaces.FluidProvider;
+import io.github.darealturtywurty.ancientology.core.util.registry.WrappedRegistryObject;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.registries.RegistryObject;
 

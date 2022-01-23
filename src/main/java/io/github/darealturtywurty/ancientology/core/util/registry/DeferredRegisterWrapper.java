@@ -9,11 +9,15 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 public abstract class DeferredRegisterWrapper<T extends IForgeRegistryEntry<T>> {
 
     protected final DeferredRegister<T> register;
-    protected final String modId;
+    private final String modId;
 
     protected DeferredRegisterWrapper(final IForgeRegistry<T> registry, String modId) {
         this.register = DeferredRegister.create(registry, modId);
         this.modId = modId;
+    }
+
+    public String getModID() {
+        return modId;
     }
 
     public DeferredRegister<T> getRegister() {

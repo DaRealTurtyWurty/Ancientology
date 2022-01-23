@@ -47,7 +47,7 @@ public class ItemBuilder<I extends Item> implements Builder<I> {
     final List<Pair<Integer, Consumer<ShapedRecipeBuilder>>> shapedRecipes = new ArrayList<>();
     final List<Pair<Integer, Consumer<ShapelessRecipeBuilder>>> shapelessRecipes = new ArrayList<>();
 
-    ItemBuilder(Factory<Properties, I> factory, ItemDeferredRegister register, String name) {
+    protected ItemBuilder(Factory<Properties, I> factory, ItemDeferredRegister register, String name) {
         this.factory = factory;
         this.register = register;
         this.name = name;
@@ -224,10 +224,18 @@ public class ItemBuilder<I extends Item> implements Builder<I> {
     public ItemRegistryObject<I> build() {
         if (registryObject != null) { return registryObject; }
         final var object = register.getRegister().register(name, () -> factory.build(properties));
-        register.builders.add(this);
-        this.registryObject = new ItemRegistryObject<>(object);
+        this.registryObject = createRegistryObject(object);
+        addBuilderToRegister();
         addDatagenStuff(object);
         return registryObject;
+    }
+
+    protected static <I extends Item> ItemRegistryObject<I> createRegistryObject(final RegistryObject<I> obj) {
+        return new ItemRegistryObject<>(obj);
+    }
+
+    protected void addBuilderToRegister() {
+        register.builders.add(this);
     }
 
     @Override

@@ -35,6 +35,9 @@ import net.minecraftforge.registries.IForgeRegistry;
  * A wrapper around {@link DeferredRegister} for registering items using
  * {@link ItemBuilder}s
  * 
+ * TODO move in it's own package, after existing PRs are merged so I don't break
+ * people's things
+ * 
  * @author matyrobbrt
  */
 public class ItemDeferredRegister extends DeferredRegisterWrapper<Item> {
@@ -105,7 +108,7 @@ public class ItemDeferredRegister extends DeferredRegisterWrapper<Item> {
     private final class ItemTags extends ItemTagsProvider {
 
         public ItemTags(DataGenerator pGenerator, ExistingFileHelper existingFileHelper) {
-            super(pGenerator, new BlockTags(pGenerator, existingFileHelper), ItemDeferredRegister.this.modId,
+            super(pGenerator, new BlockTags(pGenerator, existingFileHelper), ItemDeferredRegister.this.getModID(),
                     existingFileHelper);
         }
 
@@ -119,7 +122,7 @@ public class ItemDeferredRegister extends DeferredRegisterWrapper<Item> {
     private final class BlockTags extends BlockTagsProvider {
 
         public BlockTags(DataGenerator pGenerator, ExistingFileHelper existingFileHelper) {
-            super(pGenerator, ItemDeferredRegister.this.modId, existingFileHelper);
+            super(pGenerator, ItemDeferredRegister.this.getModID(), existingFileHelper);
         }
 
     }
