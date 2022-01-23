@@ -12,7 +12,7 @@ import java.util.function.Consumer;
 
 public class RecipeGenerator extends RecipeProvider {
 
-    private static final ImmutableList<ItemLike> TIN_SMELTABLES = ImmutableList.of(BlockInit.DEEPSLATE_TIN_ORE.get(), ItemInit.RAW_TIN.get());
+    private static final ImmutableList<ItemLike> TIN_SMELTABLES = ImmutableList.of(BlockInit.DEEPSLATE_TIN_ORE, ItemInit.RAW_TIN);
 
     public RecipeGenerator(DataGenerator generator) {
         super(generator);
@@ -20,7 +20,7 @@ public class RecipeGenerator extends RecipeProvider {
 
     @Override
     protected void buildCraftingRecipes(Consumer<FinishedRecipe> finished) {
-        oreSmelting(finished, TIN_SMELTABLES, ItemInit.TIN_INGOT.get(), 0.7F, 200, "tin_ingot");
-        oreBlasting(finished, TIN_SMELTABLES, ItemInit.TIN_INGOT.get(), 0.7F, 100, "tin_ingot");
+        oreSmelting(finished, TIN_SMELTABLES, ItemInit.TIN_INGOT, 0.7F, 200, "tin_ingot");
+        oreBlasting(finished, TIN_SMELTABLES, ItemInit.TIN_INGOT, 0.7F, 100, "tin_ingot");
     }
 }

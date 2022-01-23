@@ -14,7 +14,7 @@ public final class BlockInit {
     public static final BlockDeferredRegister BLOCKS = BlockDeferredRegister.create(Ancientology.MODID, ItemInit.ITEMS);
 
     public static final BlockRegistryObject<OreBlock> DEEPSLATE_TIN_ORE = BLOCKS.register("deepslate_tin_ore",
-                    input -> new OreBlock(input, UniformInt.of(0, 2))).copyPropertiesFrom(Blocks.COPPER_ORE)
+                    input -> new OreBlock(input, UniformInt.of(0, 2))).copyPropertiesFrom(Blocks.DEEPSLATE_COPPER_ORE)
             .harvestLevel(BlockBuilder.HarvestLevel.STONE).harvestTool(BlockBuilder.HarvestTool.PICKAXE)
             .addTag(Tags.Blocks.ORES, Tags.Blocks.ORES_IN_GROUND_DEEPSLATE, Tags.Blocks.ORE_RATES_SPARSE)
             .withLootTable(block -> LootTableUtils.createOreDrops(block, ItemInit.RAW_TIN.get(), 2, 3))

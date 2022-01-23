@@ -14,6 +14,6 @@
 > Github: https://github.com/ConnorTron110
 
 ## Assets
-- Cosmo
+- Comso
 > Discord: Comso#1828 <br>
 > For Raw, Ore and Tin Ingot Textures
