@@ -1,7 +1,7 @@
 package io.github.darealturtywurty.ancientology.core.init;
 
 import io.github.darealturtywurty.ancientology.Ancientology;
-import io.github.darealturtywurty.ancientology.core.util.registry.EntityDeferredRegister;
+import io.github.darealturtywurty.ancientology.core.util.registry.entity.EntityDeferredRegister;
 
 public final class EntityInit {
 
@@ -10,7 +10,8 @@ public final class EntityInit {
 
     /*
      * public static final EntityRegistryObject<Chicken> TEST_CHICKEN =
-     * ENTITIES.register("test", Chicken::new) .spawnEgg(i ->
+     * ENTITIES.register("test", Chicken::new) .modifyAttributes(b ->
+     * b.add(Attributes.ARMOR, 120)) .spawnEgg(i ->
      * i.lang("Chicken spawn egg").shapelessRecipe(1, r -> r.requires(Items.WHEAT,
      * 2))) .category(MobCategory.MONSTER).addTag(EntityTypeTags.IMPACT_PROJECTILES)
      * .withLootTable(LootTable.lootTable().withPool(LootPool.lootPool().setRolls(

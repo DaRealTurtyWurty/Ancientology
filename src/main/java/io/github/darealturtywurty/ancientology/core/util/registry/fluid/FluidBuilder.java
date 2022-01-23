@@ -1,4 +1,4 @@
-package io.github.darealturtywurty.ancientology.core.util.registry;
+package io.github.darealturtywurty.ancientology.core.util.registry.fluid;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,6 +23,12 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Material;
 
+import io.github.darealturtywurty.ancientology.core.util.registry.BlockBuilder;
+import io.github.darealturtywurty.ancientology.core.util.registry.BlockRegistryObject;
+import io.github.darealturtywurty.ancientology.core.util.registry.Builder;
+import io.github.darealturtywurty.ancientology.core.util.registry.Factory;
+import io.github.darealturtywurty.ancientology.core.util.registry.ItemBuilder;
+import io.github.darealturtywurty.ancientology.core.util.registry.ItemRegistryObject;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.fluids.ForgeFlowingFluid.Properties;
@@ -253,8 +259,8 @@ public class FluidBuilder<STILL extends ForgeFlowingFluid.Source, FLOWING extend
             if (this.registryObject != null) { return registryObject; }
             final var obj = register.getRegister().register(name,
                     () -> fluidBlockFactory.apply(FluidBuilder.this.registryObject::getStill, properties));
-            this.registryObject = new BlockRegistryObject<>(obj);
-            register.builders.add(this);
+            this.registryObject = createRegistryObject(obj);
+            addBuilderToRegister();
             return registryObject;
         }
     }
@@ -279,8 +285,8 @@ public class FluidBuilder<STILL extends ForgeFlowingFluid.Source, FLOWING extend
             if (this.registryObject != null) { return registryObject; }
             final var obj = register.getRegister().register(name,
                     () -> bucketFactory.apply(FluidBuilder.this.registryObject::getStill, this.properties));
-            this.registryObject = new ItemRegistryObject<>(obj);
-            register.builders.add(this);
+            this.registryObject = createRegistryObject(obj);
+            addBuilderToRegister();
             addDatagenStuff(obj);
             return registryObject;
         }

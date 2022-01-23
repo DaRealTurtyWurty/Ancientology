@@ -1,4 +1,4 @@
-package io.github.darealturtywurty.ancientology.core.util.registry;
+package io.github.darealturtywurty.ancientology.core.util.registry.fluid;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,6 +11,10 @@ import net.minecraft.data.tags.FluidTagsProvider;
 import net.minecraft.tags.Tag.Named;
 import net.minecraft.world.level.material.Fluid;
 
+import io.github.darealturtywurty.ancientology.core.util.registry.BlockDeferredRegister;
+import io.github.darealturtywurty.ancientology.core.util.registry.DeferredRegisterWrapper;
+import io.github.darealturtywurty.ancientology.core.util.registry.Factory;
+import io.github.darealturtywurty.ancientology.core.util.registry.ItemDeferredRegister;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fluids.ForgeFlowingFluid.Flowing;
@@ -100,7 +104,7 @@ public class FluidDeferredRegister extends DeferredRegisterWrapper<Fluid> {
     private final class TagsProvider extends FluidTagsProvider {
 
         public TagsProvider(DataGenerator pGenerator, ExistingFileHelper existingFileHelper) {
-            super(pGenerator, FluidDeferredRegister.this.modId, existingFileHelper);
+            super(pGenerator, FluidDeferredRegister.this.getModID(), existingFileHelper);
         }
 
         @Override

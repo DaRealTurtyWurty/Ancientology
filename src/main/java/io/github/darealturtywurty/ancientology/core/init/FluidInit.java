@@ -1,7 +1,7 @@
 package io.github.darealturtywurty.ancientology.core.init;
 
 import io.github.darealturtywurty.ancientology.Ancientology;
-import io.github.darealturtywurty.ancientology.core.util.registry.FluidDeferredRegister;
+import io.github.darealturtywurty.ancientology.core.util.registry.fluid.FluidDeferredRegister;
 
 public class FluidInit {
 

@@ -1,0 +1,19 @@
+{
+  "name": "Mythical Encyclopedia",
+  "landing_text": "An encyclopedia about mythical stuffs.",
+  "model": "patchouli:book_blue",
+  "creative_tab": "ancientology",
+  "book_texture": "patchouli:textures/gui/book_blue.png",
+  "index_icon": "minecraft:bee_nest",
+  "show_progress": false,
+  "version": 0,
+  "crafting_texture": "patchouli:textures/gui/crafting.png",
+  "macros": {
+    "<b>": "$(l)",
+    "<i>": "$(o)",
+    "</>": "$()",
+    "<br2>": "$(br2)",
+    "<item>": "$(item)",
+    "<player>": "$(playername)"
+  }
+}
