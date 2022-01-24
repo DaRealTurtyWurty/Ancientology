@@ -17,10 +17,22 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
+import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraftforge.common.Tags;
 
 public final class BlockInit {
-
     public static final BlockDeferredRegister BLOCKS = BlockDeferredRegister.create(Ancientology.MODID, ItemInit.ITEMS);
+
+    public static final BlockRegistryObject<OreBlock> DEEPSLATE_TIN_ORE = BLOCKS.register("deepslate_tin_ore",
+                    input -> new OreBlock(input, UniformInt.of(0, 2))).copyPropertiesFrom(Blocks.DEEPSLATE_COPPER_ORE)
+            .harvestLevel(BlockBuilder.HarvestLevel.STONE).harvestTool(BlockBuilder.HarvestTool.PICKAXE)
+            .addTag(Tags.Blocks.ORES, Tags.Blocks.ORES_IN_GROUND_DEEPSLATE, Tags.Blocks.ORE_RATES_SPARSE)
+            .withLootTable(block -> LootTableUtils.createOreDrops(block, ItemInit.RAW_TIN.get(), 2, 3))
+            .blockItem(item -> item.lang("Deepslate Tin Ore")).build();
+
+    public static final BlockRegistryObject<Block> TIN_BLOCK = BLOCKS.register("tin_block", Block::new)
+            .copyPropertiesFrom(Blocks.IRON_BLOCK).harvestLevel(BlockBuilder.HarvestLevel.STONE).harvestTool(BlockBuilder.HarvestTool.PICKAXE)
+            .dropSelf().shapelessRecipe(1, r -> r.requires(ItemInit.TIN_INGOT, 9)).blockItem(item -> item.lang("Block of Tin")).build();
 
     /*
      * public static final BlockRegistryObject<OreBlock> TEST = BLOCKS

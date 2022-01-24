@@ -22,6 +22,8 @@ public class BlockstateGenerator extends BlockStateProvider {
         simpleBlock(BlockInit.LIFE_LEAVES.get());
         simpleBlock(BlockInit.LIFE_PLANKS.get());
         crossBlock(BlockInit.LIFE_SAPLING.get());
+        simpleBlock(BlockInit.DEEPSLATE_TIN_ORE.get());
+        simpleBlock(BlockInit.TIN_BLOCK.get());
     }
 
     public void crossBlock(Block block) {

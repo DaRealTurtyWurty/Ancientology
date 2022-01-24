@@ -13,4 +13,8 @@
   "msg.ancientology.fruit_hunger": "God has stricken you with irony.",
   "msg.ancientology.fruit_lightning": "You've invoked the wrath of God.",
   "msg.ancientology.fruit_nether": "God has banished you to Hell."
+  "block.ancientology.deepslate_tin_ore": "Deepslate Tin Ore",
+  "block.ancientology.tin_block": "Block of Tin",
+  "item.ancientology.raw_tin": "Raw Tin",
+  "item.ancientology.tin_ingot": "Tin Ingot"
 }

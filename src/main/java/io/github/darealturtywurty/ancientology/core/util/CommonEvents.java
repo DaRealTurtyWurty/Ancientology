@@ -6,6 +6,7 @@ import io.github.darealturtywurty.ancientology.core.init.*;
 import io.github.darealturtywurty.ancientology.core.worldgen.FeatureGen;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.entity.player.Player;
+import io.github.darealturtywurty.ancientology.core.worldgen.OreGeneration;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.event.entity.living.PotionEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -44,6 +45,7 @@ public final class CommonEvents {
         public static void commonSetup(FMLCommonSetupEvent event) {
             event.enqueueWork(() -> {
                 FeatureGen.registerFeatures();
+                OreGeneration.registerOres();
             });
         }
 
@@ -61,7 +63,9 @@ public final class CommonEvents {
                 generator.addProvider(new ItemModelGenerator(generator, fileHelper));
                 generator.addProvider(new BlockstateGenerator(generator, fileHelper));
 
-                for (final var locale : MinecraftLocale.values()) {
+                generator.addProvider(new LanguageGenerator(generator)); //EN_US
+                for (final var locale : MinecraftLocale.values()) { //Other Languages
+                    if (locale == MinecraftLocale.EN_US) continue;
                     generator.addProvider(new LanguageGenerator.BuilderAddedKeys(generator, locale.getLocaleName()));
                 }
             }
