@@ -1,26 +1,13 @@
 package io.github.darealturtywurty.ancientology.core.util;
 
-import java.util.Objects;
-
-import net.minecraft.data.DataGenerator;
-import net.minecraft.world.entity.player.Player;
-
 import io.github.darealturtywurty.ancientology.Ancientology;
-import io.github.darealturtywurty.ancientology.core.data.BlockTagsGenerator;
-import io.github.darealturtywurty.ancientology.core.data.BlockstateGenerator;
-import io.github.darealturtywurty.ancientology.core.data.ItemModelGenerator;
-import io.github.darealturtywurty.ancientology.core.data.ItemTagsGenerator;
-import io.github.darealturtywurty.ancientology.core.data.LanguageGenerator;
-import io.github.darealturtywurty.ancientology.core.data.LootTableGenerator;
-import io.github.darealturtywurty.ancientology.core.data.RecipeGenerator;
-import io.github.darealturtywurty.ancientology.core.init.BlockInit;
-import io.github.darealturtywurty.ancientology.core.init.EntityInit;
-import io.github.darealturtywurty.ancientology.core.init.FluidInit;
-import io.github.darealturtywurty.ancientology.core.init.ItemInit;
-import io.github.darealturtywurty.ancientology.core.init.MobEffectInit;
+import io.github.darealturtywurty.ancientology.core.data.*;
+import io.github.darealturtywurty.ancientology.core.init.*;
 import io.github.darealturtywurty.ancientology.core.util.registry.ItemDeferredRegister;
 import io.github.darealturtywurty.ancientology.core.worldgen.FeatureGen;
 import io.github.darealturtywurty.ancientology.core.worldgen.OreGeneration;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.event.entity.living.PotionEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -28,6 +15,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
+
+import java.util.Objects;
 
 public final class CommonEvents {
 
@@ -45,7 +34,7 @@ public final class CommonEvents {
         @SubscribeEvent
         public static void removeFlightEffect(PotionEvent.PotionRemoveEvent e) {
             if (Objects.requireNonNull(e.getPotionEffect()).getEffect().equals(MobEffectInit.FLIGHT.get())
-                    && e.getEntityLiving()instanceof Player player) {
+                    && e.getEntityLiving() instanceof Player player) {
                 player.getAbilities().flying = false;
                 player.getAbilities().mayfly = false;
                 player.getAbilities().setFlyingSpeed(0.05F);
@@ -55,7 +44,6 @@ public final class CommonEvents {
 
     @Mod.EventBusSubscriber(modid = Ancientology.MODID, bus = Bus.MOD)
     public static final class ModEvents {
-
         private ModEvents() {
             throw new IllegalAccessError("Illegal access to hidden event bus subscriber class!");
         }
@@ -82,10 +70,9 @@ public final class CommonEvents {
                 generator.addProvider(new ItemModelGenerator(generator, fileHelper));
                 generator.addProvider(new BlockstateGenerator(generator, fileHelper));
 
-                generator.addProvider(new LanguageGenerator(generator)); // EN_US
-                for (final var locale : MinecraftLocale.values()) { // Other Languages
-                    if (locale == MinecraftLocale.EN_US)
-                        continue;
+                generator.addProvider(new LanguageGenerator(generator)); //EN_US
+                for (final var locale : MinecraftLocale.values()) { //Other Languages
+                    if (locale == MinecraftLocale.EN_US) continue;
                     generator.addProvider(new ItemDeferredRegister.BuilderAddedKeys(generator, locale.getLocaleName()));
                 }
             }

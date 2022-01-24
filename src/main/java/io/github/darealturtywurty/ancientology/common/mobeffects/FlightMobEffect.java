@@ -5,9 +5,9 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 
-public class FlightEffect extends MobEffect {
-    public FlightEffect(MobEffectCategory p_19451_, int p_19452_) {
-        super(p_19451_, p_19452_);
+public class FlightMobEffect extends MobEffect {
+    public FlightMobEffect(MobEffectCategory category, int color) {
+        super(category, color);
     }
 
     @Override

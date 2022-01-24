@@ -41,8 +41,8 @@ public class ForbiddenFruitItem extends Item {
     }
 
     private void useItem(Level level, LivingEntity entity) {
-        double d = Math.random();
-        double f = Math.random();
+        double d = RAND.nextDouble();
+        double f = RAND.nextDouble();
         if (d < 0.99) {
             if (f < 0.1) {
                 sendToNether(entity);
