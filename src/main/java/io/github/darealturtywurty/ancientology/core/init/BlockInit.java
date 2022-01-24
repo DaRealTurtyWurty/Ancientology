@@ -91,7 +91,8 @@ public final class BlockInit {
             .renderLayer(CUTOUT)
             .blockItem(p -> p.lang("Sapling of Life"))
             .build();
-
+    
+    //@formatter:on
     private BlockInit() {
         throw new IllegalAccessError("Illegal access to hidden initialization class!");
     }
