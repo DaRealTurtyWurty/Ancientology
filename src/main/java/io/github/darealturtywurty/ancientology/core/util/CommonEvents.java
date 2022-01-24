@@ -1,6 +1,7 @@
 package io.github.darealturtywurty.ancientology.core.util;
 
 import io.github.darealturtywurty.ancientology.Ancientology;
+import io.github.darealturtywurty.ancientology.common.mobeffects.FlightEffect;
 import io.github.darealturtywurty.ancientology.core.data.*;
 import io.github.darealturtywurty.ancientology.core.init.*;
 import io.github.darealturtywurty.ancientology.core.worldgen.FeatureGen;
@@ -15,6 +16,8 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 
+import java.util.Objects;
+
 public final class CommonEvents {
     private CommonEvents() {
         throw new IllegalAccessError("Illegal access to hidden event bus subscriber class!");
@@ -27,9 +30,10 @@ public final class CommonEvents {
         }
 
         @SubscribeEvent
-        public static void removeFlightEffect(PotionEvent.PotionExpiryEvent e) {
-            if (e.getPotionEffect().getEffect().equals(MobEffectInit.FLIGHT.get())) {
+        public static void removeFlightEffect(PotionEvent.PotionRemoveEvent e) {
+            if (Objects.requireNonNull(e.getPotionEffect()).getEffect().equals(MobEffectInit.FLIGHT.get())) {
                 ((Player)e.getEntityLiving()).getAbilities().flying = false;
+                ((Player)e.getEntityLiving()).getAbilities().mayfly = false;
                 ((Player)e.getEntityLiving()).getAbilities().setFlyingSpeed(0.05F);
             }
         }

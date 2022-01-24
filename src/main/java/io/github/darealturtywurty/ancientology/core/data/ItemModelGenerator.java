@@ -7,6 +7,7 @@ import io.github.darealturtywurty.ancientology.core.util.registry.BlockRegistryO
 import io.github.darealturtywurty.ancientology.core.util.registry.ItemRegistryObject;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -18,15 +19,24 @@ public class ItemModelGenerator extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        defaultBlock(BlockInit.LIFE_LOG.getRegistryName(), (BlockItem) BlockInit.LIFE_LOG.get().asItem());
-        defaultBlock(BlockInit.LIFE_LEAVES.getRegistryName(), (BlockItem) BlockInit.LIFE_LEAVES.get().asItem());
-        defaultBlock(BlockInit.LIFE_PLANKS.getRegistryName(), (BlockItem) BlockInit.LIFE_PLANKS.get().asItem());
-        defaultItem(BlockInit.LIFE_SAPLING.getRegistryName(), BlockInit.LIFE_SAPLING.get().asItem());
-        defaultItem(ItemInit.FORBIDDEN_FRUIT.getRegistryName(), ItemInit.FORBIDDEN_FRUIT.get());
+        defaultBlock(BlockInit.LIFE_LOG);
+        defaultBlock(BlockInit.LIFE_LEAVES);
+        defaultBlock(BlockInit.LIFE_PLANKS);
+        defaultBlockItem(BlockInit.LIFE_SAPLING);
+        defaultItem(ItemInit.FORBIDDEN_FRUIT);
+        
         defaultBlock(BlockInit.DEEPSLATE_TIN_ORE);
         defaultBlock(BlockInit.TIN_BLOCK);
         defaultItem(ItemInit.RAW_TIN);
         defaultItem(ItemInit.TIN_INGOT);
+    }
+
+    /**
+     * For blocks such as saplings and torches.
+     */
+    private void defaultBlockItem(BlockRegistryObject<?> reg) {
+        withExistingParent(reg.getId().getPath(), "item/generated").texture("layer0",
+                new ResourceLocation(reg.getId().getNamespace(), "block/" + reg.getId().getPath()));
     }
 
     private void defaultBlock(BlockRegistryObject<?> reg) {

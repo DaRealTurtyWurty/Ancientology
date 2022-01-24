@@ -13,11 +13,16 @@ public class FlightEffect extends MobEffect {
     @Override
     public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
         if (pLivingEntity instanceof Player player) {
-            if (!player.getAbilities().flying) {
-                player.getAbilities().flying = true;
+            player.fallDistance = 0;
+            if (!player.getAbilities().mayfly) {
+                player.getAbilities().mayfly = true;
                 player.getAbilities().setFlyingSpeed(0.05F * (pAmplifier + 1));
             }
         }
-        super.applyEffectTick(pLivingEntity, pAmplifier);
+    }
+
+    @Override
+    public boolean isDurationEffectTick(int pDuration, int pAmplifier) {
+        return true;
     }
 }

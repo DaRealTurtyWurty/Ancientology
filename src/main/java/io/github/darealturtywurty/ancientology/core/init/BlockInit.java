@@ -52,7 +52,6 @@ public final class BlockInit {
             .dropSelf()
             .addTag(BlockTags.LOGS)
             .blockItem(p -> p
-                    .tab(Ancientology.ANCIENTOLOGY_ITEM_TAB)
                     .lang("Log of Life")
                     .lang(MinecraftLocale.EL_GR, "\u039a\u03bf\u03c1\u03bc\u03cc\u03c2 \u03c4\u03b7\u03c2 \u0396\u03c9\u03ae\u03c2"))
             .build();
@@ -62,7 +61,6 @@ public final class BlockInit {
             .withLootTable(block -> LootTableUtils.createCustomLeavesDrops(block, Items.APPLE))
             .addTag(BlockTags.LEAVES)
             .blockItem(p -> p
-                    .tab(Ancientology.ANCIENTOLOGY_ITEM_TAB)
                     .lang("Leaves of Life")
                     .lang(MinecraftLocale.EL_GR, "\u03a6\u03cd\u03bb\u03bb\u03b1 \u03c4\u03b7\u03c2 \u0396\u03c9\u03ae\u03c2"))
             .build();
@@ -72,7 +70,6 @@ public final class BlockInit {
             .dropSelf()
             .addTag(BlockTags.PLANKS)
             .blockItem(p -> p
-                    .tab(Ancientology.ANCIENTOLOGY_ITEM_TAB)
                     .lang("Planks of Life")
                     .lang(MinecraftLocale.EL_GR, "\u03a3\u03b1\u03bd\u03af\u03b4\u03b5\u03c2 \u03c4\u03b7\u03c2 \u0396\u03c9\u03ae\u03c2"))
             .build();
@@ -90,7 +87,6 @@ public final class BlockInit {
             .addTag(BlockTags.SAPLINGS)
             .renderLayer(BlockBuilder.RenderLayer.CUTOUT)
             .blockItem(p -> p
-                    .tab(Ancientology.ANCIENTOLOGY_ITEM_TAB)
                     .lang("Sapling of Life")
                     //.lang(MinecraftLocale.EL_GR, "\u03a3\u03b1\u03bd\u03af\u03b4\u03b5\u03c2 \u03c4\u03b7\u03c2 \u0396\u03c9\u03ae\u03c2")
             )
