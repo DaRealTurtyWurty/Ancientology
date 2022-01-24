@@ -1,12 +1,25 @@
 package io.github.darealturtywurty.ancientology.core.util;
 
-import io.github.darealturtywurty.ancientology.Ancientology;
-import io.github.darealturtywurty.ancientology.common.mobeffects.FlightEffect;
-import io.github.darealturtywurty.ancientology.core.data.*;
-import io.github.darealturtywurty.ancientology.core.init.*;
-import io.github.darealturtywurty.ancientology.core.worldgen.FeatureGen;
+import java.util.Objects;
+
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.entity.player.Player;
+
+import io.github.darealturtywurty.ancientology.Ancientology;
+import io.github.darealturtywurty.ancientology.core.data.BlockTagsGenerator;
+import io.github.darealturtywurty.ancientology.core.data.BlockstateGenerator;
+import io.github.darealturtywurty.ancientology.core.data.ItemModelGenerator;
+import io.github.darealturtywurty.ancientology.core.data.ItemTagsGenerator;
+import io.github.darealturtywurty.ancientology.core.data.LanguageGenerator;
+import io.github.darealturtywurty.ancientology.core.data.LootTableGenerator;
+import io.github.darealturtywurty.ancientology.core.data.RecipeGenerator;
+import io.github.darealturtywurty.ancientology.core.init.BlockInit;
+import io.github.darealturtywurty.ancientology.core.init.EntityInit;
+import io.github.darealturtywurty.ancientology.core.init.FluidInit;
+import io.github.darealturtywurty.ancientology.core.init.ItemInit;
+import io.github.darealturtywurty.ancientology.core.init.MobEffectInit;
+import io.github.darealturtywurty.ancientology.core.util.registry.ItemDeferredRegister;
+import io.github.darealturtywurty.ancientology.core.worldgen.FeatureGen;
 import io.github.darealturtywurty.ancientology.core.worldgen.OreGeneration;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.event.entity.living.PotionEvent;
@@ -15,8 +28,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
-
-import java.util.Objects;
 
 public final class CommonEvents {
     private CommonEvents() {
@@ -70,7 +81,7 @@ public final class CommonEvents {
                 generator.addProvider(new LanguageGenerator(generator)); //EN_US
                 for (final var locale : MinecraftLocale.values()) { //Other Languages
                     if (locale == MinecraftLocale.EN_US) continue;
-                    generator.addProvider(new LanguageGenerator.BuilderAddedKeys(generator, locale.getLocaleName()));
+                    generator.addProvider(new ItemDeferredRegister.BuilderAddedKeys(generator, locale.getLocaleName()));
                 }
             }
 

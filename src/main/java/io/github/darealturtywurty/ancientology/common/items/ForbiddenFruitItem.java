@@ -1,6 +1,12 @@
 package io.github.darealturtywurty.ancientology.common.items;
 
-import io.github.darealturtywurty.ancientology.core.init.ItemInit;
+import static io.github.darealturtywurty.ancientology.core.util.Constants.RAND;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -16,14 +22,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistries;
-import org.lwjgl.system.CallbackI;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
-import java.util.stream.Collectors;
+import io.github.darealturtywurty.ancientology.core.init.ItemInit;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class ForbiddenFruitItem extends Item {
     public static final FoodProperties FOOD = new FoodProperties.Builder().alwaysEat().nutrition(10).saturationMod(0.1f).build();
@@ -38,9 +39,6 @@ public class ForbiddenFruitItem extends Item {
             useItem(pLevel, pLivingEntity);
         return super.finishUsingItem(pStack, pLevel, pLivingEntity);
     }
-    /*
-    Nothing
-     */
 
     private void useItem(Level level, LivingEntity entity) {
         double d = Math.random();
@@ -72,8 +70,8 @@ public class ForbiddenFruitItem extends Item {
 
     public void secondChance(LivingEntity entity) {
         entity.sendMessage(new TranslatableComponent("msg.acientology.fruit_chance"), entity.getUUID());
-        if (entity instanceof Player) {
-            ((Player) entity).addItem(new ItemStack(ItemInit.FORBIDDEN_FRUIT.get()));
+        if (entity instanceof Player player) {
+            player.addItem(new ItemStack(ItemInit.FORBIDDEN_FRUIT.get()));
         }
     }
 
@@ -87,12 +85,11 @@ public class ForbiddenFruitItem extends Item {
     }
 
     public void giveRandomBadEffect(LivingEntity entity) {
-        Random rand = new Random();
         List<MobEffect> effects = new ArrayList<>(ForgeRegistries.MOB_EFFECTS.getValues());
         effects = effects.stream().filter(mobEffect -> !mobEffect.isBeneficial()).collect(Collectors.toList());
-        MobEffect effect = effects.get(rand.nextInt(effects.size()));
-        int duration = rand.nextInt(1, 6) * 1200;
-        int amplifier = rand.nextInt(5);
+        MobEffect effect = effects.get(RAND.nextInt(effects.size()));
+        int duration = RAND.nextInt(1, 6) * 1200;
+        int amplifier = RAND.nextInt(5);
         MobEffectInstance instance = new MobEffectInstance(effect, duration, amplifier);
         entity.addEffect(instance);
         entity.sendMessage(new TranslatableComponent("msg.acientology.fruit_give_bad_effect"), entity.getUUID());
@@ -124,32 +121,30 @@ public class ForbiddenFruitItem extends Item {
     }
 
     public void giveRandomGoodEffect(LivingEntity entity) {
-        Random rand = new Random();
         List<MobEffect> effects = new ArrayList<>(ForgeRegistries.MOB_EFFECTS.getValues());
-        effects = effects.stream().filter(MobEffect::isBeneficial).collect(Collectors.toList());
-        MobEffect effect = effects.get(rand.nextInt(effects.size()));
-        int duration = rand.nextInt(1, 6) * 1200;
-        int amplifier = rand.nextInt(5);
+        effects = effects.stream().filter(MobEffect::isBeneficial).toList();
+        MobEffect effect = effects.get(RAND.nextInt(effects.size()));
+        int duration = RAND.nextInt(1, 6) * 1200;
+        int amplifier = RAND.nextInt(5);
         MobEffectInstance instance = new MobEffectInstance(effect, duration, amplifier);
         entity.addEffect(instance);
         entity.sendMessage(new TranslatableComponent("msg.acientology.fruit_give_good_effect"), entity.getUUID());
     }
 
     public void giveRandomItem(LivingEntity entity) {
-        Random rand = new Random();
         List<Item> items = new ArrayList<>(ForgeRegistries.ITEMS.getValues());
         items = items.stream().filter(item -> item.getItemCategory() != null).collect(Collectors.toList());
         List<Enchantment> enchantments = new ArrayList<>(ForgeRegistries.ENCHANTMENTS.getValues());
 
-        ItemStack stack = new ItemStack(items.get(rand.nextInt(items.size())));
+        ItemStack stack = new ItemStack(items.get(RAND.nextInt(items.size())));
 
-        Enchantment enchant = enchantments.get(rand.nextInt(enchantments.size()));
-        int eLevel = rand.nextInt(enchant.getMaxLevel() + 1);
+        Enchantment enchant = enchantments.get(RAND.nextInt(enchantments.size()));
+        int eLevel = RAND.nextInt(enchant.getMaxLevel() + 1);
         if (eLevel != 0)
             stack.enchant(enchant, eLevel);
 
-        if (entity instanceof ServerPlayer) {
-            ((ServerPlayer) entity).addItem(stack);
+        if (entity instanceof ServerPlayer player) {
+            player.addItem(stack);
             entity.sendMessage(new TranslatableComponent("msg.acientology.fruit_give_item"), entity.getUUID());
         }
     }

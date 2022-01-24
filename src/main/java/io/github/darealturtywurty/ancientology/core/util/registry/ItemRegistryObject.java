@@ -1,5 +1,6 @@
 package io.github.darealturtywurty.ancientology.core.util.registry;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 
 import io.github.darealturtywurty.ancientology.core.util.interfaces.ItemProvider;
@@ -14,5 +15,10 @@ public class ItemRegistryObject<I extends Item> extends WrappedRegistryObject<I>
     @Override
     public Item asItem() {
         return get();
+    }
+
+    @Override
+    public ResourceLocation getRegistryName() {
+        return getId();
     }
 }
