@@ -23,8 +23,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.item.Items;
 
+import io.github.darealturtywurty.ancientology.Ancientology;
+import io.github.darealturtywurty.ancientology.core.init.ItemInit;
 import io.github.darealturtywurty.ancientology.core.util.MinecraftLocale;
+import io.github.darealturtywurty.ancientology.mixins.accessors.LanguageProviderAccessor;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.registries.DeferredRegister;
@@ -157,5 +161,19 @@ public class ItemDeferredRegister extends DeferredRegisterWrapper<Item> {
             });
         }
 
+    }
+
+    public static class BuilderAddedKeys extends LanguageProvider {
+    
+        public BuilderAddedKeys(DataGenerator gen, String locale) {
+            super(gen, Ancientology.MODID, locale);
+        }
+    
+        @Override
+        protected void addTranslations() {
+            final var locale = ((LanguageProviderAccessor) this).getLocale();
+            ItemInit.ITEMS.getLangEntries(MinecraftLocale.byName(locale)).forEach(this::addItem);
+        }
+        
     }
 }

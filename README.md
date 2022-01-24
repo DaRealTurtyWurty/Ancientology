@@ -9,6 +9,7 @@ This uses the Forge modding API and targets Minecraft 1.18.
 ## Additions
 
 - Tin Ore, Raw Tin, Tin Ingot, and Tin Block
+- Tree of Life
 
 ## Modifications
 

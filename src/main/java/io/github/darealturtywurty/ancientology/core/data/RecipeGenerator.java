@@ -1,18 +1,20 @@
 package io.github.darealturtywurty.ancientology.core.data;
 
-import com.google.common.collect.ImmutableList;
-import io.github.darealturtywurty.ancientology.core.init.BlockInit;
-import io.github.darealturtywurty.ancientology.core.init.ItemInit;
+import java.util.List;
+import java.util.function.Consumer;
+
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.world.level.ItemLike;
 
-import java.util.function.Consumer;
+import io.github.darealturtywurty.ancientology.core.init.BlockInit;
+import io.github.darealturtywurty.ancientology.core.init.ItemInit;
 
 public class RecipeGenerator extends RecipeProvider {
 
-    private static final ImmutableList<ItemLike> TIN_SMELTABLES = ImmutableList.of(BlockInit.DEEPSLATE_TIN_ORE, ItemInit.RAW_TIN);
+    private static final java.util.List<ItemLike> TIN_SMELTABLES = List.of(BlockInit.DEEPSLATE_TIN_ORE,
+            ItemInit.RAW_TIN);
 
     public RecipeGenerator(DataGenerator generator) {
         super(generator);
