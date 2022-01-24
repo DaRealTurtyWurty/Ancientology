@@ -24,6 +24,10 @@ public final class BlockInit {
     public static final BlockRegistryObject<Block> TIN_BLOCK = BLOCKS.register("tin_block", Block::new)
             .copyPropertiesFrom(Blocks.IRON_BLOCK).harvestLevel(BlockBuilder.HarvestLevel.STONE).harvestTool(BlockBuilder.HarvestTool.PICKAXE)
             .dropSelf().shapelessRecipe(1, r -> r.requires(ItemInit.TIN_INGOT, 9)).blockItem(item -> item.lang("Block of Tin")).build();
+    
+    public static final BlockRegistryObject<Block> BRONZE_BLOCK = BLOCKS.register("bronze_block", Block::new)
+            .copyPropertiesFrom(Blocks.IRON_BLOCK).harvestLevel(BlockBuilder.HarvestLevel.STONE).harvestTool(BlockBuilder.HarvestTool.PICKAXE)
+            .dropSelf().shapelessRecipe(1, r -> r.requires(ItemInit.BRONZE_INGOT, 9)).blockItem(item -> item.lang("Block of Bronze")).build();
 
     /*
      * public static final BlockRegistryObject<OreBlock> TEST = BLOCKS
