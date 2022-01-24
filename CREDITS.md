@@ -1,19 +1,25 @@
-# Credits
+# Ancientology Credits
+
 ## Programmers
-- TurtyWurty
-> Discord: TurtyWurty#5690 <br>
-> YouTube: https://youtube.com/TurtyWurty <br>
-> GitHub: https://github.com/DaRealTurtyWurty
 
-- Matyrobbrt
-> Discord: matyrobbrt#1756 <br>
-> GitHub: https://github.com/Matyrobbrt; https://github.com/MatyrobbrtMods
+- [TurtyWurty](https://github.com/DaRealTurtyWurty)
+  - Discord: `TurtyWurty#5690`
+  - YouTube: https://youtube.com/TurtyWurty
 
-- ConnorTron110
-> Discord: ConnorTron110#0110 <br>
-> Github: https://github.com/ConnorTron110
+- [Matyrobbrt](https://github.com/Matyrobbrt)
+  - Discord: `matyrobbrt#1756`
+  - Additional GitHub: https://github.com/MatyrobbrtMods
+
+- [ConnorTron110](https://github.com/ConnorTron110)
+  - Discord: `ConnorTron110#0110`
 
 ## Assets
+
 - Comso
-> Discord: Comso#1828 <br>
-> For Raw, Ore and Tin Ingot Textures
+  - Discord: `Comso#1828`
+  - Created: the Raw Tin, Tin Ore, and Tin Ingot textures
+
+## Miscellaneous
+
+- [xf8b](https://github.com/xf8b)
+  - Website: <https://xf8b.github.io>

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "ancientology:life_log"
+    }
+  ],
+  "result": {
+    "item": "ancientology:life_planks",
+    "count": 4
+  }
+}

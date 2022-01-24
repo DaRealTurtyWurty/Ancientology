@@ -8,6 +8,7 @@ import io.github.darealturtywurty.ancientology.core.init.EntityInit;
 import io.github.darealturtywurty.ancientology.core.init.FluidInit;
 import io.github.darealturtywurty.ancientology.core.init.ItemInit;
 import io.github.darealturtywurty.ancientology.core.util.MinecraftLocale;
+import io.github.darealturtywurty.ancientology.core.util.registry.ItemDeferredRegister;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -30,9 +31,13 @@ public final class DataGen {
         if (event.includeClient()) {
             generator.addProvider(new ItemModelGenerator(generator, fileHelper));
             generator.addProvider(new BlockstateGenerator(generator, fileHelper));
+            generator.addProvider(new LanguageGenerator(generator)); // EN_US
 
-            for (final var locale : MinecraftLocale.values()) {
-                generator.addProvider(new LanguageGenerator.BuilderAddedKeys(generator, locale.getLocaleName()));
+            for (final var locale : MinecraftLocale.values()) { // Other Languages
+                if (locale == MinecraftLocale.EN_US) {
+                    continue;
+                }
+                generator.addProvider(new ItemDeferredRegister.BuilderAddedKeys(generator, locale.getLocaleName()));
             }
         }
 

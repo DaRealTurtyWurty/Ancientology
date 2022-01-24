@@ -1,5 +1,6 @@
 package io.github.darealturtywurty.ancientology.core.util.registry;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
@@ -20,5 +21,10 @@ public class BlockRegistryObject<B extends Block> extends WrappedRegistryObject<
     @Override
     public Block asBlock() {
         return get();
+    }
+
+    @Override
+    public ResourceLocation getRegistryName() {
+        return getId();
     }
 }
