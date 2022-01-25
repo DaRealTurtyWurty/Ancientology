@@ -15,3 +15,10 @@ issueTrackerURL="https://github.com/DaRealTurtyWurty/Ancientology/issues"
 	description='''
 	A Minecraft Mod for Forge 1.18 made by Turty's Productions Modding Community with the theme of Ancient/Mythology!
 	'''
+
+[[dependencies.ancientology]]
+    modId="geckolib3"
+    mandatory=true
+    versionRange="[3.0.7,)"
+    ordering="AFTER"
+    side="CLIENT"
