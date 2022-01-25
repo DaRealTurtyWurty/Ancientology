@@ -22,15 +22,18 @@ public class Ancientology {
     };
 
     public Ancientology() {
-        final IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-        
-        GeckoLib.initialize();
+        try { initGecko(); } catch (ClassNotFoundException ignored) { /*Should catch in server as Gecko is client only, mods.toml handles the rest*/ }
 
+        final IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         BlockInit.BLOCKS.register(bus);
         ItemInit.ITEMS.register(bus);
         FluidInit.FLUIDS.register(bus);
         BlockEntityInit.BLOCK_ENTITIES.register(bus);
         EntityInit.ENTITIES.register(bus);
         MobEffectInit.MOB_EFFECTS.register(bus);
+    }
+
+    private void initGecko() throws ClassNotFoundException {
+        GeckoLib.initialize();
     }
 }
