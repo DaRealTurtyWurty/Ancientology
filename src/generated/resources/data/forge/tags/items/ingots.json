@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "ancientology:tin_ingot"
+    "ancientology:tin_ingot",
+    "ancientology:bronze_ingot"
   ]
 }

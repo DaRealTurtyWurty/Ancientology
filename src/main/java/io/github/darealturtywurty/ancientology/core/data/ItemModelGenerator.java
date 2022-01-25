@@ -21,8 +21,18 @@ public class ItemModelGenerator extends ItemModelProvider {
     protected void registerModels() {
         defaultBlock(BlockInit.DEEPSLATE_TIN_ORE);
         defaultBlock(BlockInit.TIN_BLOCK);
+        defaultBlock(BlockInit.BRONZE_BLOCK);
         defaultItem(ItemInit.RAW_TIN);
         defaultItem(ItemInit.TIN_INGOT);
+        defaultItem(ItemInit.TIN_NUGGET);
+        defaultItem(ItemInit.BRONZE_INGOT);
+        defaultItem(ItemInit.BRONZE_NUGGET);
+        handheldItem(ItemInit.FLINT_AXE);
+        handheldItem(ItemInit.FLINT_DAGGER);
+        handheldItem(ItemInit.FLINT_HOE);
+        handheldItem(ItemInit.FLINT_PICKAXE);
+        handheldItem(ItemInit.FLINT_SHOVEL);
+        
     }
 
     private void defaultBlock(BlockRegistryObject<?> reg) {
@@ -32,6 +42,11 @@ public class ItemModelGenerator extends ItemModelProvider {
 
     private void defaultItem(ItemRegistryObject<?> reg) {
         withExistingParent(reg.getId().getPath(), "item/generated").texture("layer0",
+                new ResourceLocation(reg.getId().getNamespace(), "item/" + reg.getId().getPath()));
+    }
+    
+    private void handheldItem(ItemRegistryObject<?> reg) {
+        withExistingParent(reg.getId().getPath(), "item/handheld").texture("layer0",
                 new ResourceLocation(reg.getId().getNamespace(), "item/" + reg.getId().getPath()));
     }
 }

@@ -16,5 +16,6 @@ public class BlockstateGenerator extends BlockStateProvider {
     protected void registerStatesAndModels() {
         simpleBlock(BlockInit.DEEPSLATE_TIN_ORE.get());
         simpleBlock(BlockInit.TIN_BLOCK.get());
+        simpleBlock(BlockInit.BRONZE_BLOCK.get());
     }
 }

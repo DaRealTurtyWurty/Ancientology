@@ -1,7 +1,16 @@
 {
+  "block.ancientology.bronze_block": "Block of Bronze",
   "block.ancientology.deepslate_tin_ore": "Deepslate Tin Ore",
   "block.ancientology.tin_block": "Block of Tin",
+  "item.ancientology.bronze_ingot": "Bronze Ingot",
+  "item.ancientology.bronze_nugget": "Bronze Nugget",
+  "item.ancientology.flint_axe": "Flint Axe",
+  "item.ancientology.flint_dagger": "Flint Dagger",
+  "item.ancientology.flint_hoe": "Flint Hoe",
+  "item.ancientology.flint_pickaxe": "Flint Pickaxe",
+  "item.ancientology.flint_shovel": "Flint Shovel",
   "item.ancientology.raw_tin": "Raw Tin",
   "item.ancientology.tin_ingot": "Tin Ingot",
+  "item.ancientology.tin_nugget": "Tin Nugget",
   "itemGroup.ancientology": "Ancientology"
 }

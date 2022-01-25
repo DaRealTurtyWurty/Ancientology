@@ -1,9 +1,15 @@
 package io.github.darealturtywurty.ancientology.core.init;
 
 import io.github.darealturtywurty.ancientology.Ancientology;
+import io.github.darealturtywurty.ancientology.core.materials.ToolMaterials;
 import io.github.darealturtywurty.ancientology.core.util.registry.ItemDeferredRegister;
 import io.github.darealturtywurty.ancientology.core.util.registry.ItemRegistryObject;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.item.ShovelItem;
+import net.minecraft.world.item.SwordItem;
 import net.minecraftforge.common.Tags;
 
 public final class ItemInit {
@@ -26,13 +32,16 @@ public final class ItemInit {
     		.addTag(Tags.Items.NUGGETS).build();
  
     // Flint Tools
-    /*	
-    public static final ItemRegistryObject<Item> FLINT_DAGGER = ITEMS.register("flint_dagger", () -> new SwordItem(ToolMaterials.flint, 3, -2.4f)).lang("Flint Dagger");
-	public static final ItemRegistryObject<Item> FLINT_AXE = ITEMS.register("flint_axe", () -> new AxeItem(ToolMaterials.flint, 3, -2.8f)).lang("Flint Axe");
-	public static final ItemRegistryObject<Item> FLINT_PICKAXE = ITEMS.register("flint_pickaxe", () -> new PickaxeItem(ToolMaterials.flint, 2, -2.8f)).lang("Flint Pickaxe");
-	public static final ItemRegistryObject<Item> FLINT_SHOVEL = ITEMS.register("flint_shovel", () -> new ShovelItem(ToolMaterials.flint, 2, -2.8f)).lang("Flint Shovel");
-	public static final ItemRegistryObject<Item> FLINT_HOE = ITEMS.register("flint_hoe", () -> new HoeItem(ToolMaterials.flint, 2, -2.8f)).lang("Flint Hoe");
-    //*/
+    public static final ItemRegistryObject<SwordItem> FLINT_DAGGER = ITEMS.register("flint_dagger", properties -> new SwordItem(ToolMaterials.flint, 3, -2.4f, properties))
+    		.lang("Flint Dagger").build();
+	public static final ItemRegistryObject<AxeItem> FLINT_AXE = ITEMS.register("flint_axe", properties ->  new AxeItem(ToolMaterials.flint, 3, -2.8f, properties))
+			.lang("Flint Axe").build();
+	public static final ItemRegistryObject<PickaxeItem> FLINT_PICKAXE = ITEMS.register("flint_pickaxe", properties ->  new PickaxeItem(ToolMaterials.flint, 2, -2.8f, properties))
+			.lang("Flint Pickaxe").build();
+	public static final ItemRegistryObject<ShovelItem> FLINT_SHOVEL = ITEMS.register("flint_shovel", properties ->  new ShovelItem(ToolMaterials.flint, 2, -2.8f, properties))
+			.lang("Flint Shovel").build();
+	public static final ItemRegistryObject<HoeItem> FLINT_HOE = ITEMS.register("flint_hoe", properties ->  new HoeItem(ToolMaterials.flint, 2, -2.8f, properties)).lang("Flint Hoe")
+			.build();
 
     // Bone Tools
     
