@@ -3,7 +3,7 @@
 	
 	"ingredients": 
 	[
-		{"item": "ancientology:leather_legs"},
+		{"item": "minecraft:leather_leggings"},
 		{"item": "minecraft:bone"},
 		{"item": "minecraft:bone"},
 		{"item": "minecraft:bone"},
@@ -13,5 +13,5 @@
 		{"item": "minecraft:bone"}
 	],
 	
-	"result": { "item": "ancientology:bone_legs"}
+	"result": { "item": "ancientology:bone_leggings"}
 }

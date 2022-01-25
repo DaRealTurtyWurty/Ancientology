@@ -9,8 +9,8 @@
 	
 	"key":
 	{
-		"I": {"item": "ancienology:bronze_ingot"}
+		"I": {"item": "ancientology:bronze_ingot"}
 	},
 	
-	"result": { "item": "ancientology:bronze_head"}
+	"result": { "item": "ancientology:bronze_helmet"}
 }
