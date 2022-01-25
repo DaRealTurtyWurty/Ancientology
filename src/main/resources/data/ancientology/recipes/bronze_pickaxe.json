@@ -1,0 +1,18 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		"III",
+		" S ",
+		" S "
+	],
+	
+	"key":
+	{
+		"I": {"item": "ancientology:bronze_ingot"},
+		"S": {"item": "minecraft:stick"}
+	},
+	
+	"result": { "item": "ancientology:bronze_pickaxe"}
+}

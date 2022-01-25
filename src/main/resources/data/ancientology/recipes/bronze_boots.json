@@ -1,0 +1,16 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		"I I",
+		"I I"
+	],
+	
+	"key":
+	{
+		"I": {"item": "ancienology:bronze_ingot"}
+	},
+	
+	"result": { "item": "ancientology:bronze_feet"}
+}
