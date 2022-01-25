@@ -1,5 +1,6 @@
 package io.github.darealturtywurty.ancientology.core.init;
 
+import static io.github.darealturtywurty.ancientology.core.util.registry.BlockBuilder.HarvestLevel.IRON;
 import static io.github.darealturtywurty.ancientology.core.util.registry.BlockBuilder.HarvestLevel.STONE;
 import static io.github.darealturtywurty.ancientology.core.util.registry.BlockBuilder.HarvestLevel.WOOD;
 import static io.github.darealturtywurty.ancientology.core.util.registry.BlockBuilder.HarvestTool.AXE;
@@ -22,8 +23,10 @@ import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 
 import io.github.darealturtywurty.ancientology.Ancientology;
+import io.github.darealturtywurty.ancientology.common.blocks.JumprasherBlock;
 import io.github.darealturtywurty.ancientology.core.util.LootTableUtils;
 import io.github.darealturtywurty.ancientology.core.util.MinecraftLocale;
+import io.github.darealturtywurty.ancientology.core.util.registry.BlockBuilder.RenderLayer;
 import io.github.darealturtywurty.ancientology.core.util.registry.BlockDeferredRegister;
 import io.github.darealturtywurty.ancientology.core.util.registry.BlockRegistryObject;
 import io.github.darealturtywurty.ancientology.core.worldgen.FeatureGen;
@@ -90,6 +93,12 @@ public final class BlockInit {
             .addTag(BlockTags.SAPLINGS)
             .renderLayer(CUTOUT)
             .blockItem(p -> p.lang("Sapling of Life"))
+            .build();
+    
+    public static final BlockRegistryObject<JumprasherBlock> JUMPRASHER = BLOCKS.register("jumprasher", p -> new JumprasherBlock(p))
+            .harvestLevel(IRON).harvestTool(AXE).dropSelf()
+            .blockItem(i -> i.lang("Jumprasher"))
+            .renderLayer(RenderLayer.CUTOUT_MIPPED).noOcclusion()
             .build();
     
     //@formatter:on

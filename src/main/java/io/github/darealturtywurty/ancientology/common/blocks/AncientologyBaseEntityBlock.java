@@ -2,6 +2,7 @@ package io.github.darealturtywurty.ancientology.common.blocks;
 
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -13,6 +14,11 @@ public abstract class AncientologyBaseEntityBlock extends BaseEntityBlock {
 
     protected AncientologyBaseEntityBlock(Properties properties) {
         super(properties);
+    }
+
+    @Override
+    public RenderShape getRenderShape(BlockState pState) {
+        return RenderShape.MODEL;
     }
 
     @Override

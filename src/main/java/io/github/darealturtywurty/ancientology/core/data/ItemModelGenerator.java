@@ -23,13 +23,15 @@ public class ItemModelGenerator extends ItemModelProvider {
         defaultBlock(BlockInit.LIFE_LOG);
         defaultBlock(BlockInit.LIFE_LEAVES);
         defaultBlock(BlockInit.LIFE_PLANKS);
-        defaultBlockItem(BlockInit.LIFE_SAPLING);
+        defaultItem(BlockInit.LIFE_SAPLING);
         defaultItem(ItemInit.FORBIDDEN_FRUIT);
 
         defaultBlock(BlockInit.DEEPSLATE_TIN_ORE);
         defaultBlock(BlockInit.TIN_BLOCK);
         defaultItem(ItemInit.RAW_TIN);
         defaultItem(ItemInit.TIN_INGOT);
+
+        defaultBlockItem(BlockInit.JUMPRASHER);
     }
 
     /**
@@ -37,8 +39,7 @@ public class ItemModelGenerator extends ItemModelProvider {
      */
     private void defaultBlockItem(BlockProvider block) {
         final var regName = block.getRegistryName();
-        withExistingParent(regName.getPath(), "item/generated").texture("layer0",
-                new ResourceLocation(regName.getNamespace(), "block/" + regName.getPath()));
+        withExistingParent(regName.getPath(), regName.getNamespace() + ":block/" + regName.getPath());
     }
 
     private void defaultBlock(BlockProvider block) {
