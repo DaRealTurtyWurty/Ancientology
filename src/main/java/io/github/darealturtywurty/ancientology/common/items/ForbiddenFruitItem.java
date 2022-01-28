@@ -1,12 +1,7 @@
 package io.github.darealturtywurty.ancientology.common.items;
 
-import static io.github.darealturtywurty.ancientology.core.util.Constants.RAND;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
+import io.github.darealturtywurty.ancientology.Ancientology;
+import io.github.darealturtywurty.ancientology.core.init.ItemInit;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -22,9 +17,14 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
-
-import io.github.darealturtywurty.ancientology.core.init.ItemInit;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+import static io.github.darealturtywurty.ancientology.core.util.Constants.RAND;
 
 public class ForbiddenFruitItem extends Item {
     public static final FoodProperties FOOD = new FoodProperties.Builder().alwaysEat().nutrition(10).saturationMod(0.1f).build();
@@ -69,14 +69,14 @@ public class ForbiddenFruitItem extends Item {
     }
 
     public void secondChance(LivingEntity entity) {
-        entity.sendMessage(new TranslatableComponent("msg.ancientology.fruit_chance"), entity.getUUID());
+        entity.sendMessage(new TranslatableComponent("msg." + Ancientology.MODID + ".fruit_chance"), entity.getUUID());
         if (entity instanceof Player player) {
             player.addItem(new ItemStack(ItemInit.FORBIDDEN_FRUIT.get()));
         }
     }
 
     public void rainOfArrows(LivingEntity entity, Level level) {
-        entity.sendMessage(new TranslatableComponent("msg.ancientology.fruit_arrow_rain"), entity.getUUID());
+        entity.sendMessage(new TranslatableComponent("msg." + Ancientology.MODID + ".fruit_arrow_rain"), entity.getUUID());
         for (int j = 0; j < 30; j++) {
             Arrow bolt = new Arrow(EntityType.ARROW, level);
             bolt.setPos(entity.getX(), entity.getY() + 1, entity.getZ());
@@ -92,11 +92,11 @@ public class ForbiddenFruitItem extends Item {
         int amplifier = RAND.nextInt(5);
         MobEffectInstance instance = new MobEffectInstance(effect, duration, amplifier);
         entity.addEffect(instance);
-        entity.sendMessage(new TranslatableComponent("msg.ancientology.fruit_give_bad_effect"), entity.getUUID());
+        entity.sendMessage(new TranslatableComponent("msg." + Ancientology.MODID + ".fruit_give_bad_effect"), entity.getUUID());
     }
 
     public void removeHunger(LivingEntity entity) {
-        entity.sendMessage(new TranslatableComponent("msg.ancientology.fruit_hunger"), entity.getUUID());
+        entity.sendMessage(new TranslatableComponent("msg." + Ancientology.MODID + ".fruit_hunger"), entity.getUUID());
         if (entity instanceof Player player) {
             player.getFoodData().setFoodLevel(0);
             player.getFoodData().setSaturation(0);
@@ -104,7 +104,7 @@ public class ForbiddenFruitItem extends Item {
     }
 
     public void lightningStorm(LivingEntity entity, Level level) {
-        entity.sendMessage(new TranslatableComponent("msg.ancientology.fruit_lightning"), entity.getUUID());
+        entity.sendMessage(new TranslatableComponent("msg." + Ancientology.MODID + ".fruit_lightning"), entity.getUUID());
         for (int j = 0; j < 10; j++) {
             LightningBolt bolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
             bolt.setPos(entity.getX(), entity.getY(), entity.getZ());
@@ -116,7 +116,7 @@ public class ForbiddenFruitItem extends Item {
         if (entity instanceof ServerPlayer player) {
             ServerLevel toLevel = Objects.requireNonNull(entity.level.getServer()).getLevel(Level.NETHER);
             player.teleportTo(toLevel, entity.blockPosition().getX(), Math.min(entity.blockPosition().getY(), 122), entity.blockPosition().getZ(), 0, 0);
-            entity.sendMessage(new TranslatableComponent("msg.ancientology.fruit_nether"), entity.getUUID());
+            entity.sendMessage(new TranslatableComponent("msg." + Ancientology.MODID + ".fruit_nether"), entity.getUUID());
         }
     }
 
@@ -128,7 +128,7 @@ public class ForbiddenFruitItem extends Item {
         int amplifier = RAND.nextInt(5);
         MobEffectInstance instance = new MobEffectInstance(effect, duration, amplifier);
         entity.addEffect(instance);
-        entity.sendMessage(new TranslatableComponent("msg.ancientology.fruit_give_good_effect"), entity.getUUID());
+        entity.sendMessage(new TranslatableComponent("msg." + Ancientology.MODID + ".fruit_give_good_effect"), entity.getUUID());
     }
 
     public void giveRandomItem(LivingEntity entity) {
@@ -145,7 +145,7 @@ public class ForbiddenFruitItem extends Item {
 
         if (entity instanceof ServerPlayer player) {
             player.addItem(stack);
-            entity.sendMessage(new TranslatableComponent("msg.ancientology.fruit_give_item"), entity.getUUID());
+            entity.sendMessage(new TranslatableComponent("msg." + Ancientology.MODID + ".fruit_give_item"), entity.getUUID());
         }
     }
 }
