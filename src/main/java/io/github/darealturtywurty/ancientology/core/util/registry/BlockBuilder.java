@@ -247,6 +247,11 @@ public class BlockBuilder<B extends Block> implements Builder<B> {
         return this;
     }
 
+    public BlockBuilder<B> noOcclusion() {
+        this.properties.noOcclusion();
+        return this;
+    }
+
     /**
      * Creates a shaped recipe for the block. <br>
      * In order for the recipe to be generated, {@code runData} needs to be run.<br>
