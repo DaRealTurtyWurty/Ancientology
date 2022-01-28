@@ -40,37 +40,42 @@ public enum ArmorMaterials implements ArmorMaterial {
       this.repairIngredient = repairIngredient;
    }
 
+   @Override
    public int getDurabilityForSlot(EquipmentSlot pSlot) {
       return HEALTH_PER_SLOT[pSlot.getIndex()] * this.durabilityMultiplier;
    }
 
+   @Override
    public int getDefenseForSlot(EquipmentSlot pSlot) {
       return this.slotProtections[pSlot.getIndex()];
    }
 
+   @Override
    public int getEnchantmentValue() {
       return this.enchantmentValue;
    }
 
+   @Override
    public SoundEvent getEquipSound() {
       return this.sound;
    }
 
+   @Override
    public Ingredient getRepairIngredient() {
       return this.repairIngredient.get();
    }
 
+   @Override
    public String getName() {
       return this.name;
    }
 
+   @Override
    public float getToughness() {
       return this.toughness;
    }
 
-   /**
-    * Gets the percentage of knockback resistance provided by armor of the material.
-    */
+   @Override
    public float getKnockbackResistance() {
       return this.knockbackResistance;
    }

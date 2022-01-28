@@ -33,26 +33,32 @@ public enum ToolMaterials implements Tier {
       this.repairIngredient = repairIngredient;
    }
 
+   @Override
    public int getUses() {
       return this.uses;
    }
 
+   @Override
    public float getSpeed() {
       return this.speed;
    }
 
+   @Override
    public float getAttackDamageBonus() {
       return this.damage;
    }
 
+   @Override
    public int getLevel() {
       return this.level;
    }
 
+   @Override
    public int getEnchantmentValue() {
       return this.enchantmentValue;
    }
 
+   @Override
    public Ingredient getRepairIngredient() {
       return this.repairIngredient.get();
    }

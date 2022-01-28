@@ -1,14 +1,17 @@
 {
-	"type": "minecraft:crafting_shapeless",
+	"type": "minecraft:crafting_shaped",
 	
-	"ingredients": 
+	"pattern":
 	[
-		{"item": "minecraft:leather_boots"},
-		{"item": "minecraft:bone"},
-		{"item": "minecraft:bone"},
-		{"item": "minecraft:bone"},
-		{"item": "minecraft:bone"}
+		"L L",
+		"B B"
 	],
+	
+	"key":
+	{
+		"B": {"item": "minecraft:bone"},
+		"L": {"item": "minecraft:leather"}
+	},
 	
 	"result": { "item": "ancientology:bone_boots"}
 }

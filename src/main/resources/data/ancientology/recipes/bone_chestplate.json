@@ -1,18 +1,18 @@
 {
-	"type": "minecraft:crafting_shapeless",
+	"type": "minecraft:crafting_shaped",
 	
-	"ingredients": 
+	"pattern":
 	[
-		{"item": "minecraft:leather_chestplate"},
-		{"item": "minecraft:bone"},
-		{"item": "minecraft:bone"},
-		{"item": "minecraft:bone"},
-		{"item": "minecraft:bone"},
-		{"item": "minecraft:bone"},
-		{"item": "minecraft:bone"},
-		{"item": "minecraft:bone"},
-		{"item": "minecraft:bone"}
+		"L L",
+		"BBB",
+		"LBL"
 	],
+	
+	"key":
+	{
+		"B": {"item": "minecraft:bone"},
+		"L": {"item": "minecraft:leather"}
+	},
 	
 	"result": { "item": "ancientology:bone_chestplate"}
 }
