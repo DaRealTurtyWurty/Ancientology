@@ -1,0 +1,18 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		"L L",
+		"BBB",
+		"LBL"
+	],
+	
+	"key":
+	{
+		"B": {"item": "minecraft:bone"},
+		"L": {"item": "minecraft:leather"}
+	},
+	
+	"result": { "item": "ancientology:bone_chestplate"}
+}

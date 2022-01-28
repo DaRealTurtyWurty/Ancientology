@@ -1,0 +1,17 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		"I I",
+		"III",
+		"III"
+	],
+	
+	"key":
+	{
+		"I": {"item": "ancientology:bronze_ingot"}
+	},
+	
+	"result": { "item": "ancientology:bronze_chestplate"}
+}

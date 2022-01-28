@@ -50,6 +50,13 @@ public final class BlockInit {
             .dropSelf().requiresCorrectToolForDrops()
             .shapelessRecipe(1, r -> r.requires(ItemInit.TIN_INGOT, 9))
             .blockItem(item -> item.lang("Block of Tin")).build();
+    
+    public static final BlockRegistryObject<Block> BRONZE_BLOCK = BLOCKS.register("bronze_block", Block::new)
+            .copyPropertiesFrom(Blocks.IRON_BLOCK)
+            .harvestLevel(STONE).harvestTool(PICKAXE)
+            .dropSelf().requiresCorrectToolForDrops()
+            .shapelessRecipe(1, r -> r.requires(ItemInit.BRONZE_INGOT, 9))
+            .blockItem(item -> item.lang("Block of Bronze")).build();
 
     public static final BlockRegistryObject<RotatedPillarBlock> LIFE_LOG = BLOCKS.register("life_log", RotatedPillarBlock::new)
             .copyPropertiesFrom(Blocks.OAK_LOG)

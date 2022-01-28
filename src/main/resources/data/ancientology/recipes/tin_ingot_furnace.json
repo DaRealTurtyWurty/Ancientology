@@ -1,0 +1,11 @@
+{
+	"type": "minecraft:smelting",
+	
+	"ingredient": {"item": "ancientology:raw_tin"},
+	
+	"result": { "item": "ancientology:tin_ingot"},
+	
+	"experience": 1,
+	
+	"cookingtime": 200
+}

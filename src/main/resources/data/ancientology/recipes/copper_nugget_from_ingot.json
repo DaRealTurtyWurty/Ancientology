@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		"I"
+	],
+	
+	"key":
+	{
+		"I": {"item": "minecraft:copper_ingot"}
+	},
+	
+	"result": 
+	{ 
+		"count": 9,
+		"item": "ancientology:copper_nugget"
+	}
+}

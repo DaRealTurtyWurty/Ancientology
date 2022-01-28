@@ -11,12 +11,17 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition.Builder;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public final class LootTableUtils extends BlockLoot {
 
-    private LootTableUtils() {
+	// These variables did not exist so there were errors in createCustomLeavesDrops...
+    private static final Builder HAS_NO_SHEARS_OR_SILK_TOUCH = null;
+	private static final float NORMAL_LEAVES_SAPLING_CHANCES = 0;
+
+	private LootTableUtils() {
         throw new IllegalAccessError("Illegal access to hidden utility class!");
     }
 
@@ -32,7 +37,7 @@ public final class LootTableUtils extends BlockLoot {
                         .when(HAS_NO_SHEARS_OR_SILK_TOUCH).add(applyExplosionDecay(pLeavesBlock, LootItem.lootTableItem(pApple)))
                         .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.02F, 0.022222223F, 0.025F, 0.033333335F, 0.1F)));
     }
-  
+    
     public static LootTable.Builder createOreDrops(Block block, Item rawItem, float minCount, float maxCount) {
         return createSilkTouchDispatchTable(block, applyExplosionDecay(block, LootItem.lootTableItem(rawItem).apply(SetItemCountFunction.setCount(UniformGenerator.between(minCount, maxCount))).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
     }
