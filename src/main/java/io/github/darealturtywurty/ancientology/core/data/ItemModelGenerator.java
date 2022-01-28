@@ -102,14 +102,14 @@ public class ItemModelGenerator extends ItemModelProvider {
                 item.getRegistryName().getNamespace(), "item/" + item.getRegistryName().getPath()));
     }
     
-    private void dyeableItem(ItemRegistryObject<?> reg) {
-        withExistingParent(reg.getId().getPath(), "item/generated").texture("layer0",
-                new ResourceLocation(reg.getId().getNamespace(), "item/" + reg.getId().getPath()))
-                .texture("layer1", new ResourceLocation(reg.getId().getNamespace(), "item/" + reg.getId().getPath() + "_overlay"));
+    private void dyeableItem(ItemProvider item) {
+        withExistingParent(item.getRegistryName().getPath(), "item/generated").texture("layer0",
+                new ResourceLocation(item.getRegistryName().getNamespace(), "item/" + item.getRegistryName().getPath()))
+                .texture("layer1", new ResourceLocation(item.getRegistryName().getNamespace(), "item/" + item.getRegistryName().getPath() + "_overlay"));
     }
     
-    private void handheldItem(ItemRegistryObject<?> reg) {
-        withExistingParent(reg.getId().getPath(), "item/handheld").texture("layer0",
-                new ResourceLocation(reg.getId().getNamespace(), "item/" + reg.getId().getPath()));
+    private void handheldItem(ItemProvider item) {
+        withExistingParent(item.getRegistryName().getPath(), "item/handheld").texture("layer0",
+                new ResourceLocation(item.getRegistryName().getNamespace(), "item/" + item.getRegistryName().getPath()));
     }
 }

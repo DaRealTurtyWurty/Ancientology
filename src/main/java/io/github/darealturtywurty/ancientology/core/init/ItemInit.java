@@ -13,14 +13,11 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.DyeableArmorItem;
 import net.minecraft.world.item.HoeItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.SwordItem;
 import io.github.darealturtywurty.ancientology.common.items.ForbiddenFruitItem;
 import io.github.darealturtywurty.ancientology.core.util.MinecraftLocale;
-import io.github.darealturtywurty.ancientology.core.util.registry.ItemDeferredRegister;
-import io.github.darealturtywurty.ancientology.core.util.registry.ItemRegistryObject;
 import net.minecraftforge.common.Tags;
 
 //@formatter:off
