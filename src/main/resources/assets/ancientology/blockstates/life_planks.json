@@ -1,7 +1,7 @@
 {
-  "variants": {
-    "": {
-      "model": "ancientology:block/life_planks"
+    "variants": {
+        "": {
+            "model": "ancientology:block/life_planks"
+        }
     }
-  }
 }

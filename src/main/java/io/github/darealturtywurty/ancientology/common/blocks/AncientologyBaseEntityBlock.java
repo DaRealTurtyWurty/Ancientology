@@ -10,7 +10,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 public abstract class AncientologyBaseEntityBlock extends BaseEntityBlock {
-    
     protected AncientologyBaseEntityBlock(Properties properties) {
         super(properties);
     }
@@ -26,5 +25,4 @@ public abstract class AncientologyBaseEntityBlock extends BaseEntityBlock {
         return level.isClientSide ? ($, $1, $2, be) -> ((TickableBlockEntity) be).clientTick()
                 : ($, $1, $2, be) -> ((TickableBlockEntity) be).serverTick();
     }
-    
 }

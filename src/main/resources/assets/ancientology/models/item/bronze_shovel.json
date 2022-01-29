@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:item/handheld",
-  "textures": {
-    "layer0": "ancientology:item/bronze_shovel"
-  }
+    "parent": "minecraft:item/handheld",
+    "textures": {
+        "layer0": "ancientology:item/bronze_shovel"
+    }
 }

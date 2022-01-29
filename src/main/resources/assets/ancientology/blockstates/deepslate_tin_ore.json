@@ -1,7 +1,7 @@
 {
-  "variants": {
-    "": {
-      "model": "ancientology:block/deepslate_tin_ore"
+    "variants": {
+        "": {
+            "model": "ancientology:block/deepslate_tin_ore"
+        }
     }
-  }
 }

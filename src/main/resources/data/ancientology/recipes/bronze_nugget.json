@@ -1,20 +1,18 @@
 {
-	"type": "minecraft:crafting_shaped",
-	
-	"pattern":
-	[
-		"CTC"
-	],
-	
-	"key":
-	{
-		"C": {"item": "ancientology:copper_nugget"},
-		"T": {"item": "ancientology:tin_nugget"}
-	},
-	
-	"result": 
-	{ 
-		"count": 3,
-		"item": "ancientology:bronze_nugget"
-	}
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "CTC"
+    ],
+    "key": {
+        "C": {
+            "item": "ancientology:copper_nugget"
+        },
+        "T": {
+            "item": "ancientology:tin_nugget"
+        }
+    },
+    "result": {
+        "count": 3,
+        "item": "ancientology:bronze_nugget"
+    }
 }

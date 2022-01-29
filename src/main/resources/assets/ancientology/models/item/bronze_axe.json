@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:item/handheld",
-  "textures": {
-    "layer0": "ancientology:item/bronze_axe"
-  }
+    "parent": "minecraft:item/handheld",
+    "textures": {
+        "layer0": "ancientology:item/bronze_axe"
+    }
 }

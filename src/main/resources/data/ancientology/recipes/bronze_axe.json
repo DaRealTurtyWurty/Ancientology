@@ -1,18 +1,19 @@
 {
-	"type": "minecraft:crafting_shaped",
-	
-	"pattern":
-	[
-		"II",
-		"IS",
-		" S"
-	],
-	
-	"key":
-	{
-		"I": {"item": "ancienology:bronze_ingot"},
-		"S": {"item": "minecraft:stick"}
-	},
-	
-	"result": { "item": "ancientology:bronze_axe"}
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "II",
+        "IS",
+        " S"
+    ],
+    "key": {
+        "I": {
+            "item": "ancientology:bronze_ingot"
+        },
+        "S": {
+            "item": "minecraft:stick"
+        }
+    },
+    "result": {
+        "item": "ancientology:bronze_axe"
+    }
 }

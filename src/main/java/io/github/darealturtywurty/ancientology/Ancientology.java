@@ -9,11 +9,11 @@ import io.github.darealturtywurty.ancientology.core.init.RecipeInit;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
+import software.bernie.example.GeckoLibMod;
 import software.bernie.geckolib3.GeckoLib;
 
 @Mod(Ancientology.MODID)
@@ -28,7 +28,8 @@ public class Ancientology {
     };
 
     public Ancientology() {
-        if (FMLEnvironment.dist == Dist.CLIENT) {
+        if (FMLEnvironment.dist.isClient()) {
+            GeckoLibMod.DISABLE_IN_DEV = true;
             GeckoLib.initialize();
         }
 

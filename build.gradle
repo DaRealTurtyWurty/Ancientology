@@ -86,24 +86,23 @@ repositories {
         url = "https://modmaven.dev"
     }
     
+    // Geckolib maven
     maven { 
         url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' 
     }
-    maven {
-        url "https://dl.cloudsmith.io/public/matyrobbrt/matylib/maven/"
-    }
+    
+    // Patchouli maven
     maven { url 'https://maven.blamejared.com' }
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.1-39.0.59'
+    minecraft 'net.minecraftforge:forge:1.18.1-39.0.63'
     annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
     
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
     
     implementation fg.deobf("software.bernie.geckolib:geckolib-1.18-forge:${geckolib_version}")
-    implementation fg.deobf("com.matyrobbrt:matylib-${mc_version}:${matylib_version}")
     
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}:api")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")

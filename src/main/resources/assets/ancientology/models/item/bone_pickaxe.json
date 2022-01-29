@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:item/handheld",
-  "textures": {
-    "layer0": "ancientology:item/bone_pickaxe"
-  }
+    "parent": "minecraft:item/handheld",
+    "textures": {
+        "layer0": "ancientology:item/bone_pickaxe"
+    }
 }

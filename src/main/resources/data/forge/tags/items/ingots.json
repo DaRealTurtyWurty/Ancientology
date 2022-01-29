@@ -1,7 +1,7 @@
 {
-  "replace": false,
-  "values": [
-    "ancientology:tin_ingot",
-    "ancientology:bronze_ingot"
-  ]
+    "replace": false,
+    "values": [
+        "ancientology:tin_ingot",
+        "ancientology:bronze_ingot"
+    ]
 }

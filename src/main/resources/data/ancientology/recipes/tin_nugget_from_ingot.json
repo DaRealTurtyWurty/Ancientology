@@ -1,19 +1,15 @@
 {
-	"type": "minecraft:crafting_shaped",
-	
-	"pattern":
-	[
-		"I"
-	],
-	
-	"key":
-	{
-		"I": {"item": "ancientology:tin_ingot"}
-	},
-	
-	"result": 
-	{ 
-		"count": 9,
-		"item": "ancientology:tin_nugget"
-	}
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "I"
+    ],
+    "key": {
+        "I": {
+            "item": "ancientology:tin_ingot"
+        }
+    },
+    "result": {
+        "count": 9,
+        "item": "ancientology:tin_nugget"
+    }
 }

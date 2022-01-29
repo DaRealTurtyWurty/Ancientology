@@ -1,6 +1,7 @@
 package io.github.darealturtywurty.ancientology.common.blocks;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import io.github.darealturtywurty.ancientology.common.blockentities.JumprasherBlockEntity;
@@ -34,14 +35,11 @@ import net.minecraftforge.items.CapabilityItemHandler;
 public final class JumprasherBlock extends AncientologyBaseEntityBlock {
     public static final IntegerProperty HEIGHT = IntegerProperty.create("height", 1, 7);
 
-    protected static final VoxelShape[] SHAPES = { makeShape(Block.box(1, 1, 1, 15, 2, 15)), // 1
-            makeShape(Block.box(1, 3, 1, 15, 4, 15)), // 2
-            makeShape(Block.box(1, 5, 1, 15, 6, 15)), // 3
-            makeShape(Block.box(1, 7, 1, 15, 8, 15)), // 4
-            makeShape(Block.box(1, 9, 1, 15, 10, 15)), // 5
-            makeShape(Block.box(1, 11, 1, 15, 12, 15)), // 6
-            makeShape(Block.box(1, 15, 1, 15, 16, 15)) // 7
-    };
+    // Stages 1 - 7
+    protected static final VoxelShape[] SHAPES = { makeShape(Block.box(1, 1, 1, 15, 2, 15)),
+            makeShape(Block.box(1, 3, 1, 15, 4, 15)), makeShape(Block.box(1, 5, 1, 15, 6, 15)),
+            makeShape(Block.box(1, 7, 1, 15, 8, 15)), makeShape(Block.box(1, 9, 1, 15, 10, 15)),
+            makeShape(Block.box(1, 11, 1, 15, 12, 15)), makeShape(Block.box(1, 15, 1, 15, 16, 15)) };
     
     public JumprasherBlock(Properties properties) {
         super(properties);
@@ -122,9 +120,8 @@ public final class JumprasherBlock extends AncientologyBaseEntityBlock {
             
             final int newHeight = blockState.getValue(HEIGHT) - steps < 1 ? 1 : blockState.getValue(HEIGHT) - steps;
             entity.getLevel().setBlockAndUpdate(blockPos, blockState.setValue(HEIGHT, newHeight));
-            level.getBlockEntity(blockPos, BlockEntityInit.JUMPRASHER.get()).ifPresent(jumprasher -> {
-                jumprasher.setItemHeight(Math.max(jumprasher.getItemHeight(), 8 - newHeight));
-            });
+            level.getBlockEntity(blockPos, BlockEntityInit.JUMPRASHER.get()).ifPresent(
+                    jumprasher -> jumprasher.setItemHeight(Math.max(jumprasher.getItemHeight(), 8 - newHeight)));
         }
     }
     
@@ -173,12 +170,15 @@ public final class JumprasherBlock extends AncientologyBaseEntityBlock {
     }
     
     private static VoxelShape makeShape(final VoxelShape topPartShape) {
-        return Stream.of(Block.box(0, 0, 0, 16, 1, 16), Block.box(0, 0, 0, 1, 16, 1), Block.box(0, 0, 15, 1, 16, 16),
-                Block.box(15, 0, 0, 16, 16, 1), Block.box(15, 0, 1, 16, 16, 2), Block.box(0, 0, 14, 1, 16, 15),
-                Block.box(14, 0, 0, 15, 16, 1), Block.box(1, 0, 15, 2, 16, 16), Block.box(14, 0, 15, 15, 16, 16),
-                Block.box(15, 0, 14, 16, 16, 15), Block.box(15, 0, 15, 16, 16, 16), Block.box(0, 0, 1, 1, 16, 2),
-                Block.box(1, 0, 0, 2, 16, 1), Block.box(0, 1, 2, 1, 16, 14), Block.box(15, 1, 2, 16, 16, 14),
-                Block.box(2, 1, 0, 14, 16, 1), Block.box(2, 1, 15, 14, 16, 16), topPartShape)
-                .reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get();
+        final Optional<VoxelShape> shape = Stream
+                .of(Block.box(0, 0, 0, 16, 1, 16), Block.box(0, 0, 0, 1, 16, 1), Block.box(0, 0, 15, 1, 16, 16),
+                        Block.box(15, 0, 0, 16, 16, 1), Block.box(15, 0, 1, 16, 16, 2), Block.box(0, 0, 14, 1, 16, 15),
+                        Block.box(14, 0, 0, 15, 16, 1), Block.box(1, 0, 15, 2, 16, 16),
+                        Block.box(14, 0, 15, 15, 16, 16), Block.box(15, 0, 14, 16, 16, 15),
+                        Block.box(15, 0, 15, 16, 16, 16), Block.box(0, 0, 1, 1, 16, 2), Block.box(1, 0, 0, 2, 16, 1),
+                        Block.box(0, 1, 2, 1, 16, 14), Block.box(15, 1, 2, 16, 16, 14), Block.box(2, 1, 0, 14, 16, 1),
+                        Block.box(2, 1, 15, 14, 16, 16), topPartShape)
+                .reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR));
+        return shape.isPresent() ? shape.get() : Shapes.block();
     }
 }

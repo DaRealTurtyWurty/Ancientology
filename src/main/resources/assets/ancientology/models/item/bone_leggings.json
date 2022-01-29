@@ -1,7 +1,7 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "ancientology:item/bone_leggings",
-    "layer1": "ancientology:item/bone_leggings_overlay"
-  }
+    "parent": "minecraft:item/generated",
+    "textures": {
+        "layer0": "ancientology:item/bone_leggings",
+        "layer1": "ancientology:item/bone_leggings_overlay"
+    }
 }

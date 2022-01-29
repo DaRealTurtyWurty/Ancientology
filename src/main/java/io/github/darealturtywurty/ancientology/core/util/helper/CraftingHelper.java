@@ -12,12 +12,11 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
 public class CraftingHelper {
-    
     public static <C extends Container, T extends Recipe<C>> Optional<T> findRecipe(final RecipeType<T> recipeType,
             final Level level, Predicate<T> tester) {
         return level.getRecipeManager().getAllRecipesFor(recipeType).stream().filter(tester).findFirst();
     }
-    
+
     public static JsonObject itemToJson(final ItemStack stack) {
         final var obj = new JsonObject();
         obj.addProperty("item", stack.getItem().getRegistryName().toString());
@@ -29,5 +28,4 @@ public class CraftingHelper {
         }
         return obj;
     }
-    
 }

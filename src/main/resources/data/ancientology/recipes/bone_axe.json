@@ -1,18 +1,19 @@
 {
-	"type": "minecraft:crafting_shaped",
-	
-	"pattern":
-	[
-		"II",
-		"IS",
-		" S"
-	],
-	
-	"key":
-	{
-		"I": {"item": "minecraft:flint"},
-		"S": {"item": "minecraft:stick"}
-	},
-	
-	"result": { "item": "ancientology:flint_axe"}
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "II",
+        "IS",
+        " S"
+    ],
+    "key": {
+        "I": {
+            "item": "minecraft:bone"
+        },
+        "S": {
+            "item": "minecraft:stick"
+        }
+    },
+    "result": {
+        "item": "ancientology:bone_axe"
+    }
 }

@@ -33,7 +33,7 @@ public class JumprasherBlockEntity extends BlockEntity implements TickableBlockE
             return getLevel().getBlockState(getBlockPos()).getValue(JumprasherBlock.HEIGHT) == 7 && getItem(0).isEmpty()
                     && super.canPlaceItem(slot, itemStack);
         }
-
+        
         @Override
         public void setItem(int pIndex, ItemStack pStack) {
             super.setItem(pIndex, pStack);
@@ -42,45 +42,43 @@ public class JumprasherBlockEntity extends BlockEntity implements TickableBlockE
         }
     };
     private final LazyOptional<IItemHandler> invOptional = LazyOptional.of(() -> this.inventory);
-
+    
     public JumprasherBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(BlockEntityInit.JUMPRASHER.get(), pWorldPosition, pBlockState);
-
+        
         this.recipeCache = new SingleCache<>(new ICacheUpdater<ItemStack, Optional<JumprasherRecipe>>() {
-
             @Override
             public Optional<JumprasherRecipe> getNewValue(ItemStack key) {
                 return CraftingHelper.findRecipe(RecipeInit.JUMPRASHER.getSecond(), JumprasherBlockEntity.this.level,
                         r -> r.input().test(JumprasherBlockEntity.this.inventory.getItem(0)));
             }
-
+            
             @Override
             public boolean isKeyEqual(ItemStack cacheKey, ItemStack newKey) {
                 return ItemStack.matches(cacheKey, newKey);
             }
-
         });
     }
-
+    
     @Override
     public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
             return this.invOptional.cast();
         return super.getCapability(cap, side);
     }
-
+    
     public Optional<JumprasherRecipe> getCurrentRecipe() {
         return this.recipeCache.get(this.inventory.getStackInSlot(0).copy());
     }
-
+    
     public SimpleContainer getInventory() {
         return this.inventory;
     }
-
+    
     public int getItemHeight() {
         return this.itemHeight;
     }
-
+    
     @Override
     public ClientboundBlockEntityDataPacket getUpdatePacket() {
         final CompoundTag tag = new CompoundTag();
@@ -88,7 +86,7 @@ public class JumprasherBlockEntity extends BlockEntity implements TickableBlockE
         tag.put("inventory", this.inventory.serializeNBT());
         return ClientboundBlockEntityDataPacket.create(this, e -> tag);
     }
-
+    
     @Override
     public CompoundTag getUpdateTag() {
         final var tag = super.getUpdateTag();
@@ -96,30 +94,30 @@ public class JumprasherBlockEntity extends BlockEntity implements TickableBlockE
         tag.put("inventory", this.inventory.serializeNBT());
         return tag;
     }
-
+    
     @Override
     public void handleUpdateTag(CompoundTag tag) {
         super.handleUpdateTag(tag);
         this.itemHeight = tag.getInt("itemHeight");
     }
-
+    
     @Override
     public void load(CompoundTag pTag) {
         super.load(pTag);
         this.inventory.deserializeNBT(pTag.getCompound("inventory"));
     }
-
+    
     @Override
     public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket pkt) {
         super.onDataPacket(connection, pkt);
         final CompoundTag tag = pkt.getTag();
         this.itemHeight = tag.getInt("itemHeight");
     }
-
+    
     public void sendUpdate() {
         this.level.sendBlockUpdated(this.worldPosition, getBlockState(), getBlockState(), 2);
     }
-
+    
     @Override
     public void serverTick() {
         final var height = getBlockState().getValue(JumprasherBlock.HEIGHT);
@@ -135,10 +133,9 @@ public class JumprasherBlockEntity extends BlockEntity implements TickableBlockE
                         for (final Direction side : Direction.values()) {
                             if (!resultStack.isEmpty() && side != Direction.UP) {
                                 final var be = this.level.getBlockEntity(this.worldPosition.relative(side));
-                                IItemHandler itemHandler = null;
                                 if (be != null) {
-                                    itemHandler = be.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
-                                            .orElse(null);
+                                    final IItemHandler itemHandler = be
+                                            .getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(null);
                                     if (itemHandler != null) {
                                         for (int i = 0; i < itemHandler.getSlots(); i++) {
                                             if (!resultStack.isEmpty()) {
@@ -158,13 +155,13 @@ public class JumprasherBlockEntity extends BlockEntity implements TickableBlockE
             }
         }
     }
-
+    
     public void setItemHeight(int itemHeight) {
         this.itemHeight = itemHeight;
         getInventory().setChanged();
         sendUpdate();
     }
-
+    
     @Override
     protected void saveAdditional(CompoundTag pTag) {
         super.saveAdditional(pTag);

@@ -1,7 +1,7 @@
 {
-  "parent": "minecraft:block/cube_column_horizontal",
-  "textures": {
-    "side": "ancientology:block/life_log",
-    "end": "ancientology:block/life_log_top"
-  }
+    "parent": "minecraft:block/cube_column_horizontal",
+    "textures": {
+        "side": "ancientology:block/life_log",
+        "end": "ancientology:block/life_log_top"
+    }
 }

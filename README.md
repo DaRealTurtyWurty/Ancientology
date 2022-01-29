@@ -8,8 +8,12 @@ This uses the Forge modding API and targets Minecraft 1.18.
 
 ## Additions
 
-- Tin Ore, Raw Tin, Tin Ingot, and Tin Block
+- Deepslate Tin Ore, Raw Tin, Tin Ingot, and Tin Block
 - Tree of Life
+- Bone Tools (Sword, Pickaxe, Shovel, Axe, Hoe and Dagger) and Bone Armor
+- Bronze Ingot, Block Of Bronze, Bronze Nugget, Bronze Tools (Sword, Pickaxe, Shovel, Axe and Hoe) and Bronze Armor
+- Flint Tools (Sword, Pickaxe, Shovel, Axe, Hoe and Dagger)
+- Jumprasher
 
 ## Modifications
 

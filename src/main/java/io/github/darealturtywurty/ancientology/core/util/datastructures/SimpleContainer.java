@@ -22,7 +22,6 @@ import net.minecraftforge.items.wrapper.InvWrapper;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 
 public class SimpleContainer implements Container, IItemHandler, WorldlyContainer, INBTSerializable<CompoundTag> {
-    
     protected final ItemStack[] contents;
     private final int stackLimit;
     private final List<OnChangedListener> onChangedListeners = Lists.newLinkedList();
@@ -250,5 +249,4 @@ public class SimpleContainer implements Container, IItemHandler, WorldlyContaine
     public void stopOpen(Player playerIn) {
         
     }
-    
 }

@@ -1,35 +1,35 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
-    {
-      "item": "ancientology:bronze_ingot"
-    },
-    {
-      "item": "ancientology:bronze_ingot"
-    },
-    {
-      "item": "ancientology:bronze_ingot"
-    },
-    {
-      "item": "ancientology:bronze_ingot"
-    },
-    {
-      "item": "ancientology:bronze_ingot"
-    },
-    {
-      "item": "ancientology:bronze_ingot"
-    },
-    {
-      "item": "ancientology:bronze_ingot"
-    },
-    {
-      "item": "ancientology:bronze_ingot"
-    },
-    {
-      "item": "ancientology:bronze_ingot"
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "ancientology:bronze_ingot"
+        },
+        {
+            "item": "ancientology:bronze_ingot"
+        },
+        {
+            "item": "ancientology:bronze_ingot"
+        },
+        {
+            "item": "ancientology:bronze_ingot"
+        },
+        {
+            "item": "ancientology:bronze_ingot"
+        },
+        {
+            "item": "ancientology:bronze_ingot"
+        },
+        {
+            "item": "ancientology:bronze_ingot"
+        },
+        {
+            "item": "ancientology:bronze_ingot"
+        },
+        {
+            "item": "ancientology:bronze_ingot"
+        }
+    ],
+    "result": {
+        "item": "ancientology:bronze_block"
     }
-  ],
-  "result": {
-    "item": "ancientology:bronze_block"
-  }
 }

@@ -14,18 +14,16 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 public final class CommonEvents {
-
     private CommonEvents() {
         throw new IllegalAccessError("Illegal access to hidden event bus subscriber class!");
     }
-
+    
     @Mod.EventBusSubscriber(modid = Ancientology.MODID, bus = Bus.FORGE)
     public static final class ForgeEvents {
-
         private ForgeEvents() {
             throw new IllegalAccessError("Illegal access to hidden event bus subscriber class!");
         }
-
+        
         @SubscribeEvent
         public static void removeFlightEffect(PotionEvent.PotionRemoveEvent e) {
             if (Objects.requireNonNull(e.getPotionEffect()).getEffect().equals(MobEffectInit.FLIGHT.get())
@@ -36,13 +34,13 @@ public final class CommonEvents {
             }
         }
     }
-
+    
     @Mod.EventBusSubscriber(modid = Ancientology.MODID, bus = Bus.MOD)
     public static final class ModEvents {
         private ModEvents() {
             throw new IllegalAccessError("Illegal access to hidden event bus subscriber class!");
         }
-
+        
         @SubscribeEvent
         public static void commonSetup(FMLCommonSetupEvent event) {
             event.enqueueWork(() -> {

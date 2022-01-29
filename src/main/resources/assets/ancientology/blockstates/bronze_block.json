@@ -1,7 +1,7 @@
 {
-  "variants": {
-    "": {
-      "model": "ancientology:block/bronze_block"
+    "variants": {
+        "": {
+            "model": "ancientology:block/bronze_block"
+        }
     }
-  }
 }

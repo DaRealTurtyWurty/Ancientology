@@ -24,7 +24,7 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = Ancientology.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class OreGeneration {
-    public static final List<PlacedFeature> OVERWORLD_ORES = new ArrayList<>();
+    protected static final List<PlacedFeature> OVERWORLD_ORES = new ArrayList<>();
     
     @SubscribeEvent
     public static void biomeLoading(BiomeLoadingEvent event) {
@@ -35,9 +35,8 @@ public class OreGeneration {
         }
     }
     
-    // This feels like jank... but IDK what's jank about it + it works
     public static void registerOres() {
-        // TODO Possible config for change of ore generation
+        // TODO: Config for ore generation settings such as: count, size, minY and maxY
         final ConfiguredFeature<OreConfiguration, ?> tinOre = FeatureUtils.register("tin_ore",
                 Feature.ORE.configured(
                         new OreConfiguration(List.of(OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES,

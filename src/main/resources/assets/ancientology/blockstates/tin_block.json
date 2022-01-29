@@ -1,7 +1,7 @@
 {
-  "variants": {
-    "": {
-      "model": "ancientology:block/tin_block"
+    "variants": {
+        "": {
+            "model": "ancientology:block/tin_block"
+        }
     }
-  }
 }
