@@ -1,0 +1,8 @@
+{
+    "replace": false,
+    "values": [
+        "ancientology:deepslate_tin_ore",
+        "ancientology:tin_block",
+        "ancientology:bronze_block"
+    ]
+}

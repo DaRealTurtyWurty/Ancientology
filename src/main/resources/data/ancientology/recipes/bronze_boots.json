@@ -1,16 +1,15 @@
 {
-	"type": "minecraft:crafting_shaped",
-	
-	"pattern":
-	[
-		"I I",
-		"I I"
-	],
-	
-	"key":
-	{
-		"I": {"item": "ancientology:bronze_ingot"}
-	},
-	
-	"result": { "item": "ancientology:bronze_boots"}
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "I I",
+        "I I"
+    ],
+    "key": {
+        "I": {
+            "item": "ancientology:bronze_ingot"
+        }
+    },
+    "result": {
+        "item": "ancientology:bronze_boots"
+    }
 }

@@ -9,10 +9,10 @@ public class FlightMobEffect extends MobEffect {
     public FlightMobEffect(MobEffectCategory category, int color) {
         super(category, color);
     }
-
+    
     @Override
     public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
-        if (pLivingEntity instanceof Player player) {
+        if (pLivingEntity instanceof final Player player) {
             player.fallDistance = 0;
             if (!player.getAbilities().mayfly) {
                 player.getAbilities().mayfly = true;
@@ -20,7 +20,7 @@ public class FlightMobEffect extends MobEffect {
             }
         }
     }
-
+    
     @Override
     public boolean isDurationEffectTick(int pDuration, int pAmplifier) {
         return true;

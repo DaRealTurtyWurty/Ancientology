@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "ancientology:item/bone_chestplate",
-    "layer1": "ancientology:item/bone_chestplate_overlay"
-  }
-}

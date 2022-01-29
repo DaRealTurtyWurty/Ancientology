@@ -1,65 +1,65 @@
 {
-	"multipart": [
-		{
-			"apply": {
-				"model": "ancientology:block/jumprasher"
-			}
-		},
-		{
-			"when": {
-				"height": "1"
-			},
-			"apply": {
-				"model": "ancientology:block/jumprasher_top_1"
-			}
-		},
-		{
-			"when": {
-				"height": "2"
-			},
-			"apply": {
-				"model": "ancientology:block/jumprasher_top_2"
-			}
-		},
-		{
-			"when": {
-				"height": "3"
-			},
-			"apply": {
-				"model": "ancientology:block/jumprasher_top_3"
-			}
-		},
-		{
-			"when": {
-				"height": "4"
-			},
-			"apply": {
-				"model": "ancientology:block/jumprasher_top_4"
-			}
-		},
-		{
-			"when": {
-				"height": "5"
-			},
-			"apply": {
-				"model": "ancientology:block/jumprasher_top_5"
-			}
-		},
-		{
-			"when": {
-				"height": "6"
-			},
-			"apply": {
-				"model": "ancientology:block/jumprasher_top_6"
-			}
-		},
-		{
-			"when": {
-				"height": "7"
-			},
-			"apply": {
-				"model": "ancientology:block/jumprasher_top_7"
-			}
-		}
-	]
+    "multipart": [
+        {
+            "apply": {
+                "model": "ancientology:block/jumprasher"
+            }
+        },
+        {
+            "when": {
+                "height": "1"
+            },
+            "apply": {
+                "model": "ancientology:block/jumprasher_top_1"
+            }
+        },
+        {
+            "when": {
+                "height": "2"
+            },
+            "apply": {
+                "model": "ancientology:block/jumprasher_top_2"
+            }
+        },
+        {
+            "when": {
+                "height": "3"
+            },
+            "apply": {
+                "model": "ancientology:block/jumprasher_top_3"
+            }
+        },
+        {
+            "when": {
+                "height": "4"
+            },
+            "apply": {
+                "model": "ancientology:block/jumprasher_top_4"
+            }
+        },
+        {
+            "when": {
+                "height": "5"
+            },
+            "apply": {
+                "model": "ancientology:block/jumprasher_top_5"
+            }
+        },
+        {
+            "when": {
+                "height": "6"
+            },
+            "apply": {
+                "model": "ancientology:block/jumprasher_top_6"
+            }
+        },
+        {
+            "when": {
+                "height": "7"
+            },
+            "apply": {
+                "model": "ancientology:block/jumprasher_top_7"
+            }
+        }
+    ]
 }

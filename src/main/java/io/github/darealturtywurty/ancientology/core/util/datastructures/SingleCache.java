@@ -1,7 +1,6 @@
 package io.github.darealturtywurty.ancientology.core.util.datastructures;
 
 public class SingleCache<K, V> {
-
     private boolean initialized = false;
     private K key = null;
     private V value = null;
@@ -20,15 +19,11 @@ public class SingleCache<K, V> {
         return this.value;
     }
 
-
     public interface ICacheUpdater<K, V> {
-
-        public V getNewValue(K key);
+        V getNewValue(K key);
 
         default boolean isKeyEqual(K cacheKey, K newKey) {
             return cacheKey == newKey;
         }
-
     }
-
 }

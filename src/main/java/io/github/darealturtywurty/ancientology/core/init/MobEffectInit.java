@@ -9,7 +9,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class MobEffectInit {
-    public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, Ancientology.MODID);
-
-    public static final RegistryObject<MobEffect> FLIGHT = MOB_EFFECTS.register("flight", () -> new FlightMobEffect(MobEffectCategory.BENEFICIAL, 0xFFFFFF));
+    public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS,
+            Ancientology.MODID);
+    
+    public static final RegistryObject<MobEffect> FLIGHT = MOB_EFFECTS.register("flight",
+            () -> new FlightMobEffect(MobEffectCategory.BENEFICIAL, 0xFFFFFF));
 }

@@ -1,17 +1,18 @@
 {
-	"type": "minecraft:crafting_shaped",
-	
-	"pattern":
-	[
-		" I",
-		"S "
-	],
-	
-	"key":
-	{
-		"I": {"item": "minecraft:flint"},
-		"S": {"item": "minecraft:stick"}
-	},
-	
-	"result": { "item": "ancientology:flint_dagger"}
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " I",
+        "S "
+    ],
+    "key": {
+        "I": {
+            "item": "minecraft:flint"
+        },
+        "S": {
+            "item": "minecraft:stick"
+        }
+    },
+    "result": {
+        "item": "ancientology:flint_dagger"
+    }
 }

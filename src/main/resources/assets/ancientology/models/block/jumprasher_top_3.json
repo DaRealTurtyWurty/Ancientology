@@ -1,82 +1,81 @@
 {
-	"credit": "Made with Blockbench",
-	"texture_size": [
-		64,
-		64
-	],
-	"textures": {
-		"0": "ancientology:block/jumprasher",
-		"particle": "ancientology:block/jumprasher"
-	},
-	"elements": [
-		{
-			"name": "top",
-			"from": [
-				1,
-				5,
-				1
-			],
-			"to": [
-				15,
-				6,
-				15
-			],
-			"faces": {
-				"north": {
-					"uv": [
-						8.75,
-						1.5,
-						12.25,
-						1.75
-					],
-					"texture": "#0"
-				},
-				"east": {
-					"uv": [
-						8.75,
-						1,
-						12.25,
-						1.25
-					],
-					"texture": "#0"
-				},
-				"south": {
-					"uv": [
-						8.75,
-						0.5,
-						12.25,
-						0.75
-					],
-					"texture": "#0"
-				},
-				"west": {
-					"uv": [
-						8.75,
-						0,
-						12.25,
-						0.25
-					],
-					"texture": "#0"
-				},
-				"up": {
-					"uv": [
-						12.5,
-						0,
-						16,
-						3.5
-					],
-					"texture": "#0"
-				},
-				"down": {
-					"uv": [
-						12.5,
-						12.5,
-						16,
-						16
-					],
-					"texture": "#0"
-				}
-			}
-		}
-	]
+    "texture_size": [
+        64,
+        64
+    ],
+    "textures": {
+        "0": "ancientology:block/jumprasher",
+        "particle": "ancientology:block/jumprasher"
+    },
+    "elements": [
+        {
+            "name": "top",
+            "from": [
+                1,
+                5,
+                1
+            ],
+            "to": [
+                15,
+                6,
+                15
+            ],
+            "faces": {
+                "north": {
+                    "uv": [
+                        8.75,
+                        1.5,
+                        12.25,
+                        1.75
+                    ],
+                    "texture": "#0"
+                },
+                "east": {
+                    "uv": [
+                        8.75,
+                        1,
+                        12.25,
+                        1.25
+                    ],
+                    "texture": "#0"
+                },
+                "south": {
+                    "uv": [
+                        8.75,
+                        0.5,
+                        12.25,
+                        0.75
+                    ],
+                    "texture": "#0"
+                },
+                "west": {
+                    "uv": [
+                        8.75,
+                        0,
+                        12.25,
+                        0.25
+                    ],
+                    "texture": "#0"
+                },
+                "up": {
+                    "uv": [
+                        12.5,
+                        0,
+                        16,
+                        3.5
+                    ],
+                    "texture": "#0"
+                },
+                "down": {
+                    "uv": [
+                        12.5,
+                        12.5,
+                        16,
+                        16
+                    ],
+                    "texture": "#0"
+                }
+            }
+        }
+    ]
 }

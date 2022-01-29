@@ -1,0 +1,20 @@
+{
+    "type": "ancientology:jumprasher",
+    "input": {
+        "item": "ancientology:deepslate_tin_ore"
+    },
+    "result": [
+        {
+            "item": {
+                "item": "ancientology:raw_tin"
+            },
+            "chance": 100.0
+        },
+        {
+            "item": {
+                "item": "ancientology:raw_tin"
+            },
+            "chance": 20.0
+        }
+    ]
+}
