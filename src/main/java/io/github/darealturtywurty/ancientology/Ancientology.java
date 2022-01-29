@@ -1,18 +1,12 @@
 package io.github.darealturtywurty.ancientology;
 
-import io.github.darealturtywurty.ancientology.core.init.BlockEntityInit;
-import io.github.darealturtywurty.ancientology.core.init.BlockInit;
-import io.github.darealturtywurty.ancientology.core.init.EntityInit;
-import io.github.darealturtywurty.ancientology.core.init.ItemInit;
-import io.github.darealturtywurty.ancientology.core.init.MobEffectInit;
-import io.github.darealturtywurty.ancientology.core.init.RecipeInit;
+import io.github.darealturtywurty.ancientology.core.init.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import software.bernie.geckolib3.GeckoLib;
 
 @Mod(Ancientology.MODID)
 public class Ancientology {
@@ -26,7 +20,7 @@ public class Ancientology {
     };
     
     public Ancientology() {
-        GeckoLib.initialize();
+        try { initGecko(); } catch (NoClassDefFoundError ignored) {}
         
         final IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         BlockInit.BLOCKS.register(bus);
@@ -39,5 +33,11 @@ public class Ancientology {
     
     public static ResourceLocation rl(final String name) {
         return new ResourceLocation(MODID, name);
+    }
+
+    //The whole point of this is to prevent servers from crashing when they don't have geckolib
+    //Servers don't need geckolib as it's a client side only mod, not loading this on servers won't cause issues
+    private void initGecko() throws NoClassDefFoundError {
+        software.bernie.geckolib3.GeckoLib.initialize();
     }
 }
