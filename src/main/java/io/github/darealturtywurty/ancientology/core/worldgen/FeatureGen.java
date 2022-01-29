@@ -19,7 +19,13 @@ import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSi
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
-import net.minecraft.world.level.levelgen.placement.*;
+import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
+import net.minecraft.world.level.levelgen.placement.CountPlacement;
+import net.minecraft.world.level.levelgen.placement.HeightmapPlacement;
+import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.placement.RarityFilter;
+import net.minecraft.world.level.levelgen.placement.SurfaceWaterDepthFilter;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -28,26 +34,26 @@ import net.minecraftforge.fml.common.Mod;
 public class FeatureGen {
     public static ConfiguredFeature<TreeConfiguration, ?> LIFE_TREE;
     public static PlacedFeature LIFE_TREE_PLACEMENT;
-
-
-    public static void registerFeatures() {
-        LIFE_TREE = registerTree(Ancientology.MODID, "life_tree", new TreeConfiguration.TreeConfigurationBuilder(
-                BlockStateProvider.simple(BlockInit.LIFE_LOG.get().defaultBlockState()),
-                new StraightTrunkPlacer(4, 2, 0),
-                BlockStateProvider.simple(BlockInit.LIFE_LEAVES.get().defaultBlockState()),
-                new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
-                new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build());
-        LIFE_TREE_PLACEMENT = registerTreePlacement(Ancientology.MODID, "life_tree", LIFE_TREE, BlockInit.LIFE_SAPLING.get(), 1000);
-    }
-
+    
     @SubscribeEvent
     public static void onBiomeLoad(BiomeLoadingEvent e) {
-        if (e.getName() != null)
-            if (e.getName().equals(Biomes.SWAMP.location())) {
-                e.getGeneration().getFeatures(GenerationStep.Decoration.VEGETAL_DECORATION).add(() -> LIFE_TREE_PLACEMENT);
-            }
+        if ((e.getName() != null) && e.getName().equals(Biomes.SWAMP.location())) {
+            e.getGeneration().getFeatures(GenerationStep.Decoration.VEGETAL_DECORATION).add(() -> LIFE_TREE_PLACEMENT);
+        }
     }
-
+    
+    public static void registerFeatures() {
+        LIFE_TREE = registerTree(Ancientology.MODID, "life_tree",
+                new TreeConfiguration.TreeConfigurationBuilder(
+                        BlockStateProvider.simple(BlockInit.LIFE_LOG.get().defaultBlockState()),
+                        new StraightTrunkPlacer(4, 2, 0),
+                        BlockStateProvider.simple(BlockInit.LIFE_LEAVES.get().defaultBlockState()),
+                        new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
+                        new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build());
+        LIFE_TREE_PLACEMENT = registerTreePlacement(Ancientology.MODID, "life_tree", LIFE_TREE,
+                BlockInit.LIFE_SAPLING.get(), 1000);
+    }
+    
     /**
      * Used to register a configured tree feature to the {@link BuiltinRegistries}
      *
@@ -55,10 +61,12 @@ public class FeatureGen {
      * @param name    The id of your feature
      * @param feature The Tree Feature
      */
-    public static ConfiguredFeature<TreeConfiguration, ?> registerTree(String modid, String name, TreeConfiguration feature) {
-        return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new ResourceLocation(modid, name), Feature.TREE.configured(feature));
+    public static ConfiguredFeature<TreeConfiguration, ?> registerTree(String modid, String name,
+            TreeConfiguration feature) {
+        return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new ResourceLocation(modid, name),
+                Feature.TREE.configured(feature));
     }
-
+    
     /**
      * Registers a placement for the given tree feature.
      *
@@ -68,14 +76,13 @@ public class FeatureGen {
      * @param sapling The sapling block of your tree.
      * @param chance  The chance that this tree has to spawn.
      */
-    public static PlacedFeature registerTreePlacement(String modid, String name, ConfiguredFeature<TreeConfiguration, ?> feature, Block sapling, int chance) {
+    public static PlacedFeature registerTreePlacement(String modid, String name,
+            ConfiguredFeature<TreeConfiguration, ?> feature, Block sapling, int chance) {
         return Registry.register(BuiltinRegistries.PLACED_FEATURE, new ResourceLocation(modid, name),
-                feature.placed(
-                        InSquarePlacement.spread(),
-                        HeightmapPlacement.onHeightmap(Heightmap.Types.OCEAN_FLOOR),
+                feature.placed(InSquarePlacement.spread(), HeightmapPlacement.onHeightmap(Heightmap.Types.OCEAN_FLOOR),
                         SurfaceWaterDepthFilter.forMaxDepth(0),
-                        BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(sapling.defaultBlockState(), BlockPos.ZERO)),
-                        CountPlacement.of(1),
-                        RarityFilter.onAverageOnceEvery(chance)));
+                        BlockPredicateFilter
+                                .forPredicate(BlockPredicate.wouldSurvive(sapling.defaultBlockState(), BlockPos.ZERO)),
+                        CountPlacement.of(1), RarityFilter.onAverageOnceEvery(chance)));
     }
 }
