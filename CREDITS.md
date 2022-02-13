@@ -12,12 +12,16 @@
 
 - [ConnorTron110](https://github.com/ConnorTron110)
   - Discord: `ConnorTron110#0110`
+- [TeenagedLime3](https://github.com/TeenagedLime3)
+  - Discord `TeenagedLime3#4529`
+  - Youtube `https://www.youtube.com/channel/UCov5D-LLTM9nh2WPz5_LqOA`
+  - Twitch `https://twitch.tv/teenagedlime3`
 
 ## Assets
 
 - Comso
   - Discord: `Comso#1828`
-  - Created: the Raw Tin, Tin Ore, and Tin Ingot textures
+  - Created: the Raw Tin, Steel Blend, Steel Ingot, Damascus Ingot,  Tin Ore, and Tin Ingot textures
 
 ## Miscellaneous
 

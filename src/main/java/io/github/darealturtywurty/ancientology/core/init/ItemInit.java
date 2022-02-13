@@ -2,20 +2,13 @@ package io.github.darealturtywurty.ancientology.core.init;
 
 import io.github.darealturtywurty.ancientology.Ancientology;
 import io.github.darealturtywurty.ancientology.common.items.ForbiddenFruitItem;
+import io.github.darealturtywurty.ancientology.common.items.MjolnirItem;
+import io.github.darealturtywurty.ancientology.common.items.SchimitarItem;
 import io.github.darealturtywurty.ancientology.core.materials.ArmorMaterials;
 import io.github.darealturtywurty.ancientology.core.materials.ToolMaterials;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.DyeableArmorItem;
-import net.minecraft.world.item.HoeItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.PickaxeItem;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.ShovelItem;
-import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.*;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -41,8 +34,8 @@ public final class ItemInit {
      */
 
     // Resources
-    public static final RegistryObject<Item> RAW_TIN = ITEMS.register("raw_tin", () -> new Item(defaultProperties()));
-    
+    public static final RegistryObject<Item> RAW_TIN = ITEMS.register("raw_tin",
+            () -> new Item(defaultProperties()));
     public static final RegistryObject<Item> TIN_INGOT = ITEMS.register("tin_ingot",
             () -> new Item(defaultProperties()));
     public static final RegistryObject<Item> TIN_NUGGET = ITEMS.register("tin_nugget",
@@ -52,6 +45,14 @@ public final class ItemInit {
     public static final RegistryObject<Item> BRONZE_INGOT = ITEMS.register("bronze_ingot",
             () -> new Item(defaultProperties()));
     public static final RegistryObject<Item> BRONZE_NUGGET = ITEMS.register("bronze_nugget",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> STEEL_INGOT = ITEMS.register("steel_ingot",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> STEEL_NUGGET = ITEMS.register("steel_nugget",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> STEEL_BLEND = ITEMS.register("steel_blend",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> DAMASCUS_INGOT = ITEMS.register("damascus_ingot", //TODO THE DAMASCUS STEEL INGOT IS A PLACEHOLDER TEXTURE, COMSO SHOULD PROVIDE THE ACTUALL TEXTURE ON THE 13/02/22
             () -> new Item(defaultProperties()));
     // Tools
     // TODO: Add Spears and Arrows
@@ -106,6 +107,16 @@ public final class ItemInit {
             () -> new ShovelItem(ToolMaterials.BRONZE, 1.5f, -3.0f, defaultProperties()));
     public static final RegistryObject<HoeItem> BRONZE_HOE = ITEMS.register("bronze_hoe",
             () -> new HoeItem(ToolMaterials.BRONZE, -1, -2.0f, defaultProperties()));
+
+    public static final RegistryObject<SwordItem> DAMASCUS_SWORD = ITEMS.register("damascus_sword",
+            () -> new SwordItem(ToolMaterials.DAMASCUS, 3, -2.4f, defaultProperties()));
+    public static final RegistryObject<MjolnirItem> MJOLNIR = ITEMS.register("mjolnir",
+            () -> new MjolnirItem(defaultProperties()));
+    public static final RegistryObject<AxeItem> DAMASCUS_AXE = ITEMS.register("damascus_axe",
+            () -> new AxeItem(ToolMaterials.DAMASCUS, 7, -3.2f, defaultProperties()));
+    public static final RegistryObject<SchimitarItem> SCIMITAR = ITEMS.register("scimitar",
+            () -> new SchimitarItem(defaultProperties()));
+
     // Armor
     public static final RegistryObject<ArmorItem> BRONZE_HELMET = ITEMS.register("bronze_helmet",
             () -> new ArmorItem(ArmorMaterials.BRONZE, EquipmentSlot.HEAD, defaultProperties()));

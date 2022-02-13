@@ -1,13 +1,6 @@
 package io.github.darealturtywurty.ancientology.core.util.datastructures;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.IntStream;
-
-import javax.annotation.Nullable;
-
 import com.google.common.collect.Lists;
-
 import io.github.darealturtywurty.ancientology.core.util.interfaces.OnChangedListener;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -20,6 +13,11 @@ import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
+
+import javax.annotation.Nullable;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.IntStream;
 
 public class SimpleContainer implements Container, IItemHandler, WorldlyContainer, INBTSerializable<CompoundTag> {
     protected final ItemStack[] contents;
@@ -108,11 +106,12 @@ public class SimpleContainer implements Container, IItemHandler, WorldlyContaine
         return new SidedInvWrapper(this, side);
     }
     
-    /**
+    /*
      * Get the array of {@link net.minecraft.item.ItemStack} inside this inventory.
      *
      * @return The items in this inventory.
      */
+
     public ItemStack[] getItemStacks() {
         return this.contents;
     }

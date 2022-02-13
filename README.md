@@ -14,6 +14,8 @@ This uses the Forge modding API and targets Minecraft 1.18.
 - Bronze Ingot, Block Of Bronze, Bronze Nugget, Bronze Tools (Sword, Pickaxe, Shovel, Axe and Hoe) and Bronze Armor
 - Flint Tools (Sword, Pickaxe, Shovel, Axe, Hoe and Dagger)
 - Jumprasher
+- Steel: Ingot and Nugget (used in crafting of Damascus)
+- Damascus: Damascus Ingot, Damascus 
 
 ## Modifications
 

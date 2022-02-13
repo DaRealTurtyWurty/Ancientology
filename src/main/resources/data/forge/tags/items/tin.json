@@ -1,0 +1,9 @@
+{
+    "replace": false,
+    "values": [
+        "ancientology:raw_tin",
+        "ancientology:tin_ingot",
+        "ancientology:tin_block",
+        "ancientology:tin_nugget",
+    ]
+}
