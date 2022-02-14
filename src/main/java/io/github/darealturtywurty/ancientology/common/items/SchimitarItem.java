@@ -15,12 +15,13 @@ public class SchimitarItem extends Item {
     public SchimitarItem(Properties pProperties) {
         super(pProperties);
     }
+    
     @Override
     public void appendHoverText(ItemStack pstack, @Nullable Level plevel,
-                                List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
-        if(Screen.hasShiftDown()){
+                                List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
+        if (Screen.hasShiftDown()) {
             pTooltipComponents.add(new TranslatableComponent("tooltip.ancientology.schimitar"));
-        } else{
+        } else {
             pTooltipComponents.add(new TranslatableComponent("tooltip.ancientology.schimitar.shift"));
         }
     }
