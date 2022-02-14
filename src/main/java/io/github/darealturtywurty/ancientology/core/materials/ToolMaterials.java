@@ -10,7 +10,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 public enum ToolMaterials implements Tier {
     FLINT(0, 59, 2.0F, 0.0F, 15, () -> Ingredient.of(Items.FLINT)),
     BONE(0, 59, 2.0F, 0.0F, 15, () -> Ingredient.of(Items.BONE)),
-    BRONZE(1, 131, 4.0F, 1.0F, 5, () -> Ingredient.of(ItemInit.BRONZE_INGOT.get()));
+    BRONZE(1, 131, 4.0F, 1.0F, 5, () -> Ingredient.of(ItemInit.BRONZE_INGOT.get())),
+    DAMASCUS(1, 131, 4.0F, 1.0F, 5, () -> Ingredient.of(ItemInit.BRONZE_INGOT.get()));
     
     private final int level;
     private final int uses;

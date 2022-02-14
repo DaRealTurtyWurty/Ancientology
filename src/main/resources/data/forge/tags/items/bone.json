@@ -1,0 +1,16 @@
+{
+    "replace": false,
+    "values": [
+        "ancientology:bone_arrow",
+        "ancientology:bone_axe",
+        "ancientology:bone_boots",
+        "ancientology:bone_chestplate",
+        "ancientology:bone_dagger",
+        "ancientology:bone_helmet",
+        "ancientology:bone_hoe",
+        "ancientology:bone_leggings",
+        "ancientology:bone_pickaxe",
+        "ancientology:bone_shovel",
+        "ancientology:bone_spear"
+    ]
+}

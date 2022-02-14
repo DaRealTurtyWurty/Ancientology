@@ -1,0 +1,12 @@
+{
+    "replace": false,
+    "values": [
+        "ancientology:flint_arrow",
+        "ancientology:flint",
+        "ancientology:flint_dagger",
+        "ancientology:flint_hoe",
+        "ancientology:flint_pickaxe",
+        "ancientology:flint_shovel",
+        "ancientology:flint_spear"
+    ]
+}

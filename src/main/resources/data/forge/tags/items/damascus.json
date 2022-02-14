@@ -1,0 +1,10 @@
+{
+    "replace": false,
+    "values": [
+        "ancientology:damascus_ingot",
+        "ancientology:damascus_sword",
+        "ancientology:damascus_axe",
+        "ancientology:mjolnir",
+        "ancientology:schimitar"
+    ]
+}

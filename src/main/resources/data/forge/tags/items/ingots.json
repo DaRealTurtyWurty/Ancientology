@@ -2,6 +2,8 @@
     "replace": false,
     "values": [
         "ancientology:tin_ingot",
-        "ancientology:bronze_ingot"
+        "ancientology:bronze_ingot",
+        "ancientology:steel_ingot",
+        "ancientology:damascus_ingot"
     ]
 }
