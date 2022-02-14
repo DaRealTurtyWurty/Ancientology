@@ -15,12 +15,13 @@ public class MjolnirItem extends Item {
     public MjolnirItem(Properties pProperties) {
         super(pProperties);
     }
+    
     @Override
     public void appendHoverText(ItemStack pstack, @Nullable Level plevel,
-                                List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
-        if(Screen.hasShiftDown()){
+                                List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
+        if (Screen.hasShiftDown()) {
             pTooltipComponents.add(new TranslatableComponent("tooltip.ancientology.mjolnir"));
-        } else{
+        } else {
             pTooltipComponents.add(new TranslatableComponent("tooltip.ancientology.mjolnir.shift"));
         }
     }
